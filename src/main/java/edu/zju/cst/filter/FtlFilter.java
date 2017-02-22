@@ -3,6 +3,7 @@ package edu.zju.cst.filter;
 import edu.zju.cst.util.HttpUtils;
 import org.apache.log4j.Logger;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -15,12 +16,10 @@ import java.io.IOException;
 /**
  * Created by SX2601 on 2017/2/22.
  */
-public class FtlFilter {
+public class FtlFilter implements Filter{
     protected final Logger logger = Logger.getLogger(this.getClass());
 
     public void init(FilterConfig filterConfig) throws ServletException {
-        // TODO Auto-generated method stub
-
     }
 
     public void doFilter(ServletRequest servletRequest,
@@ -32,7 +31,5 @@ public class FtlFilter {
     }
 
     public void destroy() {
-        // TODO Auto-generated method stub
-
     }
 }
