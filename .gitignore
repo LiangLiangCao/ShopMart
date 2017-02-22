@@ -2,3 +2,6 @@
 !.gitignore
 /target/*
 ShopMart.iml
+._.DS_Store
+.DS_Store
+.idea/
