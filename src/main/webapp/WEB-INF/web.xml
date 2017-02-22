@@ -5,16 +5,25 @@
          version="3.1">
 
     <display-name>hellodemo</display-name>
+    <!-- 前端控制器的配置 -->
     <servlet>
-        <servlet-name>myspring</servlet-name>
+        <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--指定spring配置文件的位置 -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:applicationContext.xml</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <!-- 所有以.html和.json的请求都由dispatcherServlet来处理的配置 -->
     <servlet-mapping>
-        <servlet-name>myspring</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
+
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -26,13 +35,6 @@
             <param-name>forceEncoding</param-name>
             <param-value>true</param-value>
         </init-param>
-
-        <!--指定spring配置文件的位置 -->
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:applicationContext.xml</param-value>
-        </init-param>
-
 
     </filter>
 

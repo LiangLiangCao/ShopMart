@@ -43,7 +43,7 @@ public class MainController {
     @RequestMapping(value = "/tset", method = RequestMethod.GET)
     public String test(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
         modelMap.put("some", "spring freemarker模板终能使用");
-        return "index";
+        return "test";
     }
 
     @RequestMapping(value = "/nice", method = RequestMethod.GET)
