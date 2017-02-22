@@ -62,7 +62,7 @@
         <property name="viewClass"
                   value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"></property>
         <property name="cache" value="false" />
-        <property name="prefix" value="" />
+        <property name="prefix" value="/" />
         <property name="suffix" value=".ftl" /><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
         <property name="contentType" value="text/html;charset=utf-8" />
         <property name="exposeRequestAttributes" value="true" />

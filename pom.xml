@@ -16,16 +16,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>4.2.5.RELEASE</version>
-        </dependency>
-        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
@@ -46,27 +36,22 @@
             <version>4.2.5.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.3.0.RELEASE</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-core</artifactId>-->
+            <!--<version>4.2.5.RELEASE</version>-->
+        <!--</dependency>-->
+        <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.2</version>
         </dependency>
 
 
-        <!--<dependency>-->
-        <!--<groupId>javax.servlet</groupId>-->
-        <!--<artifactId>jsp-api</artifactId>-->
-        <!--<version>2.0.public_draft</version>-->
-        <!--</dependency>-->
-
-
-
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core &ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--<artifactId>jackson-core</artifactId>-->
-        <!--<version>2.7.3</version>-->
-        <!--</dependency>-->
 
 
         <!-- 公司网下不到Jackson，换成fastjson -->
@@ -162,6 +147,11 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.20</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>3.2.4.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.ws</groupId>
