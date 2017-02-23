@@ -41,9 +41,9 @@ public class MainController {
         return "index";
     }
     @RequestMapping(value = "/tset", method = RequestMethod.GET)
-    public String test(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
-        modelMap.put("some", "spring freemarker模板终能使用");
-        return "test";
+    public String test(ModelMap map) {
+        map.put("some", "spring freemarker模板终能使用");
+        return "test.ftl";
     }
 
     @RequestMapping(value = "/nice", method = RequestMethod.GET)
