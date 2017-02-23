@@ -40,10 +40,10 @@ public class MainController {
 
         return "index";
     }
-    @RequestMapping(value = "/tset", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test(ModelMap map) {
         map.put("some", "spring freemarker模板终能使用");
-        return "test.ftl";
+        return "test";
     }
 
     @RequestMapping(value = "/nice", method = RequestMethod.GET)
