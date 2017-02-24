@@ -32,6 +32,7 @@
     <tx:annotation-driven />
 
     <task:annotation-driven />
+
     <!--这样配置后，SpringMVC会自动给静态资源Response添加缓存头Cache-Control和Expires值-->
     <mvc:resources mapping="/static/**" location="/WEB-INF/static" cache-period="31536000"/>
 
@@ -70,11 +71,9 @@
         <property name="exposeSpringMacroHelpers" value="true" />
     </bean>
     <!--Spring3.1开始的注解 HandlerMapping -->
-    <bean
-            class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
     <!--Spring3.1开始的注解 HandlerAdapter -->
-    <bean
-            class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
     <!-- 图片上传的配置 -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -1,5 +1,3 @@
-
-//test
 package edu.zju.cst.controller;
 
 import edu.zju.cst.bean.User;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Liang on 19/02/2017.
@@ -37,7 +33,6 @@ public class MainController {
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String index() {
-
         return "index";
     }
     @RequestMapping(value = "/test", method = RequestMethod.GET)
