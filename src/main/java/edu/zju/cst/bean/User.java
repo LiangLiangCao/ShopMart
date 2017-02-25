@@ -1,40 +1,37 @@
 package edu.zju.cst.bean;
 
 public class User {
-    private Integer id;
-
-    private String username;
+    private Long uid;
 
     private String password;
 
-    public User(Integer id, String username, String password) {
-        this.id = id;
-        this.username = username;
+    private String gender;
+
+    private String email;
+
+    private String phone;
+
+    private Long score;
+
+    public User(Long uid, String password, String gender, String email, String phone, Long score) {
+        this.uid = uid;
         this.password = password;
-    }
-    public User( String username, String password) {
-        this.username = username;
-        this.password = password;
+        this.gender = gender;
+        this.email = email;
+        this.phone = phone;
+        this.score = score;
     }
 
     public User() {
         super();
     }
 
-    public Integer getId() {
-        return id;
+    public Long getUid() {
+        return uid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public String getPassword() {
@@ -43,5 +40,37 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender == null ? null : gender.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public Long getScore() {
+        return score;
+    }
+
+    public void setScore(Long score) {
+        this.score = score;
     }
 }

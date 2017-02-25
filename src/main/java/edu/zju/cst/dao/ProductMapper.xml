@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zju.cst.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Product" >
+    <constructor >
+      <idArg column="pro_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="category_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="promo_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="suplr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ProductName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ProductPrice" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="Picture" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DescribeText" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pro_id, category_id, promo_id, suplr_id, ProductName, ProductPrice, Picture, DescribeText
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where pro_id = #{proId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product
+    where pro_id = #{proId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="edu.zju.cst.bean.Product" >
+    insert into product (pro_id, category_id, promo_id, 
+      suplr_id, ProductName, ProductPrice, 
+      Picture, DescribeText)
+    values (#{proId,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{promoId,jdbcType=BIGINT}, 
+      #{suplrId,jdbcType=BIGINT}, #{productname,jdbcType=VARCHAR}, #{productprice,jdbcType=DECIMAL}, 
+      #{picture,jdbcType=VARCHAR}, #{describetext,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="promoId != null" >
+        promo_id,
+      </if>
+      <if test="suplrId != null" >
+        suplr_id,
+      </if>
+      <if test="productname != null" >
+        ProductName,
+      </if>
+      <if test="productprice != null" >
+        ProductPrice,
+      </if>
+      <if test="picture != null" >
+        Picture,
+      </if>
+      <if test="describetext != null" >
+        DescribeText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="promoId != null" >
+        #{promoId,jdbcType=BIGINT},
+      </if>
+      <if test="suplrId != null" >
+        #{suplrId,jdbcType=BIGINT},
+      </if>
+      <if test="productname != null" >
+        #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="productprice != null" >
+        #{productprice,jdbcType=DECIMAL},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="describetext != null" >
+        #{describetext,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Product" >
+    update product
+    <set >
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="promoId != null" >
+        promo_id = #{promoId,jdbcType=BIGINT},
+      </if>
+      <if test="suplrId != null" >
+        suplr_id = #{suplrId,jdbcType=BIGINT},
+      </if>
+      <if test="productname != null" >
+        ProductName = #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="productprice != null" >
+        ProductPrice = #{productprice,jdbcType=DECIMAL},
+      </if>
+      <if test="picture != null" >
+        Picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="describetext != null" >
+        DescribeText = #{describetext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pro_id = #{proId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Product" >
+    update product
+    set category_id = #{categoryId,jdbcType=BIGINT},
+      promo_id = #{promoId,jdbcType=BIGINT},
+      suplr_id = #{suplrId,jdbcType=BIGINT},
+      ProductName = #{productname,jdbcType=VARCHAR},
+      ProductPrice = #{productprice,jdbcType=DECIMAL},
+      Picture = #{picture,jdbcType=VARCHAR},
+      DescribeText = #{describetext,jdbcType=VARCHAR}
+    where pro_id = #{proId,jdbcType=BIGINT}
+  </update>
+</mapper>

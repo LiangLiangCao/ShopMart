@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zju.cst.dao.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Orders" >
+    <constructor >
+      <idArg column="ordr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="uid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="postage" jdbcType="DECIMAL" javaType="java.lang.Integer" />
+      <arg column="total" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="DeliveryDate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DeliveryMethod" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pro_toatl" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="pay_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="close_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="state" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ordr_id, uid, name, address, phone, postage, total, DeliveryDate, DeliveryMethod, 
+    pro_toatl, create_time, pay_time, close_time, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where ordr_id = #{ordrId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from orders
+    where ordr_id = #{ordrId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="edu.zju.cst.bean.Orders" >
+    insert into orders (ordr_id, uid, name, 
+      address, phone, postage, 
+      total, DeliveryDate, DeliveryMethod, 
+      pro_toatl, create_time, pay_time, 
+      close_time, state)
+    values (#{ordrId,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{postage,jdbcType=DECIMAL}, 
+      #{total,jdbcType=DECIMAL}, #{deliverydate,jdbcType=VARCHAR}, #{deliverymethod,jdbcType=VARCHAR}, 
+      #{proToatl,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{closeTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Orders" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordrId != null" >
+        ordr_id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="postage != null" >
+        postage,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="deliverydate != null" >
+        DeliveryDate,
+      </if>
+      <if test="deliverymethod != null" >
+        DeliveryMethod,
+      </if>
+      <if test="proToatl != null" >
+        pro_toatl,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="closeTime != null" >
+        close_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordrId != null" >
+        #{ordrId,jdbcType=BIGINT},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="postage != null" >
+        #{postage,jdbcType=DECIMAL},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverydate != null" >
+        #{deliverydate,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverymethod != null" >
+        #{deliverymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="proToatl != null" >
+        #{proToatl,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Orders" >
+    update orders
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="postage != null" >
+        postage = #{postage,jdbcType=DECIMAL},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverydate != null" >
+        DeliveryDate = #{deliverydate,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverymethod != null" >
+        DeliveryMethod = #{deliverymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="proToatl != null" >
+        pro_toatl = #{proToatl,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ordr_id = #{ordrId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Orders" >
+    update orders
+    set uid = #{uid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      postage = #{postage,jdbcType=DECIMAL},
+      total = #{total,jdbcType=DECIMAL},
+      DeliveryDate = #{deliverydate,jdbcType=VARCHAR},
+      DeliveryMethod = #{deliverymethod,jdbcType=VARCHAR},
+      pro_toatl = #{proToatl,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR}
+    where ordr_id = #{ordrId,jdbcType=BIGINT}
+  </update>
+</mapper>

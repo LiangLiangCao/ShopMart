@@ -1,4 +1,4 @@
-package edu.zju.cst.controller;
+package edu.zju.cst.administrator.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

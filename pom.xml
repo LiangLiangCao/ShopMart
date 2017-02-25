@@ -35,12 +35,18 @@
             <artifactId>spring-context</artifactId>
             <version>4.2.5.RELEASE</version>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-core</artifactId>-->
+            <!--<version>4.3.5.RELEASE</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.3.5.RELEASE</version>
+            <version>4.2.5.RELEASE</version>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
@@ -189,13 +195,20 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>**/*.properties</include>
                     <include>**/*.xml</include>
+                    <include>**/*.properties</include>
                 </includes>
-                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>applicationContext.xml</include>
+                    <include>log4j.properties</include>
+                    <include>myproject.properties</include>
+                    <include>ueditor.config.json</include>
+                </includes>
             </resource>
         </resources>
     </build>
-
 
 </project>

@@ -72,15 +72,14 @@
     </bean>
     <!--Spring3.1开始的注解 HandlerMapping -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-    <!--Spring3.1开始的注解 HandlerAdapter -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
-    <!-- 图片上传的配置 -->
-    <bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- 最大值4M -->
-        <property name="maxUploadSize" value="209715200" />
-        <property name="resolveLazily" value="true" />
-    </bean>
+    <!---->
+    <!--&lt;!&ndash; 图片上传的配置 &ndash;&gt;-->
+    <!--<bean id="multipartResolver"-->
+          <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!--&lt;!&ndash; 最大值4M &ndash;&gt;-->
+        <!--<property name="maxUploadSize" value="209715200" />-->
+        <!--<property name="resolveLazily" value="true" />-->
+    <!--</bean>-->
 
     <!--ViewResolver 视图解析器-->
     <!--用于支持Servlet、JSP视图解析-->
@@ -102,7 +101,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!-- 配置事务管理器 -->
+    <!-- 配置事务管理器,JDBC事务,通过调用java.sql.Connection来管理事务 -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />

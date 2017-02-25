@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zju.cst.dao.PromotionMapper" >
+  <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Promotion" >
+    <constructor >
+      <idArg column="promo_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="suplr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Promo_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="begin_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="discount" jdbcType="DECIMAL" javaType="java.lang.Short" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    promo_id, suplr_id, Promo_name, begin_time, end_time, discount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from promotion
+    where promo_id = #{promoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from promotion
+    where promo_id = #{promoId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="edu.zju.cst.bean.Promotion" >
+    insert into promotion (promo_id, suplr_id, Promo_name, 
+      begin_time, end_time, discount
+      )
+    values (#{promoId,jdbcType=BIGINT}, #{suplrId,jdbcType=BIGINT}, #{promoName,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{discount,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Promotion" >
+    insert into promotion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="promoId != null" >
+        promo_id,
+      </if>
+      <if test="suplrId != null" >
+        suplr_id,
+      </if>
+      <if test="promoName != null" >
+        Promo_name,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="promoId != null" >
+        #{promoId,jdbcType=BIGINT},
+      </if>
+      <if test="suplrId != null" >
+        #{suplrId,jdbcType=BIGINT},
+      </if>
+      <if test="promoName != null" >
+        #{promoName,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Promotion" >
+    update promotion
+    <set >
+      <if test="suplrId != null" >
+        suplr_id = #{suplrId,jdbcType=BIGINT},
+      </if>
+      <if test="promoName != null" >
+        Promo_name = #{promoName,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where promo_id = #{promoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Promotion" >
+    update promotion
+    set suplr_id = #{suplrId,jdbcType=BIGINT},
+      Promo_name = #{promoName,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      discount = #{discount,jdbcType=DECIMAL}
+    where promo_id = #{promoId,jdbcType=BIGINT}
+  </update>
+</mapper>
