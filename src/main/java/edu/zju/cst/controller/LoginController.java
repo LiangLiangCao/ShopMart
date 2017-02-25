@@ -9,5 +9,5 @@ import javax.annotation.Resource;
  */
 @Controller
 public class LoginController {
-    @Resource()
+//    @Resource()
 }
