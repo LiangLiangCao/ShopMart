@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MainController {
     private IUserService usrService = new UserServiceImpl();
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String welcome(ModelMap map) {
+        map.put("some", "spring freemarker模板终能使用");
+        return "welcome";
+    }
+
     //    @ModelAttribute("command")
     @RequestMapping(value = "/toJson", method = RequestMethod.POST)
     @ResponseBody
