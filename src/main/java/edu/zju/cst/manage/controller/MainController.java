@@ -1,8 +1,8 @@
-package edu.zju.cst.administrator.controller;
+package edu.zju.cst.manage.controller;
 
 import edu.zju.cst.bean.User;
-import edu.zju.cst.administrator.service.IUserService;
-import edu.zju.cst.administrator.service.UserServiceImpl;
+import edu.zju.cst.manage.service.IUserService;
+import edu.zju.cst.manage.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;

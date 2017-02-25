@@ -1,4 +1,4 @@
-package edu.zju.cst.administrator.service;
+package edu.zju.cst.manage.service;
 
 import edu.zju.cst.bean.User;
 import edu.zju.cst.dao.UserDao;

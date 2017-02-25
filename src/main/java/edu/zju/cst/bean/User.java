@@ -13,13 +13,16 @@ public class User {
 
     private Long score;
 
-    public User(Long uid, String password, String gender, String email, String phone, Long score) {
+    private String role;
+
+    public User(Long uid, String password, String gender, String email, String phone, Long score, String role) {
         this.uid = uid;
         this.password = password;
         this.gender = gender;
         this.email = email;
         this.phone = phone;
         this.score = score;
+        this.role = role;
     }
 
     public User() {
@@ -72,5 +75,13 @@ public class User {
 
     public void setScore(Long score) {
         this.score = score;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
     }
 }
