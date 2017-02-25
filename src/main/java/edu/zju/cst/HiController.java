@@ -18,7 +18,7 @@ public class HiController {
 
     @RequestMapping(value = "/hi", method = RequestMethod.GET)
     public String index() {
-        return "index";
+        return "welcome";
     }
 
 }
