@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
 /**
  * Created by Liang on 20/02/2017.
  */
@@ -47,7 +48,45 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * 登陆
+     * 管理员登陆
+     *
+     * @param password
+     * @param request
+     * @throws IOException
+     */
+    public void adminLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException {
+        User usr = usrMapper.selectByPrimaryKey(Long.parseLong(name));
+        if (usr == null) {
+            throw new AuthException("username user does not exist.");
+        }
+
+        boolean isCustom = usr.getRole().trim().equals(SystemConstant.CUSTOM_KIND_USR);
+        if (!isCustom) {
+            throw new AuthException("not admin,please login by user page.");
+        }
+
+        String loginPassword = AuthUtils.getPassword(password);
+        if (loginPassword.equals(usr.getPassword())) {
+
+            HttpSession session = request.getSession();
+            usr.setPassword("");
+            String superAdmin=PropertyUtils.getValue(SystemConstant.SUPER_ADMIN);
+            if (name.equals(superAdmin)) {
+                //0:超级管理员
+                usr.setRole(SystemConstant.SUPER_ADMIN_USR);
+            } else {
+                //1:普通用户
+                usr.setRole(SystemConstant.ADMIN_KIND_USR);
+            }
+            session.setAttribute(SystemConstant.SESSION_ADMIN, usr);
+
+        } else {
+            throw new AuthException("password or username wrong!");
+        }
+    }
+
+    /**
+     * 用户登陆
      *
      * @param password
      * @param request
@@ -56,22 +95,20 @@ public class UserServiceImpl implements IUserService {
     public void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException {
         User usr = usrMapper.selectByPrimaryKey(Long.parseLong(name));
         if (usr == null) {
-            throw new AuthException("邮箱或密码错误");
+            throw new AuthException("username user does not exist.");
         }
-        String loginPassword = AuthUtils.getPassword(password);
-        if (loginPassword.equals(usr.getPassword())) {
+        boolean isCustom = usr.getRole().equals(SystemConstant.CUSTOM_KIND_USR);
+        boolean isPassed = AuthUtils.getPassword(password).equals(usr.getPassword());
+
+        if (isCustom && isPassed) {
+
             HttpSession session = request.getSession();
             usr.setPassword("");
-            if (name.equals(PropertyUtils.getValue(SystemConstant.SUPER_ADMIN))) {
-                //0:超级管理员
-                usr.setRole("0");
-            } else {
-                //1:普通用户
-                usr.setRole("1");
-            }
-            session.setAttribute(SystemConstant.SESSION_ADMIN, usr);
+            usr.setRole(SystemConstant.CUSTOM_KIND_USR);
+
+            session.setAttribute(SystemConstant.SESSION_CUSTOM, usr);
         } else {
-            throw new AuthException("邮箱或密码错误");
+            throw new AuthException("password or username wrong!");
         }
     }
 }

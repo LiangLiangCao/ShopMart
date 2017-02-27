@@ -2,9 +2,9 @@ package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstant;
 import edu.zju.cst.service.IUserService;
-import edu.zju.cst.service.UserServiceImpl;
 import edu.zju.cst.util.HttpUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,26 +39,24 @@ public class LoginController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/login.json", method = RequestMethod.POST)
-    public JSON usrLogin(@RequestParam(value = "name") String name,
-                                     @RequestParam(value = "password") String password,
-                                     HttpServletRequest request,
-                                     ModelMap modelMap) {
+    public String usrLogin(@RequestParam(value = "name") String name,
+                         @RequestParam(value = "password") String password,
+                         HttpServletRequest request,
+                         ModelMap modelMap) {
         JSONObject json = new JSONObject();
-
+        System.out.println("=============================usrLogin1.0");
         try {
-            if (StringUtils.isBlank(password)) {
-                json.put("password", "密码不能为空");
-            } else if (password.length() < 6 && password.length() > 30) {
-                json.put("password", "密码最少6个字符，最多30个字符");
-            }
-            json.put("result","true");
+
+            json.put("result", "true");
+            System.out.println("=============================usrLogin1.1");
             usrService.usrLogin(name, password, request);
+            System.out.println("=============================usrLogin1.2");
 
         } catch (Exception e) {
-            json.put("result","false");
+            json.put("result", "false");
             json.put("password", "邮箱或密码错误");
         }
-        return json;
+        return json.toString();
     }
 
 }

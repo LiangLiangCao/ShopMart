@@ -44,6 +44,14 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
+    <!-- 在XML配置文件中加入外部属性文件，当然也可以指定外部文件的编码 -->
+    <bean id="propertyConfigurer" class="edu.zju.cst.util.PropertyUtils">
+        <property name="locations">
+            <list>
+                <value>classpath:myproject.properties</value> <!-- 指定外部文件的编码 -->
+            </list>
+        </property>
+    </bean>
 
     <!-- FreeMarker的配置 -->
     <bean id="freeMarkerConfigurer"
