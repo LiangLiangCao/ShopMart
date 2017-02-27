@@ -36,6 +36,15 @@
     <!--这样配置后，SpringMVC会自动给静态资源Response添加缓存头Cache-Control和Expires值-->
     <mvc:resources mapping="/static/**" location="/WEB-INF/static" cache-period="31536000"/>
 
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="edu.zju.cst.filter.GlobalInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
     <!-- FreeMarker的配置 -->
     <bean id="freeMarkerConfigurer"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
@@ -72,22 +81,7 @@
     </bean>
     <!--Spring3.1开始的注解 HandlerMapping -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-    <!---->
-    <!--&lt;!&ndash; 图片上传的配置 &ndash;&gt;-->
-    <!--<bean id="multipartResolver"-->
-          <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
-        <!--&lt;!&ndash; 最大值4M &ndash;&gt;-->
-        <!--<property name="maxUploadSize" value="209715200" />-->
-        <!--<property name="resolveLazily" value="true" />-->
-    <!--</bean>-->
 
-    <!--ViewResolver 视图解析器-->
-    <!--用于支持Servlet、JSP视图解析-->
-    <!--<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
-        <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
-        <!--<property name="suffix" value=".jsp"/>-->
-    <!--</bean>-->
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc.driverClass}" />

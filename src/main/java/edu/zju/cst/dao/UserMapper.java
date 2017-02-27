@@ -1,7 +1,9 @@
 package edu.zju.cst.dao;
 
 import edu.zju.cst.bean.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Long uid);
 

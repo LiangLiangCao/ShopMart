@@ -25,6 +25,7 @@ public class MainController {
         return "welcome";
     }
 
+
     //    @ModelAttribute("command")
     @RequestMapping(value = "/toJson", method = RequestMethod.POST)
     @ResponseBody
