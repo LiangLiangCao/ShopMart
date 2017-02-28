@@ -23,4 +23,6 @@ public interface IUserService {
     int updateByPrimaryKey(User record);
 
     public void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
+
+    Object getAllListPage(int pageNum);
 }

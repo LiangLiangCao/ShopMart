@@ -1,6 +1,6 @@
 <#assign menu="admin_list">
 <#assign submenu="add_admin">
-<#include "/manage/head.ftl">
+<#include "/WEB-INF/static/head.ftl">
 <style type="text/css">
 .m-bot15 {
     margin-bottom: 5px;
@@ -83,4 +83,4 @@
 		});
 	});	
 </script>
-<#include "/manage/foot.ftl">
+<#include "/WEB-INF/static/foot.ftl">

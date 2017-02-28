@@ -111,4 +111,8 @@ public class UserServiceImpl implements IUserService {
             throw new AuthException("password or username wrong!");
         }
     }
+
+    public Object getAllListPage(int pageNum){
+        return null;
+    }
 }
