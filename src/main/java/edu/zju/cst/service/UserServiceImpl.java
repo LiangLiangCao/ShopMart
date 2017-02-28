@@ -23,29 +23,34 @@ public class UserServiceImpl implements IUserService {
     private UserMapper usrMapper;
 
 
-    public int deleteByPrimaryKey(Long uid) {
+    public int deleteByID(Long uid) {
         return usrMapper.deleteByPrimaryKey(uid);
     }
 
-    public int insert(User record) {
+    public int addUser(User record) {
         return usrMapper.insert(record);
     }
 
-    public int insertSelective(User record) {
+    public int addUserSelective(User record) {
         return usrMapper.insertSelective(record);
     }
 
-    public User selectByPrimaryKey(Long uid) {
+    public User findByID(Long uid) {
         return usrMapper.selectByPrimaryKey(uid);
     }
 
-    public int updateByPrimaryKeySelective(User record) {
+    public User findByEmail(String email) {
+        return usrMapper.selectByEmail(email);
+    }
+
+    public int updateByIDSelective(User record) {
         return usrMapper.updateByPrimaryKeySelective(record);
     }
 
-    public int updateByPrimaryKey(User record) {
+    public int updateByID(User record) {
         return usrMapper.updateByPrimaryKey(record);
     }
+
 
     /**
      * 管理员登陆
@@ -70,7 +75,7 @@ public class UserServiceImpl implements IUserService {
 
             HttpSession session = request.getSession();
             usr.setPassword("");
-            String superAdmin=PropertyUtils.getValue(SystemConstant.SUPER_ADMIN);
+            String superAdmin = PropertyUtils.getValue(SystemConstant.SUPER_ADMIN);
             if (name.equals(superAdmin)) {
                 //0:超级管理员
                 usr.setRole(SystemConstant.SUPER_ADMIN_USR);
@@ -112,7 +117,7 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-    public Object getAllListPage(int pageNum){
+    public Object getAllListPage(int pageNum) {
         return null;
     }
 }

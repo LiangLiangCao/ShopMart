@@ -32,7 +32,7 @@ public class MainController {
     public User toJson(@ModelAttribute("command")User usr) {
 
         System.out.print(usr);
-        usrService.insert(usr);
+        usrService.addUser(usr);
 
         return null;
 //        return usrService.selectById(2);

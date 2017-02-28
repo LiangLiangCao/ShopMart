@@ -52,9 +52,9 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">是否管理员</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" name="role" placeholder="1" value="${role}">
-                                            <option>是</option>
-                                            <option>否</option>
+                                        <select class="form-control" name="role" >
+                                            <option value="1">管理员</option>
+                                            <option value="2">普通用户</option>
                                         </select>
                                     </div>
                                 </div>

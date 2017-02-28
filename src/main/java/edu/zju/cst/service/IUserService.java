@@ -10,19 +10,20 @@ import java.io.IOException;
  * Created by Liang on 20/02/2017.
  */
 public interface IUserService {
-    int deleteByPrimaryKey(Long uid);
+    int deleteByID(Long uid);
 
-    int insert(User record);
+    int addUser(User record);
 
-    int insertSelective(User record);
+    int addUserSelective(User record);
 
-    User selectByPrimaryKey(Long uid);
+    User findByID(Long uid);
 
-    int updateByPrimaryKeySelective(User record);
+    int updateByIDSelective(User record);
 
-    int updateByPrimaryKey(User record);
+    int updateByID(User record);
 
-    public void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
+     void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
 
     Object getAllListPage(int pageNum);
+     User findByEmail(String email);
 }

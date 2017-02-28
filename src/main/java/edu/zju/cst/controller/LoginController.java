@@ -46,7 +46,11 @@ public class LoginController extends BaseController {
         JSONObject json = new JSONObject();
         System.out.println("=============================usrLogin1.0");
         try {
-
+            if (StringUtils.isBlank(password)) {
+                json.put("password", "密码不能为空");
+            } else if (password.length() < 6 && password.length() > 30) {
+                json.put("password", "密码最少6个字符，最多30个字符");
+            }
             json.put("result", "true");
             System.out.println("=============================usrLogin1.1");
             usrService.usrLogin(name, password, request);

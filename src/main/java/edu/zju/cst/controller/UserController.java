@@ -41,11 +41,10 @@ public class UserController extends BaseController {
     public String addUser(ModelMap modelMap) {
         modelMap.put("email", "");
         modelMap.put("password", "");
-        modelMap.put("role","1");
         return "admin/add";
     }
 
-    /**
+    /** todo
      * 进入管理员管理页面
      */
     @RequestMapping(value = "/manage.htm", method = RequestMethod.GET)
@@ -60,32 +59,31 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/addNew.json", method = RequestMethod.POST)
     public String addNewUser(
-            @RequestParam(value = "email") String adminName,
-            @RequestParam(value = "password") String password) {
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "role") String role) {
         JSONObject json = new JSONObject();
-//        User user = usrService.getAdminByName(adminName);
-//        if (user == null) {
-//        } else {
-//            json.put("adminName", "管理员名称不能重复");
-//        }
-        try {
-            if (adminName.equals("")) {
-                json.put("adminName", "管理员名称不能为空");
-            }
-            if (StringUtils.isBlank(password)) {
-                json.put("password", "管理员密码不能为空");
-            } else if (password.length() < 6) {
-                json.put("password", "密码不能小于6位");
-            } else if (password.length() > 16) {
-                json.put("password", "密码不能大于16位");
-            }
+        User user = usrService.findByEmail(email);
+        if (user == null){
+            try {
+                if (email.equals("")) {
+                    json.put("email", "email cannot be null");
+                }
+                if (StringUtils.isBlank(password)) {
+                    json.put("password", "password cannot be null");
+                }
 
-//            usrService.addAdmin(adminName.trim(),password);
-            json.put("result", true);
-        } catch (Exception e) {
+//            usrService.addAdmin(email.trim(),password);
+                json.put("result", true);
+            } catch (Exception e) {
+                json.put("result", false);
+                json.put("password", e.getMessage());
+            }
+        }else {
+            json.put("email", "email exist.");
             json.put("result", false);
-            json.put("password", e.getMessage());
         }
+
         return json.toString();
     }
 
