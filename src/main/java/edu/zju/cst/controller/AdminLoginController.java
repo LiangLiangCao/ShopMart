@@ -9,6 +9,7 @@
 package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstant;
 import edu.zju.cst.service.IUserService;
 import edu.zju.cst.util.HttpUtils;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by SX2601 on 2017/2/28.
  */
-@RequestMapping(value="admin")
+@RequestMapping(value = "admin")
 @Controller
 public class AdminLoginController extends BaseController {
 
@@ -47,21 +48,19 @@ public class AdminLoginController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/login.json", method = RequestMethod.POST)
-    public String usrLogin(@RequestParam(value = "name") String name,
-                           @RequestParam(value = "password") String password,
-                           HttpServletRequest request,
-                           ModelMap modelMap) {
+    public String usrLogin(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password,
+                         HttpServletRequest request, ModelMap modelMap) {
         JSONObject json = new JSONObject();
         try {
-            json.put("result", "true");
+            json.put("result", true);
             usrService.adminLogin(name, password, request);
 
         } catch (Exception e) {
-            json.put("result", "false");
+            json.put("result", false);
             json.put("password", "email or password wrong.");
             e.printStackTrace();
         }
-        return json.toString();
+        return json.toJSONString();
     }
 
 }

@@ -1,23 +1,25 @@
 <#assign menu="admin_list">
 <#assign submenu="add_admin">
 <#include "/head.ftl">
-    <style type="text/css">
-        p.error {
-            color: #DE5959;
-        }
-        .form-signin input[type="text"].error, .form-signin input[type="password"].error {
-            border-color: #b94a48;
-            color: #b94a48;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        }
-        input.error:focus {
-            border-color: #953b39;
-            color: #b94a48;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-        }
-    </style>
+<style type="text/css">
+    p.error {
+        color: #DE5959;
+    }
+
+    .form-signin input[type="text"].error, .form-signin input[type="password"].error {
+        border-color: #b94a48;
+        color: #b94a48;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
+
+    input.error:focus {
+        border-color: #953b39;
+        color: #b94a48;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+    }
+</style>
 </head>
 
 <body class="login-body">
@@ -50,7 +52,30 @@
     </form>
 
 </div>
+<script type="text/javascript">
+    $(function () {
 
+
+        $('#adminForm').ajaxForm({
+            dataType: 'json',
+            success: function (data) {
+                console.log("===================data:"+data);
+
+                if (data.result) {
+                    console.log("===================true:"+data);
+
+                    bootbox.alert("login success,we will jump to another page~", function () {
+                        window.location.href = "${BASE_PATH}/admin/manage.htm";
+                    });
+                } else {
+                    console.log("===================false:"+data);
+
+                    bootbox.alert("login error: " + data.password);
+                }
+                );
+
+    });
+</script>
 </body>
 <#include "/foot.ftl">
 </html>
