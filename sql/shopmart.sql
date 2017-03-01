@@ -15,20 +15,6 @@ Date: 2017-02-28 17:35:45
 
 SET FOREIGN_KEY_CHECKS=0;
 
--- ----------------------------
--- Table structure for admin
--- ----------------------------
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE `admin` (
-  `admin_name` varchar(50) NOT NULL,
-  `password` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`admin_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of admin
--- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'c4ca4238a0b923820dcc509a6f75849b');
 
 -- ----------------------------
 -- Table structure for category

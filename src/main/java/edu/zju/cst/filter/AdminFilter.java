@@ -21,7 +21,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by SX2601 on 2017/2/28.
@@ -30,23 +34,46 @@ public class AdminFilter implements Filter {
 
     protected final Logger logger = Logger.getLogger(this.getClass());
 
-    public void init(FilterConfig filterConfig) throws ServletException {
-        // TODO Auto-generated method stub
-    }
 
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
+    protected FilterConfig filterConfig = null;
+    private String redirectURL = null;
+    private List notCheckURLList = new ArrayList();
+    private String sessionKey = null;
+
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        User usr = (User) request.getSession().getAttribute(SystemConstant.SESSION_ADMIN);
-        if (usr == null) {
-            response.sendRedirect(HttpUtils.getBasePath(request) + "/admin/login.htm");
-        } else {
-            chain.doFilter(request, response);
+
+        User usr = (User) request.getSession().getAttribute(sessionKey);
+        if (usr == null&&(!checkRequestURIIntNotFilterList(request))) {
+           response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL);
         }
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     public void destroy() {
-        // TODO Auto-generated method stub
+        notCheckURLList.clear();
+    }
+
+    private boolean checkRequestURIIntNotFilterList(HttpServletRequest request) {
+        String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
+        return notCheckURLList.contains(uri);
+    }
+
+    public void init(FilterConfig filterConfig) throws ServletException {
+        this.filterConfig = filterConfig;
+        redirectURL = filterConfig.getInitParameter("redirectURL");
+        sessionKey = SystemConstant.SESSION_ADMIN;
+
+        String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
+
+        if (notCheckURLListStr != null) {
+            StringTokenizer st = new StringTokenizer(notCheckURLListStr, ";");
+            notCheckURLList.clear();
+            while (st.hasMoreTokens()) {
+                notCheckURLList.add(st.nextToken());
+            }
+        }
     }
 }

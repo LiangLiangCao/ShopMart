@@ -65,6 +65,14 @@
             <param-name>charset</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
+        <init-param>
+            <param-name>redirectURL</param-name>
+            <param-value>/admin/login.htm</param-value>
+        </init-param>
+        <init-param>
+            <param-name>notCheckURLList</param-name>
+            <param-value>/admin/login.htm;/admin/login.json</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>
@@ -79,6 +87,14 @@
             <param-name>charset</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
+        <init-param>
+            <param-name>redirectURL</param-name>
+            <param-value>/custom/login.htm</param-value>
+        </init-param>
+        <init-param>
+            <param-name>notCheckURLList</param-name>
+            <param-value>/custom/login.htm;/custom/login.json</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>
@@ -92,6 +108,14 @@
         <init-param>
             <param-name>charset</param-name>
             <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>redirectURL</param-name>
+            <param-value>/supply/login.htm</param-value>
+        </init-param>
+        <init-param>
+            <param-name>notCheckURLList</param-name>
+            <param-value>/supply/login.htm;/supply/login.json</param-value>
         </init-param>
     </filter>
 
