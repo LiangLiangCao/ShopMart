@@ -8,9 +8,7 @@
 
 package edu.zju.cst.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstant;
 import edu.zju.cst.service.IUserService;
 import edu.zju.cst.util.HttpUtils;
@@ -54,15 +52,14 @@ public class CustomLoginController extends BaseController {
                          ModelMap modelMap) {
         JSONObject json = new JSONObject();
         try {
-
             if (StringUtils.isBlank(password)) {
-                json.put("password", "密码不能为空");
+                json.put("password", "password cannot be null.");
             }
-            json.put("result", "true");
+            json.put("result", true);
             usrService.usrLogin(name, password, request);
 
         } catch (Exception e) {
-            json.put("result", "false");
+            json.put("result", false);
             json.put("password", "email or password wrong.");
         }
         return json.toString();

@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by SX2601 on 2017/2/28.
  */
 @Controller
-@RequestMapping(value="/admin")
+@RequestMapping(value = "/admin")
 public class ManageUserController {
 
     @Autowired
@@ -44,7 +44,8 @@ public class ManageUserController {
         return "admin/add";
     }
 
-    /** todo
+    /**
+     * todo
      * 进入管理员管理页面
      */
     @RequestMapping(value = "/manage.htm", method = RequestMethod.GET)
@@ -58,28 +59,30 @@ public class ManageUserController {
      */
     @ResponseBody
     @RequestMapping(value = "/addNew.json", method = RequestMethod.POST)
-    public String addNewUser(
-            @RequestParam(value = "email") String email,
-            @RequestParam(value = "password") String password,
-            @RequestParam(value = "role") String role) {
+    public String addNewUser(@RequestParam(value = "email") String email,
+                             @RequestParam(value = "password") String password,
+                             @RequestParam(value = "role") String role) {
         JSONObject json = new JSONObject();
         User user = usrService.findByEmail(email);
-        if (user == null){
-            try {
-                if (email.equals("")) {
-                    json.put("email", "email cannot be null");
-                }
-                if (StringUtils.isBlank(password)) {
-                    json.put("password", "password cannot be null");
-                }
+        if (user == null) {
 
-                //            usrService.addAdmin(email.trim(),password);
+            try {
+
+                if (email.equals("")||StringUtils.isBlank(password)) {
+                    json.put("email", "email or password cannot be null");
+                    return json.toString();
+                }
+                user=new User();
+                user.setRole(role);
+                user.setEmail(email.trim());
+                user.setPassword(password);
+                usrService.addUserSelective(user);
                 json.put("result", true);
             } catch (Exception e) {
                 json.put("result", false);
                 json.put("password", e.getMessage());
             }
-        }else {
+        } else {
             json.put("email", "email exist.");
             json.put("result", false);
         }
@@ -91,9 +94,7 @@ public class ManageUserController {
      * 进入管理员列表页面
      */
     @RequestMapping(value = "/page.htm", method = RequestMethod.GET)
-    public String allList(
-            @RequestParam(value = "p", defaultValue = "1") int pageNum,
-            ModelMap modelMap) {
+    public String allList(@RequestParam(value = "p", defaultValue = "1") int pageNum, ModelMap modelMap) {
         modelMap.put("pageVo", usrService.getAllListPage(pageNum));
         return "/admin/all";
     }
@@ -102,9 +103,8 @@ public class ManageUserController {
      * 进入单个admmin页面
      */
     @RequestMapping(value = "/update.htm", method = RequestMethod.GET)
-    public String update(
-            @RequestParam(value = "adminId", defaultValue = "0") long adminId,
-            ModelMap modelMap, HttpServletRequest request) {
+    public String update(@RequestParam(value = "adminId", defaultValue = "0") long adminId, ModelMap modelMap,
+                         HttpServletRequest request) {
         //        User sessionAdmin = this.getAdmin(request);
         //        User admin = usrService.getAdminById(sessionAdmin.getAdminId());
         //        modelMap.put("admin", admin);
@@ -116,9 +116,7 @@ public class ManageUserController {
      */
     @ResponseBody
     @RequestMapping(value = "/update.json", method = RequestMethod.POST)
-    public String updateAdmin(
-            @RequestParam(value = "password") String password,
-            HttpServletRequest request) {
+    public String updateAdmin(@RequestParam(value = "password") String password, HttpServletRequest request) {
         JSONObject json = new JSONObject();
         try {
             if (StringUtils.isBlank(password)) {
@@ -149,8 +147,7 @@ public class ManageUserController {
 
     @ResponseBody
     @RequestMapping(value = "/delete.json", method = RequestMethod.POST)
-    public String delete(@RequestParam(value = "adminId") long adminId,
-                         HttpServletRequest request) {
+    public String delete(@RequestParam(value = "adminId") long adminId, HttpServletRequest request) {
         JSONObject json = new JSONObject();
         try {
             //            usrService.deleteAdmin(adminId);
