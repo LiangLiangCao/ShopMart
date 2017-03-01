@@ -1,6 +1,6 @@
 <#assign menu="admin_list">
 <#assign submenu="admin_list">
-<#include "/head.ftl">
+<#include "../head.ftl">
 <style type="text/css">
 .pagination {
     border-radius: 4px;
@@ -60,4 +60,4 @@
           </section>
 		</section>
 		<!--main content end-->
-<#include "/foot.ftl">
+<#include "../foot.ftl">

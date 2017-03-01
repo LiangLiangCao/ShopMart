@@ -1,6 +1,6 @@
 <#assign menu="admin_list">
 <#assign submenu="add_admin">
-<#include "/head.ftl">
+<#include "../head.ftl">
 <style type="text/css">
     p.error {
         color: #DE5959;
@@ -77,5 +77,5 @@
     });
 </script>
 </body>
-<#include "/foot.ftl">
+<#include "../foot.ftl">
 </html>

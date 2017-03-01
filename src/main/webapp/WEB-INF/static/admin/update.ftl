@@ -1,6 +1,6 @@
 <#assign menu="update_password">
 <#assign submenu="update_admin">
-<#include "/head.ftl">
+<#include "../head.ftl">
 <style type="text/css">
 </style>
 <!--main content start-->
@@ -60,4 +60,4 @@
 		});
 	});
 </script>
-<#include "/foot.ftl">
+<#include "../foot.ftl">
