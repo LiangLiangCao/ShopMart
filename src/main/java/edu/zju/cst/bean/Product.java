@@ -19,9 +19,9 @@ public class Product {
 
     private Integer quantity;
 
-    private String describe;
+    private String description;
 
-    public Product(Long proId, Long categoryId, Long promoId, Long suplrId, String productName, BigDecimal price, String picture, Integer quantity, String describe) {
+    public Product(Long proId, Long categoryId, Long promoId, Long suplrId, String productName, BigDecimal price, String picture, Integer quantity, String description) {
         this.proId = proId;
         this.categoryId = categoryId;
         this.promoId = promoId;
@@ -30,7 +30,7 @@ public class Product {
         this.price = price;
         this.picture = picture;
         this.quantity = quantity;
-        this.describe = describe;
+        this.description = description;
     }
 
     public Product() {
@@ -101,11 +101,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }
