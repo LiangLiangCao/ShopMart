@@ -2,6 +2,21 @@
 <#assign submenu="admin_list">
 <#include "head.ftl">
 
+
+<style>
+
+.image{
+
+    float:left;
+    width: 100px;
+    height: 100px;
+}
+
+
+.description{
+    float:left;
+}
+</style>
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav">
@@ -16,16 +31,26 @@
 
 <div class="container">
 
+<#list latestProduct as item>
+
+
+<div class="row">
     <div class="col-md-12">
-        <div class="col-md-3">
-            <img src="/static/images/iphone.webp" alt="iphone" class="img-rounded">
+        <div class="image">
+            <img src="/static/images/iphone.webp" width="100px" height="100px" alt="iphone" class="img-rounded">
         </div>
-        <div class="col-md-9">
-            <h2>iphone 7</h2>
-            <p>iPhone 7 now has the best performance and battery life ever, as well as new finishes, water resistance, and stereo speakers.
-            <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+        <div class="description">
+            <h2>${item.productname}</h2>
+            <p>${item.describetext}<p>
+            <a class="btn btn-default" href="#" role="button">View details »</a></p>
         </div>
     </div>
+</div>
+
+
+</#list>
+
+
 
 
     <div class="search-box row">

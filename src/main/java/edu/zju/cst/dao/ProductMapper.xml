@@ -22,6 +22,14 @@
     from product
     where pro_id = #{proId,jdbcType=BIGINT}
   </select>
+
+  <select id="selectByPageSize" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from product limit #{num} offset  #{offset}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from product
     where pro_id = #{proId,jdbcType=BIGINT}
