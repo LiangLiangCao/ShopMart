@@ -15,7 +15,7 @@ public class User {
 
     private Long score;
 
-    public User(Long uid, String password, String gender, String email, String phone, String role, Long score) {
+    public User(Long uid, String password, String gender, String email, String phone, Long score, String role) {
         this.uid = uid;
         this.password = password;
         this.gender = gender;
