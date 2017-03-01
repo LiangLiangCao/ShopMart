@@ -1,8 +1,10 @@
-	</section>
+
 	</div>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="${BASE_PATH}/static/manage/js/bootstrap.min.js?v=${config_v}"></script>
+	<script src="${BASE_PATH}/static/js/bootstrap.min.js?v=${config_v}"></script>
+
+    <script src="${BASE_PATH}/static/js/vue.min.js?v=${config_v}"></script>
 
 	<#--<script src="${BASE_PATH}/static/manage/js/jquery.form.min.js?v=${config_v}"></script>-->
 	<#--<script src="${BASE_PATH}/static/manage/js/bootbox.min.js?v=${config_v}"></script>-->
@@ -17,9 +19,6 @@
 
 	<#---->
 	<!--common script for all pages-->
-	<script src="${BASE_PATH}/static/manage/js/common-scripts.js"></script>
+	<script src="${BASE_PATH}/static/js/common-scripts.js"></script>
 
 
-	</body>
-
-</html>
