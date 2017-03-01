@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value="admin")
 @Controller
 public class AdminLoginController extends BaseController {
+
     @Autowired
     private IUserService usrService;
 
@@ -58,6 +59,7 @@ public class AdminLoginController extends BaseController {
         } catch (Exception e) {
             json.put("result", "false");
             json.put("password", "email or password wrong.");
+            e.printStackTrace();
         }
         return json.toString();
     }
