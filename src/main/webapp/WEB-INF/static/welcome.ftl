@@ -24,6 +24,7 @@
             <a class="blog-nav-item" href="#">商品</a>
             <a class="blog-nav-item" href="#">用户</a>
             <a class="blog-nav-item" href="#">商家</a>
+            <a class="blog-nav-item" href="/admin/login.htm">管理员登录</a>
             <a class="blog-nav-item" href="/login.htm">登录</a>
         </nav>
     </div>
@@ -40,8 +41,8 @@
             <img src="/static/images/iphone.webp" width="100px" height="100px" alt="iphone" class="img-rounded">
         </div>
         <div class="description">
-            <h2>${item.productname}</h2>
-            <p>${item.describetext}<p>
+            <h2>${item.productName}</h2>
+            <p>${item.description}<p>
             <a class="btn btn-default" href="#" role="button">View details »</a></p>
         </div>
     </div>
@@ -99,3 +100,7 @@
 
 
 <#include "foot.ftl">
+
+</body>
+
+</html>

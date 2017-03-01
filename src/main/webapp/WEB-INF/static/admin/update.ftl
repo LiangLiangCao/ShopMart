@@ -61,3 +61,8 @@
 	});
 </script>
 <#include "../foot.ftl">
+
+</body>
+
+</html>
+

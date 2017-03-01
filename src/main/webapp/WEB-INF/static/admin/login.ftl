@@ -76,6 +76,8 @@
 
     });
 </script>
-</body>
+
 <#include "../foot.ftl">
+</body>
+
 </html>

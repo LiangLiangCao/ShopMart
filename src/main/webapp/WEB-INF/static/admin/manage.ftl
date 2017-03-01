@@ -12,6 +12,8 @@
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper">
+
+        <h1>hhheheheheh</h1>
 		<!-- page start-->
 		<div class="row">
 			<div class="col-lg-12">
@@ -151,3 +153,7 @@
 	});	
 </script>
 <#include "../foot.ftl">
+
+</body>
+
+</html>

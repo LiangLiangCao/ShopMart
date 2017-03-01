@@ -38,3 +38,5 @@
 <script src="${BASE_PATH}/static/js/jquery.js?v=${config_v}"></script>
 </head>
 
+
+<div  id="app" class="container">

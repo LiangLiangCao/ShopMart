@@ -61,3 +61,6 @@
 		</section>
 		<!--main content end-->
 <#include "../foot.ftl">
+</body>
+
+</html>
