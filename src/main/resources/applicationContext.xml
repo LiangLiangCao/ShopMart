@@ -36,7 +36,6 @@
     <!--这样配置后，SpringMVC会自动给静态资源Response添加缓存头Cache-Control和Expires值-->
     <mvc:resources location="/WEB-INF/static/" mapping="/static/**"  cache-period="31536000"/>
 
-
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -87,9 +86,9 @@
         <property name="exposeSessionAttributes" value="true" />
         <property name="exposeSpringMacroHelpers" value="true" />
     </bean>
+
     <!--Spring3.1开始的注解 HandlerMapping -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc.driverClass}" />

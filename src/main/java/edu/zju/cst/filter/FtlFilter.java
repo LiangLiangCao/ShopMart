@@ -22,8 +22,7 @@ public class FtlFilter implements Filter{
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
-    public void doFilter(ServletRequest servletRequest,
-                         ServletResponse servletResponse, FilterChain chain)
+    public void doFilter(ServletRequest servletRequest,ServletResponse servletResponse, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;

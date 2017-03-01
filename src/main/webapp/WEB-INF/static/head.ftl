@@ -5,13 +5,17 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="description" content="CMS Shopmall">
 <meta name="author" content="Caoliang">
+
+
 <meta name="keyword"
 	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" href="img/favicon.png">
 <title>后台</title>
 <!-- Bootstrap core CSS -->
+
 <link href="${BASE_PATH}/static/css/bootstrap.min.css?v=${config_v}" rel="stylesheet">
 <link href="${BASE_PATH}/static/css/bootstrap-reset.css?v=${config_v}"
 	rel="stylesheet">
@@ -33,3 +37,4 @@
 
 <script src="${BASE_PATH}/static/js/jquery.js?v=${config_v}"></script>
 </head>
+

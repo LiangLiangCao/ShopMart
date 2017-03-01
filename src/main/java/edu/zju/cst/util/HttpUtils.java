@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HttpUtils {
 
-
-
     /**
      * 得到请求的根目录
      *
@@ -19,8 +17,7 @@ public class HttpUtils {
      */
     public static String getBasePath(HttpServletRequest request) {
         String path = request.getContextPath();
-        String basePath = request.getScheme() + "://" + request.getServerName()
-                          + ":" + request.getServerPort() + path;
+        String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
         return basePath;
     }
 
@@ -34,7 +31,6 @@ public class HttpUtils {
         String path = request.getContextPath();
         return path;
     }
-
 
 }
 

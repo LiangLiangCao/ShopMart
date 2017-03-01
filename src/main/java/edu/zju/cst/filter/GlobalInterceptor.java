@@ -23,7 +23,6 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		return true;
 	}
 
-
 	public void postHandle(HttpServletRequest request,
 						   HttpServletResponse response, Object handler,
 						   ModelAndView modelAndView) throws Exception {
@@ -37,13 +36,9 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		modelAndView.addObject("shopmart_description","simple shopping web");
 	}
 
-
 	public void afterCompletion(HttpServletRequest request,
 								HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		// TODO Auto-generated method stub
-
 	}
-
 
 }

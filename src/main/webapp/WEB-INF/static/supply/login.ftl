@@ -55,10 +55,10 @@
 <div class="container">
 
     <form class="form-signin" id="adminForm"
-          action="${BASE_PATH}/login.json" autocomplete="off"
+          action="${BASE_PATH}/supply/login.json" autocomplete="off"
           method="post">
         <h2 class="form-signin-heading">
-            <img src="${BASE_PATH}/static/img/logo.png"
+            <img src="${BASE_PATH}/static/manage/img/logo.png"
                  style="height: 38px;"/>
         </h2>
         <div class="login-wrap">
@@ -74,9 +74,7 @@
             </div>
 
             <div class="clearfix"></div>
-            <div>
-                <p class="error" for="captcha" style="display: none;"></p>
-            </div>
+
             <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
         </div>
     </form>

@@ -29,6 +29,7 @@
     <![endif]-->
     <script src="${BASE_PATH}/static/manage/js/jquery.js"></script>
     <script src="${BASE_PATH}/static/manage/js/jquery.form.min.js"></script>
+
     <style type="text/css">
         p.error {
             color: #DE5959;
@@ -55,10 +56,10 @@
 <div class="container">
 
     <form class="form-signin" id="adminForm"
-          action="${BASE_PATH}/login.json" autocomplete="off"
+          action="${BASE_PATH}/admin/login.json" autocomplete="off"
           method="post">
         <h2 class="form-signin-heading">
-            <img src="${BASE_PATH}/static/img/logo.png"
+            <img src="${BASE_PATH}/static/manage/img/logo.png"
                  style="height: 38px;"/>
         </h2>
         <div class="login-wrap">
@@ -74,40 +75,12 @@
             </div>
 
             <div class="clearfix"></div>
-            <div>
-                <p class="error" for="captcha" style="display: none;"></p>
-            </div>
+
             <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
         </div>
     </form>
 
 </div>
-<script type="text/javascript">
-    /**
-     * 显示表单的错误提示
-     * @param id 表单ID
-     * @param errors 错误列表
-     */
-    function showErrors(id, errors) {
-        id.find('p[class=error]').hide();
-        id.find('input,select').removeClass("error");
-        for (var name in errors) {
-            var e = id.find('p[for=' + name + ']');
-            id.find('input[name=' + name + '],select[name=' + name + ']')
-                    .addClass("error");
-            if (e.length == 0) {
-                id.find('input[name=' + name + '],select[name=' + name+ ']')
-                        .after('<p for="' + name + '" class="error"></p>');
 
-                e = id.find('p[for=' + name + ']');
-            }
-            if (errors[name] != "") {
-                e.html(errors[name]);
-                e.show();
-            }
-        }
-    }
-
-</script>
 </body>
 </html>

@@ -66,7 +66,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         boolean isCustom = usr.getRole().trim().equals(SystemConstant.CUSTOM_KIND_USR);
-        if (!isCustom) {
+        if (isCustom) {
             throw new AuthException("not admin,please login by user page.");
         }
 
@@ -84,7 +84,6 @@ public class UserServiceImpl implements IUserService {
                 usr.setRole(SystemConstant.ADMIN_KIND_USR);
             }
             session.setAttribute(SystemConstant.SESSION_ADMIN, usr);
-
         } else {
             throw new AuthException("password or username wrong!");
         }

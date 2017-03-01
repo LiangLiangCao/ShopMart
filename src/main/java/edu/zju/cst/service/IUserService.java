@@ -22,8 +22,12 @@ public interface IUserService {
 
     int updateByID(User record);
 
-     void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
+
 
     Object getAllListPage(int pageNum);
      User findByEmail(String email);
+
+    public void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
+    public void adminLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
+
 }

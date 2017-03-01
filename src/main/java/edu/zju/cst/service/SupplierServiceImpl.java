@@ -11,7 +11,6 @@
 package edu.zju.cst.service;
 
 import edu.zju.cst.bean.Supplier;
-import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstant;
 import edu.zju.cst.dao.SupplierMapper;
 import edu.zju.cst.exception.AuthException;
@@ -45,12 +44,9 @@ public class SupplierServiceImpl implements ISupplierService {
         }
 
         String supplyPassed = AuthUtils.getPassword(password);
-
         if (supplyPassed.equals(supplier.getPassword())) {
-
             HttpSession session = request.getSession();
             supplier.setPassword("");
-
             session.setAttribute(SystemConstant.SESSION_SUPPLY, supplier);
         } else {
             throw new AuthException("password or username wrong!");
