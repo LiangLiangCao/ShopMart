@@ -16,7 +16,7 @@
     uid, password, gender, email, phone, score, role
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from user
     where uid = #{uid,jdbcType=BIGINT}
@@ -32,12 +32,12 @@
     where uid = #{uid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.User" >
-    insert into user (uid, password, gender, 
-      email, phone, score, 
-      role)
-    values (#{uid,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{score,jdbcType=BIGINT}, 
-      #{role,jdbcType=VARCHAR})
+    insert into user (uid, password, gender,
+    email, phone, score,
+    role)
+    values (#{uid,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR},
+    #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{score,jdbcType=BIGINT},
+    #{role,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.User" >
     insert into user

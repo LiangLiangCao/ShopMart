@@ -1,9 +1,7 @@
 package edu.zju.cst.dao;
 
 import edu.zju.cst.bean.Supplier;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface SupplierMapper {
     int deleteByPrimaryKey(Long suplrId);
 

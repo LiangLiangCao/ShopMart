@@ -8,14 +8,14 @@
       <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="Postcode" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="RegisterTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="postcode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="register_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="suply_name" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    suplr_id, suplyr_name, address, phone, type, Postcode, RegisterTime, password, suply_name
+    suplr_id, suplyr_name, address, phone, type, postcode, register_time, password, suply_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -29,12 +29,12 @@
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.Supplier" >
     insert into supplier (suplr_id, suplyr_name, address, 
-      phone, type, Postcode, 
-      RegisterTime, password, suply_name
+      phone, type, postcode, 
+      register_time, password, suply_name
       )
     values (#{suplrId,jdbcType=BIGINT}, #{suplyrName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
-      #{registertime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{suplyName,jdbcType=VARCHAR}
+      #{registerTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{suplyName,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.Supplier" >
@@ -56,10 +56,10 @@
         type,
       </if>
       <if test="postcode != null" >
-        Postcode,
+        postcode,
       </if>
-      <if test="registertime != null" >
-        RegisterTime,
+      <if test="registerTime != null" >
+        register_time,
       </if>
       <if test="password != null" >
         password,
@@ -87,8 +87,8 @@
       <if test="postcode != null" >
         #{postcode,jdbcType=VARCHAR},
       </if>
-      <if test="registertime != null" >
-        #{registertime,jdbcType=TIMESTAMP},
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
@@ -114,10 +114,10 @@
         type = #{type,jdbcType=VARCHAR},
       </if>
       <if test="postcode != null" >
-        Postcode = #{postcode,jdbcType=VARCHAR},
+        postcode = #{postcode,jdbcType=VARCHAR},
       </if>
-      <if test="registertime != null" >
-        RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -134,8 +134,8 @@
       address = #{address,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
-      Postcode = #{postcode,jdbcType=VARCHAR},
-      RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
       password = #{password,jdbcType=VARCHAR},
       suply_name = #{suplyName,jdbcType=VARCHAR}
     where suplr_id = #{suplrId,jdbcType=BIGINT}

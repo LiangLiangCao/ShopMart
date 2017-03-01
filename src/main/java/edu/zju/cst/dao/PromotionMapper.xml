@@ -5,14 +5,14 @@
     <constructor >
       <idArg column="promo_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="suplr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="Promo_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="promo_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="begin_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="discount" jdbcType="DECIMAL" javaType="java.lang.Short" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    promo_id, suplr_id, Promo_name, begin_time, end_time, discount
+    promo_id, suplr_id, promo_name, begin_time, end_time, discount
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -25,7 +25,7 @@
     where promo_id = #{promoId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.Promotion" >
-    insert into promotion (promo_id, suplr_id, Promo_name, 
+    insert into promotion (promo_id, suplr_id, promo_name, 
       begin_time, end_time, discount
       )
     values (#{promoId,jdbcType=BIGINT}, #{suplrId,jdbcType=BIGINT}, #{promoName,jdbcType=VARCHAR}, 
@@ -42,7 +42,7 @@
         suplr_id,
       </if>
       <if test="promoName != null" >
-        Promo_name,
+        promo_name,
       </if>
       <if test="beginTime != null" >
         begin_time,
@@ -82,7 +82,7 @@
         suplr_id = #{suplrId,jdbcType=BIGINT},
       </if>
       <if test="promoName != null" >
-        Promo_name = #{promoName,jdbcType=VARCHAR},
+        promo_name = #{promoName,jdbcType=VARCHAR},
       </if>
       <if test="beginTime != null" >
         begin_time = #{beginTime,jdbcType=TIMESTAMP},
@@ -99,7 +99,7 @@
   <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Promotion" >
     update promotion
     set suplr_id = #{suplrId,jdbcType=BIGINT},
-      Promo_name = #{promoName,jdbcType=VARCHAR},
+      promo_name = #{promoName,jdbcType=VARCHAR},
       begin_time = #{beginTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
       discount = #{discount,jdbcType=DECIMAL}

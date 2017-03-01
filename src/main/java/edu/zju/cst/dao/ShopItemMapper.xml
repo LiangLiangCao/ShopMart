@@ -17,21 +17,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from shopItem
+    from shopitem
     where shop_id = #{shopId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from shopItem
+    delete from shopitem
     where shop_id = #{shopId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.ShopItem" >
-    insert into shopItem (shop_id, uid, pro_id, 
+    insert into shopitem (shop_id, uid, pro_id, 
       count, price, num)
     values (#{shopId,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{proId,jdbcType=BIGINT}, 
       #{count,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, #{num,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.ShopItem" >
-    insert into shopItem
+    insert into shopitem
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="shopId != null" >
         shop_id,
@@ -74,7 +74,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.ShopItem" >
-    update shopItem
+    update shopitem
     <set >
       <if test="uid != null" >
         uid = #{uid,jdbcType=BIGINT},
@@ -95,7 +95,7 @@
     where shop_id = #{shopId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.ShopItem" >
-    update shopItem
+    update shopitem
     set uid = #{uid,jdbcType=BIGINT},
       pro_id = #{proId,jdbcType=BIGINT},
       count = #{count,jdbcType=DECIMAL},

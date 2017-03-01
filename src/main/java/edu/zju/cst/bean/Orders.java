@@ -18,9 +18,9 @@ public class Orders {
 
     private BigDecimal total;
 
-    private String deliverydate;
+    private String deliveryDate;
 
-    private String deliverymethod;
+    private String deliveryMethod;
 
     private BigDecimal proToatl;
 
@@ -32,7 +32,7 @@ public class Orders {
 
     private String state;
 
-    public Orders(Long ordrId, Long uid, String name, String address, String phone, Integer postage, BigDecimal total, String deliverydate, String deliverymethod, BigDecimal proToatl, Date createTime, Date payTime, Date closeTime, String state) {
+    public Orders(Long ordrId, Long uid, String name, String address, String phone, Integer postage, BigDecimal total, String deliveryDate, String deliveryMethod, BigDecimal proToatl, Date createTime, Date payTime, Date closeTime, String state) {
         this.ordrId = ordrId;
         this.uid = uid;
         this.name = name;
@@ -40,8 +40,8 @@ public class Orders {
         this.phone = phone;
         this.postage = postage;
         this.total = total;
-        this.deliverydate = deliverydate;
-        this.deliverymethod = deliverymethod;
+        this.deliveryDate = deliveryDate;
+        this.deliveryMethod = deliveryMethod;
         this.proToatl = proToatl;
         this.createTime = createTime;
         this.payTime = payTime;
@@ -109,20 +109,20 @@ public class Orders {
         this.total = total;
     }
 
-    public String getDeliverydate() {
-        return deliverydate;
+    public String getDeliveryDate() {
+        return deliveryDate;
     }
 
-    public void setDeliverydate(String deliverydate) {
-        this.deliverydate = deliverydate == null ? null : deliverydate.trim();
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate == null ? null : deliveryDate.trim();
     }
 
-    public String getDeliverymethod() {
-        return deliverymethod;
+    public String getDeliveryMethod() {
+        return deliveryMethod;
     }
 
-    public void setDeliverymethod(String deliverymethod) {
-        this.deliverymethod = deliverymethod == null ? null : deliverymethod.trim();
+    public void setDeliveryMethod(String deliveryMethod) {
+        this.deliveryMethod = deliveryMethod == null ? null : deliveryMethod.trim();
     }
 
     public BigDecimal getProToatl() {

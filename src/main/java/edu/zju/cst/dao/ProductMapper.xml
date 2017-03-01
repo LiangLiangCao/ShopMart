@@ -7,14 +7,16 @@
       <arg column="category_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="promo_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="suplr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="ProductName" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ProductPrice" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="Picture" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="DescribeText" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="product_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="picture" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="quantity" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="describe" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    pro_id, category_id, promo_id, suplr_id, ProductName, ProductPrice, Picture, DescribeText
+    pro_id, category_id, promo_id, suplr_id, product_name, price, picture, quantity, 
+    describe
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -22,25 +24,19 @@
     from product
     where pro_id = #{proId,jdbcType=BIGINT}
   </select>
-
-  <select id="selectByPageSize" resultMap="BaseResultMap"  >
-    select
-    <include refid="Base_Column_List" />
-    from product limit #{num} offset  #{offset}
-  </select>
-
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from product
     where pro_id = #{proId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.Product" >
     insert into product (pro_id, category_id, promo_id, 
-      suplr_id, ProductName, ProductPrice, 
-      Picture, DescribeText)
+      suplr_id, product_name, price, 
+      picture, quantity, describe
+      )
     values (#{proId,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{promoId,jdbcType=BIGINT}, 
-      #{suplrId,jdbcType=BIGINT}, #{productname,jdbcType=VARCHAR}, #{productprice,jdbcType=DECIMAL}, 
-      #{picture,jdbcType=VARCHAR}, #{describetext,jdbcType=VARCHAR})
+      #{suplrId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{picture,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{describe,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.Product" >
     insert into product
@@ -57,17 +53,20 @@
       <if test="suplrId != null" >
         suplr_id,
       </if>
-      <if test="productname != null" >
-        ProductName,
+      <if test="productName != null" >
+        product_name,
       </if>
-      <if test="productprice != null" >
-        ProductPrice,
+      <if test="price != null" >
+        price,
       </if>
       <if test="picture != null" >
-        Picture,
+        picture,
       </if>
-      <if test="describetext != null" >
-        DescribeText,
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="describe != null" >
+        describe,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -83,17 +82,20 @@
       <if test="suplrId != null" >
         #{suplrId,jdbcType=BIGINT},
       </if>
-      <if test="productname != null" >
-        #{productname,jdbcType=VARCHAR},
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
       </if>
-      <if test="productprice != null" >
-        #{productprice,jdbcType=DECIMAL},
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
       </if>
       <if test="picture != null" >
         #{picture,jdbcType=VARCHAR},
       </if>
-      <if test="describetext != null" >
-        #{describetext,jdbcType=VARCHAR},
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -109,17 +111,20 @@
       <if test="suplrId != null" >
         suplr_id = #{suplrId,jdbcType=BIGINT},
       </if>
-      <if test="productname != null" >
-        ProductName = #{productname,jdbcType=VARCHAR},
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
       </if>
-      <if test="productprice != null" >
-        ProductPrice = #{productprice,jdbcType=DECIMAL},
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
       </if>
       <if test="picture != null" >
-        Picture = #{picture,jdbcType=VARCHAR},
+        picture = #{picture,jdbcType=VARCHAR},
       </if>
-      <if test="describetext != null" >
-        DescribeText = #{describetext,jdbcType=VARCHAR},
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        describe = #{describe,jdbcType=VARCHAR},
       </if>
     </set>
     where pro_id = #{proId,jdbcType=BIGINT}
@@ -129,10 +134,11 @@
     set category_id = #{categoryId,jdbcType=BIGINT},
       promo_id = #{promoId,jdbcType=BIGINT},
       suplr_id = #{suplrId,jdbcType=BIGINT},
-      ProductName = #{productname,jdbcType=VARCHAR},
-      ProductPrice = #{productprice,jdbcType=DECIMAL},
-      Picture = #{picture,jdbcType=VARCHAR},
-      DescribeText = #{describetext,jdbcType=VARCHAR}
+      product_name = #{productName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      picture = #{picture,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      describe = #{describe,jdbcType=VARCHAR}
     where pro_id = #{proId,jdbcType=BIGINT}
   </update>
 </mapper>
