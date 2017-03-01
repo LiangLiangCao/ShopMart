@@ -13,7 +13,7 @@ public interface IProductService {
     public void add(Product product);
     public void update(Product product);
 
-    public void del(String id);
+    public int del(String id);
 
     public void get(String id);
 

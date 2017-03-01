@@ -1,9 +1,13 @@
 package edu.zju.cst.controller;
 
+import edu.zju.cst.bean.Product;
+import edu.zju.cst.service.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Liang on 2/25/17.
@@ -13,23 +17,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/product")
 public class ProductController {
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @Autowired
+    private IProductService productService;
+
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String productList(ModelMap map) {
-        map.put("some", "spring freemarker模板终能使用");
-        return "product";
+        List<Product> productList = productService.getProducts(10,1);
+
+        map.put("latestProduct",productList);
+        return "product/edit";
+    }
+
+    @RequestMapping(value = "/del", method = RequestMethod.GET )
+    @ResponseBody
+    public String delProduct(ModelMap map, @RequestParam(value = "product_id") int product_id) {
+
+        int re = productService.del(product_id+"");
+        return re + " the resut" ;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public String addProduct(@RequestBody Product product) {
+        productService.add(product);
+        return "";
+    }
+
+    @RequestMapping(value = "/add.htm", method = RequestMethod.GET)
+    public String add(ModelMap map) {
+
+        return "product/add";
     }
 
 
-    @RequestMapping(value = "/del", method = RequestMethod.GET)
-    public String delProduct(ModelMap map) {
-        map.put("some", "spring freemarker模板终能使用");
-        return "product";
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public String update(@RequestBody Product product) {
+        productService.update(product);
+        return "";
     }
 
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addProduct(ModelMap map) {
-        map.put("some", "spring freemarker模板终能使用");
-        return "product";
-    }
 }
