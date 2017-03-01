@@ -10,8 +10,8 @@
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="postage" jdbcType="DECIMAL" javaType="java.lang.Integer" />
       <arg column="total" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="DeliveryDate" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="DeliveryMethod" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="delivery_date" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="delivery_method" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="pro_toatl" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="pay_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -20,7 +20,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ordr_id, uid, name, address, phone, postage, total, DeliveryDate, DeliveryMethod, 
+    ordr_id, uid, name, address, phone, postage, total, delivery_date, delivery_method, 
     pro_toatl, create_time, pay_time, close_time, state
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -36,12 +36,12 @@
   <insert id="insert" parameterType="edu.zju.cst.bean.Orders" >
     insert into orders (ordr_id, uid, name, 
       address, phone, postage, 
-      total, DeliveryDate, DeliveryMethod, 
+      total, delivery_date, delivery_method, 
       pro_toatl, create_time, pay_time, 
       close_time, state)
     values (#{ordrId,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{postage,jdbcType=DECIMAL}, 
-      #{total,jdbcType=DECIMAL}, #{deliverydate,jdbcType=VARCHAR}, #{deliverymethod,jdbcType=VARCHAR}, 
+      #{total,jdbcType=DECIMAL}, #{deliveryDate,jdbcType=VARCHAR}, #{deliveryMethod,jdbcType=VARCHAR}, 
       #{proToatl,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, 
       #{closeTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR})
   </insert>
@@ -69,11 +69,11 @@
       <if test="total != null" >
         total,
       </if>
-      <if test="deliverydate != null" >
-        DeliveryDate,
+      <if test="deliveryDate != null" >
+        delivery_date,
       </if>
-      <if test="deliverymethod != null" >
-        DeliveryMethod,
+      <if test="deliveryMethod != null" >
+        delivery_method,
       </if>
       <if test="proToatl != null" >
         pro_toatl,
@@ -113,11 +113,11 @@
       <if test="total != null" >
         #{total,jdbcType=DECIMAL},
       </if>
-      <if test="deliverydate != null" >
-        #{deliverydate,jdbcType=VARCHAR},
+      <if test="deliveryDate != null" >
+        #{deliveryDate,jdbcType=VARCHAR},
       </if>
-      <if test="deliverymethod != null" >
-        #{deliverymethod,jdbcType=VARCHAR},
+      <if test="deliveryMethod != null" >
+        #{deliveryMethod,jdbcType=VARCHAR},
       </if>
       <if test="proToatl != null" >
         #{proToatl,jdbcType=DECIMAL},
@@ -157,11 +157,11 @@
       <if test="total != null" >
         total = #{total,jdbcType=DECIMAL},
       </if>
-      <if test="deliverydate != null" >
-        DeliveryDate = #{deliverydate,jdbcType=VARCHAR},
+      <if test="deliveryDate != null" >
+        delivery_date = #{deliveryDate,jdbcType=VARCHAR},
       </if>
-      <if test="deliverymethod != null" >
-        DeliveryMethod = #{deliverymethod,jdbcType=VARCHAR},
+      <if test="deliveryMethod != null" >
+        delivery_method = #{deliveryMethod,jdbcType=VARCHAR},
       </if>
       <if test="proToatl != null" >
         pro_toatl = #{proToatl,jdbcType=DECIMAL},
@@ -189,8 +189,8 @@
       phone = #{phone,jdbcType=VARCHAR},
       postage = #{postage,jdbcType=DECIMAL},
       total = #{total,jdbcType=DECIMAL},
-      DeliveryDate = #{deliverydate,jdbcType=VARCHAR},
-      DeliveryMethod = #{deliverymethod,jdbcType=VARCHAR},
+      delivery_date = #{deliveryDate,jdbcType=VARCHAR},
+      delivery_method = #{deliveryMethod,jdbcType=VARCHAR},
       pro_toatl = #{proToatl,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       pay_time = #{payTime,jdbcType=TIMESTAMP},

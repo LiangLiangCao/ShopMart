@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zju.cst.dao.OrderitemMapper" >
+  <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Orderitem" >
+    <constructor >
+      <idArg column="item_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="order_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="pro_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="num" jdbcType="DECIMAL" javaType="java.lang.Integer" />
+      <arg column="note" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="count" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    item_id, order_id, pro_id, price, num, note, count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orderitem
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from orderitem
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="edu.zju.cst.bean.Orderitem" >
+    insert into orderitem (item_id, order_id, pro_id, 
+      price, num, note, count
+      )
+    values (#{itemId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{proId,jdbcType=BIGINT}, 
+      #{price,jdbcType=DECIMAL}, #{num,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}, #{count,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Orderitem" >
+    insert into orderitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Orderitem" >
+    update orderitem
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Orderitem" >
+    update orderitem
+    set order_id = #{orderId,jdbcType=BIGINT},
+      pro_id = #{proId,jdbcType=BIGINT},
+      price = #{price,jdbcType=DECIMAL},
+      num = #{num,jdbcType=DECIMAL},
+      note = #{note,jdbcType=VARCHAR},
+      count = #{count,jdbcType=DECIMAL}
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </update>
+</mapper>

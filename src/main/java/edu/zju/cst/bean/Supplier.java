@@ -15,20 +15,20 @@ public class Supplier {
 
     private String postcode;
 
-    private Date registertime;
+    private Date registerTime;
 
     private String password;
 
     private String suplyName;
 
-    public Supplier(Long suplrId, String suplyrName, String address, String phone, String type, String postcode, Date registertime, String password, String suplyName) {
+    public Supplier(Long suplrId, String suplyrName, String address, String phone, String type, String postcode, Date registerTime, String password, String suplyName) {
         this.suplrId = suplrId;
         this.suplyrName = suplyrName;
         this.address = address;
         this.phone = phone;
         this.type = type;
         this.postcode = postcode;
-        this.registertime = registertime;
+        this.registerTime = registerTime;
         this.password = password;
         this.suplyName = suplyName;
     }
@@ -85,12 +85,12 @@ public class Supplier {
         this.postcode = postcode == null ? null : postcode.trim();
     }
 
-    public Date getRegistertime() {
-        return registertime;
+    public Date getRegisterTime() {
+        return registerTime;
     }
 
-    public void setRegistertime(Date registertime) {
-        this.registertime = registertime;
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
     }
 
     public String getPassword() {

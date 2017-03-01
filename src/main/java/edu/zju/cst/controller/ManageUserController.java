@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by SX2601 on 2017/2/28.
  */
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "admin/manage")
 public class ManageUserController {
 
     @Autowired

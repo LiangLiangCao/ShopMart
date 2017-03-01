@@ -11,23 +11,26 @@ public class Product {
 
     private Long suplrId;
 
-    private String productname;
+    private String productName;
 
-    private BigDecimal productprice;
+    private BigDecimal price;
 
     private String picture;
 
-    private String describetext;
+    private Integer quantity;
 
-    public Product(Long proId, Long categoryId, Long promoId, Long suplrId, String productname, BigDecimal productprice, String picture, String describetext) {
+    private String describe;
+
+    public Product(Long proId, Long categoryId, Long promoId, Long suplrId, String productName, BigDecimal price, String picture, Integer quantity, String describe) {
         this.proId = proId;
         this.categoryId = categoryId;
         this.promoId = promoId;
         this.suplrId = suplrId;
-        this.productname = productname;
-        this.productprice = productprice;
+        this.productName = productName;
+        this.price = price;
         this.picture = picture;
-        this.describetext = describetext;
+        this.quantity = quantity;
+        this.describe = describe;
     }
 
     public Product() {
@@ -66,20 +69,20 @@ public class Product {
         this.suplrId = suplrId;
     }
 
-    public String getProductname() {
-        return productname;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProductname(String productname) {
-        this.productname = productname == null ? null : productname.trim();
+    public void setProductName(String productName) {
+        this.productName = productName == null ? null : productName.trim();
     }
 
-    public BigDecimal getProductprice() {
-        return productprice;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setProductprice(BigDecimal productprice) {
-        this.productprice = productprice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getPicture() {
@@ -90,11 +93,19 @@ public class Product {
         this.picture = picture == null ? null : picture.trim();
     }
 
-    public String getDescribetext() {
-        return describetext;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setDescribetext(String describetext) {
-        this.describetext = describetext == null ? null : describetext.trim();
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe == null ? null : describe.trim();
     }
 }

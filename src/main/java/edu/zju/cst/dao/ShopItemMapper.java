@@ -1,9 +1,7 @@
 package edu.zju.cst.dao;
 
 import edu.zju.cst.bean.ShopItem;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface ShopItemMapper {
     int deleteByPrimaryKey(Long shopId);
 
