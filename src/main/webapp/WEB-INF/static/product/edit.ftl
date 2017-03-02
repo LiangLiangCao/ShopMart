@@ -112,8 +112,8 @@
 
                 <div class="input-group">
                     <span class="input-group-addon">  product_id  </span>
-                    <input  v-model="product.pro_id" type="text" class="form-control" placeholder=""
-                            aria-describedby="basic-addon1">
+                    <input  v-model="product.proId" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1" disabled>
                 </div>
 
                 <div class="input-group">
