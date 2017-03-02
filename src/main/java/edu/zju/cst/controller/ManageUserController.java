@@ -11,7 +11,6 @@ package edu.zju.cst.controller;
 
 import edu.zju.cst.bean.User;
 import edu.zju.cst.service.IUserService;
-import edu.zju.cst.util.AuthUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,9 +10,7 @@ package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import edu.zju.cst.constant.SystemConstant;
-import edu.zju.cst.service.ISupplierService;
 import edu.zju.cst.util.HttpUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value="supply")
 @Controller
 public class SupplyLoginController extends BaseController {
-    @Autowired
-    private ISupplierService supplierService;
+
 
     @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {

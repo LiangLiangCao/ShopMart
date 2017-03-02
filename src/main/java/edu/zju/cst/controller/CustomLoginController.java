@@ -30,8 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(value="custom")
 public class CustomLoginController extends BaseController {
-    @Autowired
-    private IUserService usrService;
+
 
     @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {

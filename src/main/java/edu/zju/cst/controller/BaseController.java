@@ -10,7 +10,11 @@ package edu.zju.cst.controller;
 
 import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstant;
+import edu.zju.cst.service.IProductService;
+import edu.zju.cst.service.ISupplierService;
+import edu.zju.cst.service.IUserService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +25,15 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class BaseController {
     protected final Logger logger =Logger.getLogger(this.getClass());
-    private HttpServletRequest request;
+
+    protected HttpServletRequest request;
+    @Autowired
+    protected IUserService usrService;
+    @Autowired
+    protected IProductService productService;
+    @Autowired
+    protected ISupplierService supplierService;
+
 
     //① 获取保存在Session中的用户对象
     protected User getSessionUser(HttpServletRequest request) {

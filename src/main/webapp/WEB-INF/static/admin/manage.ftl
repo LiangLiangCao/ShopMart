@@ -31,7 +31,7 @@
                     <header class="panel-heading"> 添加用户</header>
                     <div class="panel-body">
                         <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off"
-                              action="${BASE_PATH}/manage/admin/addNew.json">
+                              action="${BASE_PATH}/usrmanage/addNew.json">
                             <fieldset>
                                 <div class="form-group">
                                     <label class="col-sm-3 col-sm-3 control-label">用户id</label>
