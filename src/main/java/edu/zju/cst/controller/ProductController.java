@@ -24,7 +24,6 @@ public class ProductController extends BaseController {
 
         map.put("latestProduct",productList);
         return "product/edit";
-
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -41,7 +40,7 @@ public class ProductController extends BaseController {
     public String delProduct(ModelMap map, @RequestParam(value = "product_id") int product_id) {
 
         int re = productService.del(product_id+"");
-        return re + " the resut" ;
+        return re + " the result" ;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -53,15 +52,7 @@ public class ProductController extends BaseController {
         }else {
             return 0+"";
         }
-
     }
-
-    @RequestMapping(value = "/add.htm", method = RequestMethod.GET)
-    public String add(ModelMap map) {
-
-        return "product/add";
-    }
-
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
@@ -70,13 +61,6 @@ public class ProductController extends BaseController {
         int re = productService.update(product);
         return "{}";
     }
-
-    @RequestMapping(value = "/update2", method = RequestMethod.GET)
-    @ResponseBody
-    public String update2() {
-        return "{'re':"+1+"}";
-    }
-
 
 
 }

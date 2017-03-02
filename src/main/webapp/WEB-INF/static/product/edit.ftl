@@ -75,7 +75,7 @@
                         </button>
 
 
-                        <button type="button" class="btn btn-default" aria-label="Center Align">
+                        <button type="button" class="btn btn-default" aria-label="Center Align"  v-on:click="delete(${item.proId})">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true">
 
                             </span>
@@ -278,6 +278,27 @@
                     }
                 });
             },
+
+            edit: function (product_id) {
+                $.ajax({
+                    type: 'GET',
+                    contentType: "application/json; charset=utf-8",
+                    url: '/product/del/?product_id='+product_id,
+                    dataType: 'json',
+                    async:true,
+                    success: function (msg, status) {
+                        console.log(typeof msg)
+                        vm.product = msg;
+                    },
+                    error: function (xhr, desc, err) {
+                        console.log(xhr);
+                        console.log("Details: " + desc + "\nError:" + err);
+                    }
+                });
+            },
+
+        });
+    },
         }
     })
 
