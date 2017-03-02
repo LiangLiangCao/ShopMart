@@ -17,12 +17,14 @@ public class ProductServiceImpl implements IProductService{
     @Autowired
     private ProductMapper productMapper;
 
-    public void add(Product product) {
-        productMapper.insert(product);
+    public int add(Product product) {
+        int re  = productMapper.insert(product);
+        return  re;
     }
 
-    public void update(Product product) {
-        productMapper.updateByPrimaryKey(product);
+    public int update(Product product) {
+        int re = productMapper.updateByPrimaryKey(product);
+        return re;
     }
 
     public int del(String id) {
@@ -30,8 +32,8 @@ public class ProductServiceImpl implements IProductService{
         return re;
     }
 
-    public void get(String id) {
-        productMapper.selectByPrimaryKey(Long.parseLong(id));
+    public Product get(String id) {
+        return productMapper.selectByPrimaryKey(Long.parseLong(id));
 
     }
 

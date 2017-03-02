@@ -66,9 +66,8 @@
 
                     <#--<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>-->
 
-
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#myModal" v-on:click="get_email_content()" >
+                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#myModal" v-on:click="edit(${item.proId})" >
 
                             <span class="glyphicon glyphicon-edit" aria-hidden="true">
 
@@ -109,31 +108,65 @@
                     编辑条目
                 </h4>
             </div>
-            <div class="modal-body" id="mail_info">
+            <div class="modal-body" id="product_info">
 
                 <div class="input-group">
-                    <span class="input-group-addon">  receivers  </span>
-                    <input  v-model="receivers" type="text" class="form-control" placeholder="jaitch@163.com"
+                    <span class="input-group-addon">  product_id  </span>
+                    <input  v-model="product.pro_id" type="text" class="form-control" placeholder=""
                             aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group">
-                    <span class="input-group-addon"> cc_receivers </span>
-                    <input v-model="cc_receivers" type="text" class="form-control" placeholder="1129966399@qq.com"
+                    <span class="input-group-addon">  categoryId  </span>
+                    <input  v-model="product.categoryId" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+
+                <div class="input-group">
+                    <span class="input-group-addon">  promoId  </span>
+                    <input  v-model="product.promoId" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">  suplrId  </span>
+                    <input  v-model="product.suplrId" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+
+                <div class="input-group">
+                    <span class="input-group-addon"> product_name </span>
+                    <input v-model="product.productName" type="text" class="form-control" placeholder=""
                            aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group">
-                    <span class="input-group-addon"> bcc_receivers </span>
-                    <input v-model="bcc_receivers" type="text" class="form-control" placeholder=""
+                    <span class="input-group-addon">  price  </span>
+                    <input  v-model="product.price" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">  picture  </span>
+                    <input  v-model="product.picture" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+
+                <div class="input-group">
+                    <span class="input-group-addon"> quantity </span>
+                    <input v-model="product.quantity" type="text" class="form-control" placeholder=""
                            aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group">
-                    <span class="input-group-addon"> 邮件标题 </span>
-                    <input v-model="subject" type="text" class="form-control" placeholder="朱雀项目问题"
+                    <span class="input-group-addon"> description </span>
+                    <input v-model="product.description" type="text" class="form-control" placeholder=""
                            aria-describedby="basic-addon1">
                 </div>
+
                 <hr>
 
                 <div id="mail_content" style="min-height: 50px"></div>
@@ -143,8 +176,8 @@
                 <button type="button" class="btn btn-default"
                         data-dismiss="modal">取消
                 </button>
-                <button type="button" class="btn btn-primary" v-on:click="send_mail()">
-                    确定发送
+                <button type="button" class="btn btn-primary" v-on:click="update()">
+                    确定修改
                 </button>
             </div>
         </div><!-- /.modal-content -->
@@ -158,6 +191,8 @@
     vm = new Vue({
         el: '#app',
         data: {
+
+            product: '',
             active:0,
             message: 'Hello Vue.js!',
             isDebug: false,
@@ -177,13 +212,71 @@
             theme: 'error',
             timeLife: 3000,
             closeBtn: true,
-
-            spinner: new Spinner(opts)
         },
         methods: {
-            get_email_content: function () {
+            edit: function (product_id) {
 
+                $.ajax({
+                    // 数据传送方式
+                    type: 'GET',
+                    //
+                    contentType: "application/json; charset=utf-8",
+                    // 数据处理文件
+                    url: '/product/get/?product_id='+product_id,
+                    // JSON格式数据
+//                    data:data,
+                    // 预期返回 html
+                    dataType: 'json',
+                    async:true,
+                    // @msg: 数据返回值
+                    success: function (msg, status) {
+                        console.log(typeof msg)
+                        // console.log(msg);
+//                        vm.content = msg;
 
+                        vm.product = msg;
+                    },
+                    // Degbug
+                    error: function (xhr, desc, err) {
+                        console.log(xhr);
+                        console.log("Details: " + desc + "\nError:" + err);
+                    }
+                });
+            },
+
+            update: function () {
+
+                $.ajax({
+                    // 数据传送方式
+                    type: 'POST',
+//                    headers: {
+//                        'Accept': 'application/json',
+//                        'Content-Type': 'application/json'
+//                    },
+                    contentType: "application/json; charset=utf-8",
+                    // 数据处理文件
+                    url: '/product/update',
+                    // JSON格式数据
+                    data:JSON.stringify(vm.product),
+                    // 预期返回 html
+                    dataType: 'json',
+                    async:true,
+//                    beforeSend : function(req) {
+//
+//                        req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');  ///加这一行解决问题
+//                    },
+                    // @msg: 数据返回值
+                    success: function (msg, status) {
+                        console.log(typeof msg);
+                        console.log(msg);
+                        console.log("修改数据啦");
+                    },
+                    // Degbug
+                    error: function (xhr, desc, err) {
+                        console.log(xhr);
+                        console.log("Details: " + desc + "\nError:" + err);
+                    }
+                });
             },
         }
     })

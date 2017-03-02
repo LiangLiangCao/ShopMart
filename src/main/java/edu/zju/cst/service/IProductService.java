@@ -10,12 +10,12 @@ import java.util.List;
  */
 public interface IProductService {
 
-    public void add(Product product);
-    public void update(Product product);
+    public int add(Product product);
+    public int update(Product product);
 
     public int del(String id);
 
-    public void get(String id);
+    public Product get(String id);
 
     public List<Product> getProducts(int size, int page);
 
