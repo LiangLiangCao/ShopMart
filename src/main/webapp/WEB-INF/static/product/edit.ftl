@@ -279,7 +279,7 @@
                 });
             },
 
-            edit: function (product_id) {
+            delete: function (product_id) {
                 $.ajax({
                     type: 'GET',
                     contentType: "application/json; charset=utf-8",
