@@ -25,6 +25,7 @@ import java.io.IOException;
  */
 @Service
 public class SupplierServiceImpl implements ISupplierService {
+
     @Autowired
     private SupplierMapper suplyMapper;
 

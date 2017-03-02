@@ -1,7 +1,9 @@
 package edu.zju.cst.dao;
 
 import edu.zju.cst.bean.Orders;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OrdersMapper {
     int deleteByPrimaryKey(Long ordrId);
 

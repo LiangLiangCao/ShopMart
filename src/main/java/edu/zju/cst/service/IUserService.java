@@ -12,22 +12,18 @@ import java.io.IOException;
 public interface IUserService {
     int deleteByID(Long uid);
 
-    int addUser(User record);
-
-    int addUserSelective(User record);
-
     User findByID(Long uid);
-
-    int updateByIDSelective(User record);
 
     int updateByID(User record);
 
-
+    int addUser(String email, String password, String role);
 
     Object getAllListPage(int pageNum);
-     User findByEmail(String email);
+
+    User findByEmail(String email);
 
     public void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
+
     public void adminLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
 
 }

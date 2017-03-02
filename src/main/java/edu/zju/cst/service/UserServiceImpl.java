@@ -27,12 +27,13 @@ public class UserServiceImpl implements IUserService {
         return usrMapper.deleteByPrimaryKey(uid);
     }
 
-    public int addUser(User record) {
-        return usrMapper.insert(record);
-    }
+    public int addUser(String email, String password, String role) {
+        User user = new User();
+        user.setRole(role);
+        user.setEmail(email.trim());
+        user.setPassword(AuthUtils.setMD5(password));
 
-    public int addUserSelective(User record) {
-        return usrMapper.insertSelective(record);
+        return usrMapper.insertSelective(user);
     }
 
     public User findByID(Long uid) {
@@ -43,14 +44,9 @@ public class UserServiceImpl implements IUserService {
         return usrMapper.selectByEmail(email);
     }
 
-    public int updateByIDSelective(User record) {
-        return usrMapper.updateByPrimaryKeySelective(record);
-    }
-
     public int updateByID(User record) {
         return usrMapper.updateByPrimaryKey(record);
     }
-
 
     /**
      * 管理员登陆

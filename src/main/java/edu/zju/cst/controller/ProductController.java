@@ -1,8 +1,6 @@
 package edu.zju.cst.controller;
 
 import edu.zju.cst.bean.Product;
-import edu.zju.cst.service.IProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +13,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/product")
-public class ProductController {
+public class ProductController extends BaseController {
 
-    @Autowired
-    private IProductService productService;
+
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

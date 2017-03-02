@@ -11,7 +11,6 @@ package edu.zju.cst.controller;
 
 import edu.zju.cst.bean.User;
 import edu.zju.cst.service.IUserService;
-import edu.zju.cst.util.AuthUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +28,14 @@ import javax.servlet.http.HttpServletRequest;
  * Created by SX2601 on 2017/2/28.
  */
 @Controller
-@RequestMapping(value = "admin/manage")
+@RequestMapping(value = "usrmanage")
 public class ManageUserController {
 
     @Autowired
     private IUserService usrService;
 
     /**
-     * 进入添加admin页面
+     * 进入添加user页面
      */
     @RequestMapping(value = "/add.htm", method = RequestMethod.GET)
     public String addUser(ModelMap modelMap) {
@@ -63,21 +62,17 @@ public class ManageUserController {
     public String addNewUser(@RequestParam(value = "email") String email,
                              @RequestParam(value = "password") String password,
                              @RequestParam(value = "role") String role) {
+
         JSONObject json = new JSONObject();
+        if (email.equals("") || StringUtils.isBlank(password)) {
+            json.put("email", "email or password cannot be null");
+            return json.toString();
+        }
+
         User user = usrService.findByEmail(email);
         if (user == null) {
-
             try {
-
-                if (email.equals("")||StringUtils.isBlank(password)) {
-                    json.put("email", "email or password cannot be null");
-                    return json.toString();
-                }
-                user=new User();
-                user.setRole(role);
-                user.setEmail(email.trim());
-                user.setPassword(AuthUtils.setMD5(password));
-                usrService.addUserSelective(user);
+                usrService.addUser(email, password, role);
                 json.put("result", true);
             } catch (Exception e) {
                 json.put("result", false);
@@ -87,7 +82,6 @@ public class ManageUserController {
             json.put("email", "email exist.");
             json.put("result", false);
         }
-
         return json.toString();
     }
 
