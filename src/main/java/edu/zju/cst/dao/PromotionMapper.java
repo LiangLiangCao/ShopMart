@@ -1,7 +1,9 @@
 package edu.zju.cst.dao;
 
 import edu.zju.cst.bean.Promotion;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PromotionMapper {
     int deleteByPrimaryKey(Long promoId);
 

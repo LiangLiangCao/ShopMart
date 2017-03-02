@@ -29,7 +29,6 @@ public class MainController {
     @Autowired
     private IProductService productService;
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String welcome(ModelMap map) {
 
@@ -42,18 +41,17 @@ public class MainController {
         return "welcome";
     }
 
-
-    //    @ModelAttribute("command")
-    @RequestMapping(value = "/toJson", method = RequestMethod.POST)
-    @ResponseBody
-    public User toJson(@ModelAttribute("command")User usr) {
-
-        System.out.print(usr);
-        usrService.addUser(usr);
-
-        return null;
-//        return usrService.selectById(2);
-    }
+//    //    @ModelAttribute("command")
+//    @RequestMapping(value = "/toJson", method = RequestMethod.POST)
+//    @ResponseBody
+//    public User toJson(@ModelAttribute("command")User usr) {
+//
+//        System.out.print(usr);
+//        usrService.addUser(usr);
+//
+//        return null;
+////        return usrService.selectById(2);
+//    }
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String index() {

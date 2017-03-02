@@ -1,7 +1,9 @@
 package edu.zju.cst.dao;
 
 import edu.zju.cst.bean.Orderitem;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OrderitemMapper {
     int deleteByPrimaryKey(Long itemId);
 

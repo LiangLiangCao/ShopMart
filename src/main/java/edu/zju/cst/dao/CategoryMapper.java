@@ -1,7 +1,9 @@
 package edu.zju.cst.dao;
 
 import edu.zju.cst.bean.Category;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CategoryMapper {
     int deleteByPrimaryKey(Long categoryId);
 
