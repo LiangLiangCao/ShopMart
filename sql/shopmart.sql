@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-03-02 17:37:17
+Date: 2017-03-03 17:34:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,12 +29,14 @@ CREATE TABLE `category` (
   KEY `FK_Relationship_7` (`suplr_id`),
   CONSTRAINT `FK_Relationship_11` FOREIGN KEY (`cat_category_id`) REFERENCES `category` (`category_id`),
   CONSTRAINT `FK_Relationship_7` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of category
 -- ----------------------------
-INSERT INTO `category` VALUES ('1', null, '1', '商品');
+INSERT INTO `category` VALUES ('1', null, '1', '电子商品');
+INSERT INTO `category` VALUES ('2', null, '1', '服装');
+INSERT INTO `category` VALUES ('3', null, '1', '化妆品');
 
 -- ----------------------------
 -- Table structure for orderitem
@@ -108,13 +110,16 @@ CREATE TABLE `product` (
   CONSTRAINT `FK_Relationship_10` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`),
   CONSTRAINT `FK_Relationship_6` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
   CONSTRAINT `FK_Relationship_8` FOREIGN KEY (`promo_id`) REFERENCES `promotion` (`promo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES ('1', '1', null, '1', '臭宝宝', '1', null, '2', '臭宝，不解释');
-INSERT INTO `product` VALUES ('2', '1', null, '1', '汉堡包', '1', null, '1', '臭宝升级版');
+INSERT INTO `product` VALUES ('1', '1', null, '1', 'mac pro 13', '10000', null, '20', 'ssd固态硬盘');
+INSERT INTO `product` VALUES ('2', '1', null, '1', 'u盘', '1', null, '10', 'Kingston 16g 红色');
+INSERT INTO `product` VALUES ('3', '2', null, '1', 'zara连衣裙', '500', null, '8', '白色，修身');
+INSERT INTO `product` VALUES ('4', '2', null, '1', 'zara长裤', '450', null, '18', '黑色直筒');
+INSERT INTO `product` VALUES ('5', '3', null, '1', 'make up forever粉底液', '500', null, '20', '四色可选');
 
 -- ----------------------------
 -- Table structure for promotion
@@ -193,14 +198,14 @@ CREATE TABLE `user` (
   `role` varchar(4) DEFAULT NULL,
   `score` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'c4ca4238a0b923820dcc509a6f75849b', null, null, null, '0', null);
-INSERT INTO `user` VALUES ('2', 'c4ca4238a0b923820dcc509a6f75849b', null, null, null, '1', null);
-INSERT INTO `user` VALUES ('3', 'c4ca4238a0b923820dcc509a6f75849b', null, null, null, '2', null);
+INSERT INTO `user` VALUES ('1', 'c4ca4238a0b923820dcc509a6f75849b', '', '121@qq.com', '12', '0', null);
+INSERT INTO `user` VALUES ('2', 'c4ca4238a0b923820dcc509a6f75849b', null, '1@qq.com', null, '1', null);
+INSERT INTO `user` VALUES ('3', 'c4ca4238a0b923820dcc509a6f75849b', null, '3@qq.com', null, '2', null);
 INSERT INTO `user` VALUES ('4', 'c4ca4238a0b923820dcc509a6f75849b', null, '123456789@qq.com', null, '2', null);
 INSERT INTO `user` VALUES ('5', 'c4ca4238a0b923820dcc509a6f75849b', null, '123@qq.com', null, '2', null);
 INSERT INTO `user` VALUES ('6', 'c4ca4238a0b923820dcc509a6f75849b', null, '1@qq.com', null, '1', null);

@@ -38,8 +38,6 @@ public class ManageUserController extends BaseController {
     @RequestMapping(value = "/manage.htm", method = RequestMethod.GET)
     public String manage(ModelMap modelMap) {
         List<User> usrs = usrService.getAllListPage(10, 1);
-
-        System.out.print("=========================users2:" + usrs);
         modelMap.put("users", usrs);
         return "admin/manage";
     }
@@ -52,7 +50,6 @@ public class ManageUserController extends BaseController {
     public String addNewUser(@RequestParam(value = "email") String email,
                              @RequestParam(value = "password") String password,
                              @RequestParam(value = "role") String role) {
-
         JSONObject json = new JSONObject();
         if (email.equals("") || StringUtils.isBlank(password)) {
             json.put("email", "email or password cannot be null");
@@ -89,7 +86,6 @@ public class ManageUserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateUser(@RequestBody User user, HttpServletRequest request) {
-
         JSONObject json = new JSONObject();
         try{
              int re= usrService.updateByID(user);

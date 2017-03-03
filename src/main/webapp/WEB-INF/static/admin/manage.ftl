@@ -254,8 +254,8 @@
                     }
                 });
             },
-            update: function () {
 
+            update: function () {
                 $.ajax({
                     // 数据传送方式
                     type: 'POST',
@@ -288,9 +288,7 @@
                     }
                 });
             }
-
         }
-
     });
 </script>
 </body >
