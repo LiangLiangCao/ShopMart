@@ -21,6 +21,12 @@
     from user
     where uid = #{uid,jdbcType=BIGINT}
   </select>
+  <select id="selectByPageSize" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from user limit #{size} offset #{offset}
+  </select>
+
   <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />

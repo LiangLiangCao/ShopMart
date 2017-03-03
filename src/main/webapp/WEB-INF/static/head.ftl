@@ -33,6 +33,7 @@
 <!--[if lt IE 9]>
       <script src="${BASE_PATH}/static/js/html5shiv.js"></script>
       <script src="${BASE_PATH}/static/js/respond.min.js"></script>
+      <script src="${BASE_PATH}/static/js/vue.min.js"></script>
     <![endif]-->
 
 <script src="${BASE_PATH}/static/js/jquery.js?v=${config_v}"></script>

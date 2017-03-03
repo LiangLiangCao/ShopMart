@@ -8,49 +8,39 @@
 
 package edu.zju.cst.controller;
 
-
+import com.alibaba.fastjson.JSON;
 import edu.zju.cst.bean.User;
-import edu.zju.cst.service.IUserService;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by SX2601 on 2017/2/28.
  */
 @Controller
 @RequestMapping(value = "usrmanage")
-public class ManageUserController {
-
-    @Autowired
-    private IUserService usrService;
-
-    /**
-     * 进入添加user页面
-     */
-    @RequestMapping(value = "/add.htm", method = RequestMethod.GET)
-    public String addUser(ModelMap modelMap) {
-        modelMap.put("email", "");
-        modelMap.put("password", "");
-        return "admin/add";
-    }
+public class ManageUserController extends BaseController {
 
     /**
      * todo
      * 进入管理员管理页面
      */
     @RequestMapping(value = "/manage.htm", method = RequestMethod.GET)
-    public String manage(@RequestParam(value = "p", defaultValue = "1") int pageNum, ModelMap modelMap) {
-        modelMap.put("pageVo", usrService.getAllListPage(pageNum));
+    public String manage(ModelMap modelMap) {
+        List<User> usrs = usrService.getAllListPage(10, 1);
+
+        System.out.print("=========================users2:" + usrs);
+        modelMap.put("users", usrs);
         return "admin/manage";
     }
 
@@ -68,7 +58,6 @@ public class ManageUserController {
             json.put("email", "email or password cannot be null");
             return json.toString();
         }
-
         User user = usrService.findByEmail(email);
         if (user == null) {
             try {
@@ -86,50 +75,26 @@ public class ManageUserController {
     }
 
     /**
-     * 进入管理员列表页面
-     */
-    @RequestMapping(value = "/page.htm", method = RequestMethod.GET)
-    public String allList(@RequestParam(value = "p", defaultValue = "1") int pageNum, ModelMap modelMap) {
-        modelMap.put("pageVo", usrService.getAllListPage(pageNum));
-        return "/admin/all";
-    }
-
-    /**
-     * 进入单个admmin页面
-     */
-    @RequestMapping(value = "/update.htm", method = RequestMethod.GET)
-    public String update(@RequestParam(value = "adminId", defaultValue = "0") long adminId, ModelMap modelMap,
-                         HttpServletRequest request) {
-        //        User sessionAdmin = this.getAdmin(request);
-        //        User admin = usrService.getAdminById(sessionAdmin.getAdminId());
-        //        modelMap.put("admin", admin);
-        return "/admin/update";
-    }
-
-    /**
-     * 修改指定的admin资料
+     * 根据id查询用户
      */
     @ResponseBody
-    @RequestMapping(value = "/update.json", method = RequestMethod.POST)
-    public String updateAdmin(@RequestParam(value = "password") String password, HttpServletRequest request) {
-        JSONObject json = new JSONObject();
-        try {
-            if (StringUtils.isBlank(password)) {
-                json.put("password", "密码不能为空");
-            }
-            if (password.length() < 6) {
-                json.put("password", "密码不能小于6位数");
-            }
-            if (password.length() > 18) {
-                json.put("password", "密码不能大于18位数");
-            }
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public String getById(@RequestParam(value = "uid") String uid, HttpServletRequest request) {
+        User user = usrService.findByID(Long.parseLong(uid.trim()));
+        return JSON.toJSONString(user);
+    }
+    /**
+     * 更新用户信息
+     */
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateUser(@RequestBody User user, HttpServletRequest request) {
 
-            //            SSUtils.toText(password);
-            //            User user = this.getAdmin(request);
-            //            usrService.updateAdminByAmdinId(admin.getAdminId(),
-            //                    SSUtils.toText(password));
+        JSONObject json = new JSONObject();
+        try{
+             int re= usrService.updateByID(user);
             json.put("result", true);
-        } catch (Exception e) {
+         }catch(Exception e){
             json.put("result", false);
             json.put("password", e.getMessage());
         }
@@ -137,15 +102,14 @@ public class ManageUserController {
     }
 
     /**
-     * 删除管理员
+     * 删除
      */
-
     @ResponseBody
-    @RequestMapping(value = "/delete.json", method = RequestMethod.POST)
-    public String delete(@RequestParam(value = "adminId") long adminId, HttpServletRequest request) {
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam(value = "uId") long uId, HttpServletRequest request) {
         JSONObject json = new JSONObject();
         try {
-            //            usrService.deleteAdmin(adminId);
+            usrService.deleteByID(uId);
             json.put("result", true);
         } catch (Exception e) {
             json.put("result", false);
@@ -153,6 +117,5 @@ public class ManageUserController {
         }
         return json.toString();
     }
-
 
 }

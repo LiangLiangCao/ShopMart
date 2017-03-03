@@ -52,15 +52,15 @@
 
             <tr>
                 <th scope="row">1</th>
-                <th>${item.proId}</th>
+                <th>${item.proId!}</th>
                 <#--<th>${item.categoryId}</th>-->
                 <#--<th>${item.promoId}</th>-->
                 <#--<th>${item.suplrId}</th>-->
-                <th>${item.productName}</th>
-                <th>${item.price}</th>
-                <th>${item.picture}</th>
-                <th>${item.quantity}</th>
-                <th>${item.description}</th>
+                <th>${item.productName!}</th>
+                <th>${item.price!}</th>
+                <th>${item.picture!}</th>
+                <th>${item.quantity!}</th>
+                <th>${item.description!}</th>
                 <th>
                     <#--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->
 

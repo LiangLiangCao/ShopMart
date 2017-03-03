@@ -1,62 +1,70 @@
--- phpMyAdmin SQL Dump
--- version 4.2.11
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Mar 01, 2017 at 01:56 PM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+/*
+Navicat MySQL Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+Source Server         : mydb
+Source Server Version : 50717
+Source Host           : localhost:3306
+Source Database       : shopmart
 
+Target Server Type    : MYSQL
+Target Server Version : 50717
+File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+Date: 2017-03-02 17:37:17
+*/
 
---
--- Database: `shopmart`
---
+SET FOREIGN_KEY_CHECKS=0;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `category`
---
-
-CREATE TABLE IF NOT EXISTS `category` (
-`category_id` bigint(20) NOT NULL,
+-- ----------------------------
+-- Table structure for category
+-- ----------------------------
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
+  `category_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `cat_category_id` bigint(20) DEFAULT NULL,
   `suplr_id` bigint(20) DEFAULT NULL,
-  `categ_name` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `categ_name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `FK_Relationship_11` (`cat_category_id`),
+  KEY `FK_Relationship_7` (`suplr_id`),
+  CONSTRAINT `FK_Relationship_11` FOREIGN KEY (`cat_category_id`) REFERENCES `category` (`category_id`),
+  CONSTRAINT `FK_Relationship_7` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of category
+-- ----------------------------
+INSERT INTO `category` VALUES ('1', null, '1', '商品');
 
---
--- Table structure for table `orderitem`
---
-
-CREATE TABLE IF NOT EXISTS `orderitem` (
-`item_id` bigint(20) NOT NULL,
+-- ----------------------------
+-- Table structure for orderitem
+-- ----------------------------
+DROP TABLE IF EXISTS `orderitem`;
+CREATE TABLE `orderitem` (
+  `item_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `order_id` bigint(20) DEFAULT NULL,
   `pro_id` bigint(20) DEFAULT NULL,
   `price` decimal(10,0) DEFAULT NULL,
   `num` decimal(8,0) DEFAULT NULL,
   `note` varchar(50) DEFAULT NULL,
-  `count` decimal(20,0) DEFAULT NULL
+  `count` decimal(20,0) DEFAULT NULL,
+  PRIMARY KEY (`item_id`),
+  KEY `FK_Relationship_3` (`order_id`),
+  KEY `FK_Relationship_5` (`pro_id`),
+  CONSTRAINT `FK_Relationship_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`ordr_id`),
+  CONSTRAINT `FK_Relationship_5` FOREIGN KEY (`pro_id`) REFERENCES `product` (`pro_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of orderitem
+-- ----------------------------
 
---
--- Table structure for table `orders`
---
-
-CREATE TABLE IF NOT EXISTS `orders` (
-`ordr_id` bigint(20) NOT NULL,
+-- ----------------------------
+-- Table structure for orders
+-- ----------------------------
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+  `ordr_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `uid` bigint(20) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
@@ -69,17 +77,22 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `create_time` datetime DEFAULT NULL,
   `pay_time` datetime DEFAULT NULL,
   `close_time` datetime DEFAULT NULL,
-  `state` varchar(4) DEFAULT NULL
+  `state` varchar(4) DEFAULT NULL,
+  PRIMARY KEY (`ordr_id`),
+  KEY `FK_Relationship_1` (`uid`),
+  CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of orders
+-- ----------------------------
 
---
--- Table structure for table `product`
---
-
-CREATE TABLE IF NOT EXISTS `product` (
-`pro_id` bigint(20) NOT NULL,
+-- ----------------------------
+-- Table structure for product
+-- ----------------------------
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product` (
+  `pro_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) DEFAULT NULL,
   `promo_id` bigint(20) DEFAULT NULL,
   `suplr_id` bigint(20) DEFAULT NULL,
@@ -87,47 +100,70 @@ CREATE TABLE IF NOT EXISTS `product` (
   `price` decimal(20,0) DEFAULT NULL,
   `picture` varchar(50) DEFAULT NULL,
   `quantity` int(255) DEFAULT NULL,
-  `description` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`pro_id`),
+  KEY `FK_Relationship_10` (`suplr_id`),
+  KEY `FK_Relationship_6` (`category_id`),
+  KEY `FK_Relationship_8` (`promo_id`),
+  CONSTRAINT `FK_Relationship_10` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`),
+  CONSTRAINT `FK_Relationship_6` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  CONSTRAINT `FK_Relationship_8` FOREIGN KEY (`promo_id`) REFERENCES `promotion` (`promo_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of product
+-- ----------------------------
+INSERT INTO `product` VALUES ('1', '1', null, '1', '臭宝宝', '1', null, '2', '臭宝，不解释');
+INSERT INTO `product` VALUES ('2', '1', null, '1', '汉堡包', '1', null, '1', '臭宝升级版');
 
---
--- Table structure for table `promotion`
---
-
-CREATE TABLE IF NOT EXISTS `promotion` (
-`promo_id` bigint(20) NOT NULL,
+-- ----------------------------
+-- Table structure for promotion
+-- ----------------------------
+DROP TABLE IF EXISTS `promotion`;
+CREATE TABLE `promotion` (
+  `promo_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `suplr_id` bigint(20) DEFAULT NULL,
   `promo_name` varchar(50) DEFAULT NULL,
   `begin_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
-  `discount` decimal(4,0) DEFAULT NULL
+  `discount` decimal(4,0) DEFAULT NULL,
+  PRIMARY KEY (`promo_id`),
+  KEY `FK_Relationship_9` (`suplr_id`),
+  CONSTRAINT `FK_Relationship_9` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of promotion
+-- ----------------------------
 
---
--- Table structure for table `shopitem`
---
-
-CREATE TABLE IF NOT EXISTS `shopitem` (
-`shop_id` bigint(20) NOT NULL,
+-- ----------------------------
+-- Table structure for shopitem
+-- ----------------------------
+DROP TABLE IF EXISTS `shopitem`;
+CREATE TABLE `shopitem` (
+  `shop_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `uid` bigint(20) DEFAULT NULL,
   `pro_id` bigint(20) DEFAULT NULL,
   `count` decimal(20,0) DEFAULT NULL,
   `price` decimal(10,0) DEFAULT NULL,
-  `num` decimal(8,0) DEFAULT NULL
+  `num` decimal(8,0) DEFAULT NULL,
+  PRIMARY KEY (`shop_id`),
+  KEY `FK_Relationship_2` (`uid`),
+  KEY `FK_Relationship_4` (`pro_id`),
+  CONSTRAINT `FK_Relationship_2` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`),
+  CONSTRAINT `FK_Relationship_4` FOREIGN KEY (`pro_id`) REFERENCES `product` (`pro_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of shopitem
+-- ----------------------------
 
---
--- Table structure for table `supplier`
---
-
-CREATE TABLE IF NOT EXISTS `supplier` (
-`suplr_id` bigint(20) NOT NULL,
+-- ----------------------------
+-- Table structure for supplier
+-- ----------------------------
+DROP TABLE IF EXISTS `supplier`;
+CREATE TABLE `supplier` (
+  `suplr_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `suplyr_name` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
@@ -135,182 +171,38 @@ CREATE TABLE IF NOT EXISTS `supplier` (
   `postcode` varchar(20) DEFAULT NULL,
   `register_time` datetime DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
-  `suply_name` varchar(50) DEFAULT NULL
+  `suply_name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`suplr_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `supplier`
---
+-- ----------------------------
+-- Records of supplier
+-- ----------------------------
+INSERT INTO `supplier` VALUES ('1', '1', '1', '1', '1', '1', null, 'c4ca4238a0b923820dcc509a6f75849b', null);
 
-INSERT INTO `supplier` (`suplr_id`, `suplyr_name`, `address`, `phone`, `type`, `postcode`, `register_time`, `password`, `suply_name`) VALUES
-(1, '1', '1', '1', '1', '1', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE IF NOT EXISTS `user` (
-`uid` bigint(20) NOT NULL,
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `uid` bigint(20) NOT NULL AUTO_INCREMENT,
   `password` varchar(50) DEFAULT NULL,
   `gender` char(1) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `role` varchar(4) DEFAULT NULL,
-  `score` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `score` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`uid`, `password`, `gender`, `email`, `phone`, `role`, `score`) VALUES
-(1, 'c4ca4238a0b923820dcc509a6f75849b', NULL, NULL, NULL, '0', NULL),
-(2, 'c4ca4238a0b923820dcc509a6f75849b', NULL, NULL, NULL, '1', NULL),
-(3, 'c4ca4238a0b923820dcc509a6f75849b', NULL, NULL, NULL, '2', NULL);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `category`
---
-ALTER TABLE `category`
- ADD PRIMARY KEY (`category_id`), ADD KEY `FK_Relationship_11` (`cat_category_id`), ADD KEY `FK_Relationship_7` (`suplr_id`);
-
---
--- Indexes for table `orderitem`
---
-ALTER TABLE `orderitem`
- ADD PRIMARY KEY (`item_id`), ADD KEY `FK_Relationship_3` (`order_id`), ADD KEY `FK_Relationship_5` (`pro_id`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
- ADD PRIMARY KEY (`ordr_id`), ADD KEY `FK_Relationship_1` (`uid`);
-
---
--- Indexes for table `product`
---
-ALTER TABLE `product`
- ADD PRIMARY KEY (`pro_id`), ADD KEY `FK_Relationship_10` (`suplr_id`), ADD KEY `FK_Relationship_6` (`category_id`), ADD KEY `FK_Relationship_8` (`promo_id`);
-
---
--- Indexes for table `promotion`
---
-ALTER TABLE `promotion`
- ADD PRIMARY KEY (`promo_id`), ADD KEY `FK_Relationship_9` (`suplr_id`);
-
---
--- Indexes for table `shopitem`
---
-ALTER TABLE `shopitem`
- ADD PRIMARY KEY (`shop_id`), ADD KEY `FK_Relationship_2` (`uid`), ADD KEY `FK_Relationship_4` (`pro_id`);
-
---
--- Indexes for table `supplier`
---
-ALTER TABLE `supplier`
- ADD PRIMARY KEY (`suplr_id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
- ADD PRIMARY KEY (`uid`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `category`
---
-ALTER TABLE `category`
-MODIFY `category_id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `orderitem`
---
-ALTER TABLE `orderitem`
-MODIFY `item_id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-MODIFY `ordr_id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `product`
---
-ALTER TABLE `product`
-MODIFY `pro_id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `promotion`
---
-ALTER TABLE `promotion`
-MODIFY `promo_id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `shopitem`
---
-ALTER TABLE `shopitem`
-MODIFY `shop_id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `supplier`
---
-ALTER TABLE `supplier`
-MODIFY `suplr_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-MODIFY `uid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `category`
---
-ALTER TABLE `category`
-ADD CONSTRAINT `FK_Relationship_11` FOREIGN KEY (`cat_category_id`) REFERENCES `category` (`category_id`),
-ADD CONSTRAINT `FK_Relationship_7` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`);
-
---
--- Constraints for table `orderitem`
---
-ALTER TABLE `orderitem`
-ADD CONSTRAINT `FK_Relationship_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`ordr_id`),
-ADD CONSTRAINT `FK_Relationship_5` FOREIGN KEY (`pro_id`) REFERENCES `product` (`pro_id`);
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-ADD CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`);
-
---
--- Constraints for table `product`
---
-ALTER TABLE `product`
-ADD CONSTRAINT `FK_Relationship_10` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`),
-ADD CONSTRAINT `FK_Relationship_6` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
-ADD CONSTRAINT `FK_Relationship_8` FOREIGN KEY (`promo_id`) REFERENCES `promotion` (`promo_id`);
-
---
--- Constraints for table `promotion`
---
-ALTER TABLE `promotion`
-ADD CONSTRAINT `FK_Relationship_9` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`);
-
---
--- Constraints for table `shopitem`
---
-ALTER TABLE `shopitem`
-ADD CONSTRAINT `FK_Relationship_2` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`),
-ADD CONSTRAINT `FK_Relationship_4` FOREIGN KEY (`pro_id`) REFERENCES `product` (`pro_id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', 'c4ca4238a0b923820dcc509a6f75849b', null, null, null, '0', null);
+INSERT INTO `user` VALUES ('2', 'c4ca4238a0b923820dcc509a6f75849b', null, null, null, '1', null);
+INSERT INTO `user` VALUES ('3', 'c4ca4238a0b923820dcc509a6f75849b', null, null, null, '2', null);
+INSERT INTO `user` VALUES ('4', 'c4ca4238a0b923820dcc509a6f75849b', null, '123456789@qq.com', null, '2', null);
+INSERT INTO `user` VALUES ('5', 'c4ca4238a0b923820dcc509a6f75849b', null, '123@qq.com', null, '2', null);
+INSERT INTO `user` VALUES ('6', 'c4ca4238a0b923820dcc509a6f75849b', null, '1@qq.com', null, '1', null);
+INSERT INTO `user` VALUES ('7', 'c4ca4238a0b923820dcc509a6f75849b', null, '12@163.com', null, '1', null);
+INSERT INTO `user` VALUES ('8', 'c4ca4238a0b923820dcc509a6f75849b', null, '2@qq.com', null, '1', null);

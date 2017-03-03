@@ -14,8 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/product")
-public class ProductController extends BaseController {
-
+public class ProductController extends BaseController{
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String productList(ModelMap map) {

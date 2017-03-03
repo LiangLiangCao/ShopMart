@@ -5,6 +5,7 @@ import edu.zju.cst.exception.AuthException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Liang on 20/02/2017.
@@ -18,12 +19,13 @@ public interface IUserService {
 
     int addUser(String email, String password, String role);
 
-    Object getAllListPage(int pageNum);
+    List<User> getAllListPage(int size, int pageNum);
 
     User findByEmail(String email);
 
-    public void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
+    void usrLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
 
-    public void adminLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
+    void adminLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
 
+    int deleteUser(long uId);
 }

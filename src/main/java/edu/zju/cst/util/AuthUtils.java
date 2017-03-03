@@ -20,12 +20,6 @@ public class AuthUtils {
         return DigestUtils.md5Hex(password).toLowerCase();
     }
 
-    /**
-     * @param str
-     * @return
-     */
-    public static String setMD5(String str) {
-        return DigestUtils.md5Hex(str).toLowerCase();
-    }
+
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -22,7 +23,6 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper usrMapper;
 
-
     public int deleteByID(Long uid) {
         return usrMapper.deleteByPrimaryKey(uid);
     }
@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService {
         User user = new User();
         user.setRole(role);
         user.setEmail(email.trim());
-        user.setPassword(AuthUtils.setMD5(password));
+        user.setPassword(AuthUtils.getPassword(password));
 
         return usrMapper.insertSelective(user);
     }
@@ -60,7 +60,6 @@ public class UserServiceImpl implements IUserService {
         if (usr == null) {
             throw new AuthException("username user does not exist.");
         }
-
         boolean isCustom = usr.getRole().trim().equals(SystemConstant.CUSTOM_KIND_USR);
         if (isCustom) {
             throw new AuthException("not admin,please login by user page.");
@@ -68,7 +67,6 @@ public class UserServiceImpl implements IUserService {
 
         String loginPassword = AuthUtils.getPassword(password);
         if (loginPassword.equals(usr.getPassword())) {
-
             HttpSession session = request.getSession();
             usr.setPassword("");
             String superAdmin = PropertyUtils.getValue(SystemConstant.SUPER_ADMIN);
@@ -101,18 +99,31 @@ public class UserServiceImpl implements IUserService {
         boolean isPassed = AuthUtils.getPassword(password).equals(usr.getPassword());
 
         if (isCustom && isPassed) {
-
             HttpSession session = request.getSession();
             usr.setPassword("");
             usr.setRole(SystemConstant.CUSTOM_KIND_USR);
-
             session.setAttribute(SystemConstant.SESSION_CUSTOM, usr);
         } else {
             throw new AuthException("password or username wrong!");
         }
     }
 
-    public Object getAllListPage(int pageNum) {
-        return null;
+    public List<User> getAllListPage(int size, int pageNum) {
+        int offset = (pageNum - 1) * size;
+        List<User> users = usrMapper.selectByPageSize(size, offset);
+
+        for (User item : users) {
+            String role = item.getRole();
+            if (role.trim().equals("1") || role.trim().equals("0")) {
+                item.setRole("管理员");
+            } else {
+                item.setRole("普通用户");
+            }
+        }
+        return users;
+    }
+
+    public int deleteUser(long uId) {
+        return 0;
     }
 }
