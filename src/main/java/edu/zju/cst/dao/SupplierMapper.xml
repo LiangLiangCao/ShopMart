@@ -15,11 +15,11 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    supplier_id, supplier_name, address, phone, type, postcode, register_time, password, 
+    supplier_id, supplier_name, address, phone, type, postcode, register_time, password,
     is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from supplier
     where supplier_id = #{supplierId,jdbcType=BIGINT}
@@ -29,12 +29,12 @@
     where supplier_id = #{supplierId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.Supplier" >
-    insert into supplier (supplier_id, supplier_name, address, 
-      phone, type, postcode, 
+    insert into supplier (supplier_id, supplier_name, address,
+      phone, type, postcode,
       register_time, password, is_delete
       )
-    values (#{supplierId,jdbcType=BIGINT}, #{supplierName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+    values (#{supplierId,jdbcType=BIGINT}, #{supplierName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+      #{phone,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR},
       #{registerTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}
       )
   </insert>
@@ -142,7 +142,7 @@
     where supplier_id = #{supplierId,jdbcType=BIGINT}
   </update>
 
-  <update id="deleteByUpdate" parameterType="edu.zju.cst.bean.Supplier" >
+  <update id="deleteByUpdate" parameterType="java.lang.Long" >
     update supplier
     set
     is_delete = 1
