@@ -3,17 +3,20 @@ package edu.zju.cst.bean;
 public class Category {
     private Long categoryId;
 
-    private Long catCategoryId;
+    private Long parentCategoryId;
 
-    private Long suplrId;
+    private Long supplierId;
 
-    private String categName;
+    private String categoryName;
 
-    public Category(Long categoryId, Long catCategoryId, Long suplrId, String categName) {
+    private Integer isDelete;
+
+    public Category(Long categoryId, Long parentCategoryId, Long supplierId, String categoryName, Integer isDelete) {
         this.categoryId = categoryId;
-        this.catCategoryId = catCategoryId;
-        this.suplrId = suplrId;
-        this.categName = categName;
+        this.parentCategoryId = parentCategoryId;
+        this.supplierId = supplierId;
+        this.categoryName = categoryName;
+        this.isDelete = isDelete;
     }
 
     public Category() {
@@ -28,27 +31,35 @@ public class Category {
         this.categoryId = categoryId;
     }
 
-    public Long getCatCategoryId() {
-        return catCategoryId;
+    public Long getParentCategoryId() {
+        return parentCategoryId;
     }
 
-    public void setCatCategoryId(Long catCategoryId) {
-        this.catCategoryId = catCategoryId;
+    public void setParentCategoryId(Long parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
     }
 
-    public Long getSuplrId() {
-        return suplrId;
+    public Long getSupplierId() {
+        return supplierId;
     }
 
-    public void setSuplrId(Long suplrId) {
-        this.suplrId = suplrId;
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
     }
 
-    public String getCategName() {
-        return categName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategName(String categName) {
-        this.categName = categName == null ? null : categName.trim();
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName == null ? null : categoryName.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

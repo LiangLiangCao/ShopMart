@@ -10,14 +10,16 @@ import java.util.List;
  */
 public interface IOrderService {
 
-    public int add(Orders order);
-    public int update(Orders order);
+    int add(Orders order);
 
-    public int del(String id);
-    public Orders get(String id);
+    int update(Orders order);
 
-    public List<Orders> getOrders(int size, int page);
+    int del(String id);
 
-    public int addOrder(Product product);
+    Orders get(String id);
+
+    List<Orders> getOrders(int size, int page);
+
+    int addOrder(Product product);
 
 }

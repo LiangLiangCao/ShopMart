@@ -1,7 +1,7 @@
 package edu.zju.cst.bean;
 
 public class User {
-    private Long uid;
+    private Long userId;
 
     private String password;
 
@@ -15,26 +15,29 @@ public class User {
 
     private Long score;
 
-    public User(Long uid, String password, String gender, String email, String phone, Long score, String role) {
-        this.uid = uid;
+    private Integer isDelete;
+
+    public User(Long userId, String password, String gender, String email, String phone, String role, Long score, Integer isDelete) {
+        this.userId = userId;
         this.password = password;
         this.gender = gender;
         this.email = email;
         this.phone = phone;
         this.role = role;
         this.score = score;
+        this.isDelete = isDelete;
     }
 
     public User() {
         super();
     }
 
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {
@@ -83,5 +86,13 @@ public class User {
 
     public void setScore(Long score) {
         this.score = score;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

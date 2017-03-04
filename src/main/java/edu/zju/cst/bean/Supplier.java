@@ -3,9 +3,9 @@ package edu.zju.cst.bean;
 import java.util.Date;
 
 public class Supplier {
-    private Long suplrId;
+    private Long supplierId;
 
-    private String suplyrName;
+    private String supplierName;
 
     private String address;
 
@@ -19,38 +19,38 @@ public class Supplier {
 
     private String password;
 
-    private String suplyName;
+    private Integer isDelete;
 
-    public Supplier(Long suplrId, String suplyrName, String address, String phone, String type, String postcode, Date registerTime, String password, String suplyName) {
-        this.suplrId = suplrId;
-        this.suplyrName = suplyrName;
+    public Supplier(Long supplierId, String supplierName, String address, String phone, String type, String postcode, Date registerTime, String password, Integer isDelete) {
+        this.supplierId = supplierId;
+        this.supplierName = supplierName;
         this.address = address;
         this.phone = phone;
         this.type = type;
         this.postcode = postcode;
         this.registerTime = registerTime;
         this.password = password;
-        this.suplyName = suplyName;
+        this.isDelete = isDelete;
     }
 
     public Supplier() {
         super();
     }
 
-    public Long getSuplrId() {
-        return suplrId;
+    public Long getSupplierId() {
+        return supplierId;
     }
 
-    public void setSuplrId(Long suplrId) {
-        this.suplrId = suplrId;
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
     }
 
-    public String getSuplyrName() {
-        return suplyrName;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setSuplyrName(String suplyrName) {
-        this.suplyrName = suplyrName == null ? null : suplyrName.trim();
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName == null ? null : supplierName.trim();
     }
 
     public String getAddress() {
@@ -101,11 +101,11 @@ public class Supplier {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getSuplyName() {
-        return suplyName;
+    public Integer getIsDelete() {
+        return isDelete;
     }
 
-    public void setSuplyName(String suplyName) {
-        this.suplyName = suplyName == null ? null : suplyName.trim();
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

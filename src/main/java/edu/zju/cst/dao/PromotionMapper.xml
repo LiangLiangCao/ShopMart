@@ -3,46 +3,43 @@
 <mapper namespace="edu.zju.cst.dao.PromotionMapper" >
   <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Promotion" >
     <constructor >
-      <idArg column="promo_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="suplr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="promo_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <idArg column="promotion_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="promotion_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="begin_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="discount" jdbcType="DECIMAL" javaType="java.lang.Short" />
+      <arg column="is_delete" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    promo_id, suplr_id, promo_name, begin_time, end_time, discount
+    promotion_id, promotion_name, begin_time, end_time, discount, is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from promotion
-    where promo_id = #{promoId,jdbcType=BIGINT}
+    where promotion_id = #{promotionId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from promotion
-    where promo_id = #{promoId,jdbcType=BIGINT}
+    where promotion_id = #{promotionId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.Promotion" >
-    insert into promotion (promo_id, suplr_id, promo_name, 
-      begin_time, end_time, discount
+    insert into promotion (promotion_id, promotion_name, begin_time, 
+      end_time, discount, is_delete
       )
-    values (#{promoId,jdbcType=BIGINT}, #{suplrId,jdbcType=BIGINT}, #{promoName,jdbcType=VARCHAR}, 
-      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{discount,jdbcType=DECIMAL}
+    values (#{promotionId,jdbcType=BIGINT}, #{promotionName,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{discount,jdbcType=DECIMAL}, #{isDelete,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.Promotion" >
     insert into promotion
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="promoId != null" >
-        promo_id,
+      <if test="promotionId != null" >
+        promotion_id,
       </if>
-      <if test="suplrId != null" >
-        suplr_id,
-      </if>
-      <if test="promoName != null" >
-        promo_name,
+      <if test="promotionName != null" >
+        promotion_name,
       </if>
       <if test="beginTime != null" >
         begin_time,
@@ -53,16 +50,16 @@
       <if test="discount != null" >
         discount,
       </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="promoId != null" >
-        #{promoId,jdbcType=BIGINT},
+      <if test="promotionId != null" >
+        #{promotionId,jdbcType=BIGINT},
       </if>
-      <if test="suplrId != null" >
-        #{suplrId,jdbcType=BIGINT},
-      </if>
-      <if test="promoName != null" >
-        #{promoName,jdbcType=VARCHAR},
+      <if test="promotionName != null" >
+        #{promotionName,jdbcType=VARCHAR},
       </if>
       <if test="beginTime != null" >
         #{beginTime,jdbcType=TIMESTAMP},
@@ -73,16 +70,16 @@
       <if test="discount != null" >
         #{discount,jdbcType=DECIMAL},
       </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Promotion" >
     update promotion
     <set >
-      <if test="suplrId != null" >
-        suplr_id = #{suplrId,jdbcType=BIGINT},
-      </if>
-      <if test="promoName != null" >
-        promo_name = #{promoName,jdbcType=VARCHAR},
+      <if test="promotionName != null" >
+        promotion_name = #{promotionName,jdbcType=VARCHAR},
       </if>
       <if test="beginTime != null" >
         begin_time = #{beginTime,jdbcType=TIMESTAMP},
@@ -93,16 +90,19 @@
       <if test="discount != null" >
         discount = #{discount,jdbcType=DECIMAL},
       </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
     </set>
-    where promo_id = #{promoId,jdbcType=BIGINT}
+    where promotion_id = #{promotionId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Promotion" >
     update promotion
-    set suplr_id = #{suplrId,jdbcType=BIGINT},
-      promo_name = #{promoName,jdbcType=VARCHAR},
+    set promotion_name = #{promotionName,jdbcType=VARCHAR},
       begin_time = #{beginTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
-      discount = #{discount,jdbcType=DECIMAL}
-    where promo_id = #{promoId,jdbcType=BIGINT}
+      discount = #{discount,jdbcType=DECIMAL},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where promotion_id = #{promotionId,jdbcType=BIGINT}
   </update>
 </mapper>

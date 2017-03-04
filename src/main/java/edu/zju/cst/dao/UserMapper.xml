@@ -3,53 +3,42 @@
 <mapper namespace="edu.zju.cst.dao.UserMapper" >
   <resultMap id="BaseResultMap" type="edu.zju.cst.bean.User" >
     <constructor >
-      <idArg column="uid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <idArg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="gender" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="score" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="role" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="score" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="is_delete" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    uid, password, gender, email, phone, score, role
+    user_id, password, gender, email, phone, role, score, is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select
+    select 
     <include refid="Base_Column_List" />
     from user
-    where uid = #{uid,jdbcType=BIGINT}
-  </select>
-  <select id="selectByPageSize" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List" />
-    from user limit #{size} offset #{offset}
-  </select>
-
-  <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
-    from user
-    where email = #{email,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from user
-    where uid = #{uid,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.User" >
-    insert into user (uid, password, gender,
-    email, phone, score,
-    role)
-    values (#{uid,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR},
-    #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{score,jdbcType=BIGINT},
-    #{role,jdbcType=VARCHAR})
+    insert into user (user_id, password, gender, 
+      email, phone, role, 
+      score, is_delete)
+    values (#{userId,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, 
+      #{score,jdbcType=BIGINT}, #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="uid != null" >
-        uid,
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="password != null" >
         password,
@@ -63,16 +52,19 @@
       <if test="phone != null" >
         phone,
       </if>
-      <if test="score != null" >
-        score,
-      </if>
       <if test="role != null" >
         role,
       </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="uid != null" >
-        #{uid,jdbcType=BIGINT},
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
@@ -86,11 +78,14 @@
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
       <if test="score != null" >
         #{score,jdbcType=BIGINT},
       </if>
-      <if test="role != null" >
-        #{role,jdbcType=VARCHAR},
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -109,14 +104,17 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="score != null" >
-        score = #{score,jdbcType=BIGINT},
-      </if>
       <if test="role != null" >
         role = #{role,jdbcType=VARCHAR},
       </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
     </set>
-    where uid = #{uid,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.User" >
     update user
@@ -124,8 +122,21 @@
       gender = #{gender,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
       score = #{score,jdbcType=BIGINT},
-      role = #{role,jdbcType=VARCHAR}
-    where uid = #{uid,jdbcType=BIGINT}
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where email = #{email,jdbcType=VARCHAR}
+  </select>
+  <update id="deleteByUpdate" parameterType="java.lang.Long" >
+    update user
+    set
+    is_delete = 1
+    where user_id = #{userId,jdbcType=BIGINT}
   </update>
 </mapper>

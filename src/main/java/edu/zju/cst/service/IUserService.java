@@ -27,5 +27,4 @@ public interface IUserService {
 
     void adminLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
 
-    int deleteUser(long uId);
 }

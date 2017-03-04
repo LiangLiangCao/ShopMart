@@ -1,11 +1,20 @@
-package edu.zju.cst.bean;
+/*
+ * LiangCao
+ *
+ *  Copyright (C) 2016 , Ltd. All rights reserved.
+ *
+ *  引用请标注来源
+ */
+
+package edu.zju.cst.util;
 
 /**
- * Created by Han on 3/4/17.
+ * Created by Liang on 04/03/2017.
  */
 public class ResultSupport {
-    int code = 1;
-    String msg = "success";
+
+    int code;
+    String msg;
 
     public int getCode() {
         return code;

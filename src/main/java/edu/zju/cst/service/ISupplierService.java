@@ -17,6 +17,6 @@ import java.io.IOException;
  * Created by Liang on 27/02/2017.
  */
 public interface ISupplierService {
-    public void supplierLogin(String name, String password, HttpServletRequest request) throws AuthException,
+     void supplierLogin(String name, String password, HttpServletRequest request) throws AuthException,
             IOException;
 }

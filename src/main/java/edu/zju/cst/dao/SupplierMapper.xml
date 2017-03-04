@@ -1,134 +1,285 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.zju.cst.dao.SupplierMapper" >
-  <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Supplier" >
-    <constructor >
-      <idArg column="suplr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="suplyr_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="postcode" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="register_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="suply_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.zju.cst.dao.SupplierMapper">
+  <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Supplier">
+    <constructor>
+      <idArg column="supplier_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="supplier_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="postcode" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="register_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="is_delete" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
-    suplr_id, suplyr_name, address, phone, type, postcode, register_time, password, suply_name
+  <sql id="Base_Column_List">
+    supplier_id, supplier_name, address, phone, type, postcode, register_time, password, 
+    is_delete
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where supplier_id = #{supplierId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from supplier
+    where supplier_id = #{supplierId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="edu.zju.cst.bean.Supplier">
+    insert into supplier (supplier_id, supplier_name, address, 
+      phone, type, postcode, 
+      register_time, password, is_delete
+      )
+    values (#{supplierId,jdbcType=BIGINT}, #{supplierName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{registerTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Supplier">
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="supplierName != null">
+        supplier_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="postcode != null">
+        postcode,
+      </if>
+      <if test="registerTime != null">
+        register_time,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=BIGINT},
+      </if>
+      <if test="supplierName != null">
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Supplier">
+    update supplier
+    <set>
+      <if test="supplierName != null">
+        supplier_name = #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null">
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where supplier_id = #{supplierId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Supplier">
+    update supplier
+    set supplier_name = #{supplierName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where supplier_id = #{supplierId,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Supplier">
+    <constructor>
+      <idArg column="suplr_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="suplyr_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="postcode" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="register_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="suply_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="is_delete" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    suplr_id, suplyr_name, address, phone, type, postcode, register_time, password, suply_name, 
+    is_delete
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from supplier
     where suplr_id = #{suplrId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from supplier
     where suplr_id = #{suplrId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="edu.zju.cst.bean.Supplier" >
+  <insert id="insert" parameterType="edu.zju.cst.bean.Supplier">
     insert into supplier (suplr_id, suplyr_name, address, 
       phone, type, postcode, 
-      register_time, password, suply_name
-      )
+      register_time, password, suply_name, 
+      is_delete)
     values (#{suplrId,jdbcType=BIGINT}, #{suplyrName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
-      #{registerTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{suplyName,jdbcType=VARCHAR}
-      )
+      #{registerTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{suplyName,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Supplier" >
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Supplier">
     insert into supplier
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="suplrId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="suplrId != null">
         suplr_id,
       </if>
-      <if test="suplyrName != null" >
+      <if test="suplyrName != null">
         suplyr_name,
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         address,
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         phone,
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         type,
       </if>
-      <if test="postcode != null" >
+      <if test="postcode != null">
         postcode,
       </if>
-      <if test="registerTime != null" >
+      <if test="registerTime != null">
         register_time,
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password,
       </if>
-      <if test="suplyName != null" >
+      <if test="suplyName != null">
         suply_name,
       </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="suplrId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="suplrId != null">
         #{suplrId,jdbcType=BIGINT},
       </if>
-      <if test="suplyrName != null" >
+      <if test="suplyrName != null">
         #{suplyrName,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="postcode != null" >
+      <if test="postcode != null">
         #{postcode,jdbcType=VARCHAR},
       </if>
-      <if test="registerTime != null" >
+      <if test="registerTime != null">
         #{registerTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="suplyName != null" >
+      <if test="suplyName != null">
         #{suplyName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Supplier" >
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Supplier">
     update supplier
-    <set >
-      <if test="suplyrName != null" >
+    <set>
+      <if test="suplyrName != null">
         suplyr_name = #{suplyrName,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="postcode != null" >
+      <if test="postcode != null">
         postcode = #{postcode,jdbcType=VARCHAR},
       </if>
-      <if test="registerTime != null" >
+      <if test="registerTime != null">
         register_time = #{registerTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="suplyName != null" >
+      <if test="suplyName != null">
         suply_name = #{suplyName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
     </set>
     where suplr_id = #{suplrId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Supplier" >
+  <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Supplier">
     update supplier
     set suplyr_name = #{suplyrName,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
@@ -137,7 +288,8 @@
       postcode = #{postcode,jdbcType=VARCHAR},
       register_time = #{registerTime,jdbcType=TIMESTAMP},
       password = #{password,jdbcType=VARCHAR},
-      suply_name = #{suplyName,jdbcType=VARCHAR}
+      suply_name = #{suplyName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER}
     where suplr_id = #{suplrId,jdbcType=BIGINT}
   </update>
 </mapper>

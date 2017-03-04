@@ -32,7 +32,7 @@ CREATE TABLE `category` (
   `cat_category_id` bigint(20) DEFAULT NULL COMMENT '种类_类别编号',
   `suplr_id` bigint(20) DEFAULT NULL COMMENT '供应商编号',
   `categ_name` varchar(50) DEFAULT NULL COMMENT '类别名称',
-  `is_delete` int(1) DEFAULT NULL COMMENT '0删除，1存在',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`category_id`),
   KEY `FK_Relationship_11` (`cat_category_id`),
   KEY `FK_Relationship_7` (`suplr_id`),
@@ -66,7 +66,7 @@ CREATE TABLE `orderitem` (
   `num` decimal(8,0) DEFAULT NULL COMMENT '数量',
   `note` varchar(50) DEFAULT NULL COMMENT '订单项留言',
   `count` decimal(20,0) DEFAULT NULL COMMENT '条目总价',
-  `is_delete` int(1) DEFAULT NULL COMMENT '0删除，1存在',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`item_id`),
   KEY `FK_Relationship_3` (`order_id`),
   KEY `FK_Relationship_5` (`pro_id`),
@@ -96,7 +96,7 @@ CREATE TABLE `orders` (
   `pay_time` datetime DEFAULT NULL COMMENT '付款时间',
   `close_time` datetime DEFAULT NULL COMMENT '完成时间',
   `state` varchar(4) DEFAULT NULL COMMENT '状态',
-  `is_delete` int(1) DEFAULT NULL COMMENT '0删除，1存在',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`ordr_id`),
   KEY `FK_Relationship_1` (`uid`),
   CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
@@ -119,7 +119,7 @@ CREATE TABLE `product` (
   `picture` varchar(50) DEFAULT NULL COMMENT '图片',
   `quantity` int(255) DEFAULT NULL COMMENT '产品描述',
   `description` varchar(100) DEFAULT NULL COMMENT '商品存量',
-  `is_delete` int(1) DEFAULT NULL COMMENT '0删除，1存在',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`pro_id`),
   KEY `FK_Relationship_10` (`suplr_id`),
   KEY `FK_Relationship_6` (`category_id`),
@@ -155,7 +155,7 @@ CREATE TABLE `promotion` (
   `begin_time` datetime DEFAULT NULL COMMENT '促销开始时间',
   `end_time` datetime DEFAULT NULL COMMENT '停止时间',
   `discount` decimal(4,0) DEFAULT NULL COMMENT '促销折扣',
-  `is_delete` int(1) DEFAULT NULL COMMENT '0删除，1存在',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`promo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -173,7 +173,7 @@ CREATE TABLE `shopitem` (
   `count` decimal(20,0) DEFAULT NULL COMMENT '条目总价',
   `price` decimal(10,0) DEFAULT NULL COMMENT '价格',
   `num` decimal(8,0) DEFAULT NULL COMMENT '数量',
-  `is_delete` int(1) DEFAULT NULL COMMENT '0删除，1存在',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`shop_id`),
   KEY `FK_Relationship_2` (`uid`),
   KEY `FK_Relationship_4` (`pro_id`),
@@ -198,7 +198,7 @@ CREATE TABLE `supplier` (
   `register_time` datetime DEFAULT NULL COMMENT '注册时间',
   `password` varchar(50) DEFAULT NULL COMMENT '密码',
   `suply_name` varchar(50) DEFAULT NULL COMMENT '用户名',
-  `is_delete` int(1) DEFAULT NULL COMMENT '0删除，1存在',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`suplr_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -226,7 +226,7 @@ CREATE TABLE `user` (
   `phone` varchar(20) DEFAULT NULL COMMENT '电话',
   `role` varchar(4) DEFAULT NULL COMMENT '积分',
   `score` bigint(20) DEFAULT NULL COMMENT '角色',
-  `is_delete` int(1) DEFAULT NULL COMMENT '0删除，1存在',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 

@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 public class ShopItem {
     private Long shopId;
 
-    private Long uid;
+    private Long userId;
 
-    private Long proId;
+    private Long productId;
 
     private BigDecimal count;
 
@@ -15,13 +15,16 @@ public class ShopItem {
 
     private Integer num;
 
-    public ShopItem(Long shopId, Long uid, Long proId, BigDecimal count, Long price, Integer num) {
+    private Integer isDelete;
+
+    public ShopItem(Long shopId, Long userId, Long productId, BigDecimal count, Long price, Integer num, Integer isDelete) {
         this.shopId = shopId;
-        this.uid = uid;
-        this.proId = proId;
+        this.userId = userId;
+        this.productId = productId;
         this.count = count;
         this.price = price;
         this.num = num;
+        this.isDelete = isDelete;
     }
 
     public ShopItem() {
@@ -36,20 +39,20 @@ public class ShopItem {
         this.shopId = shopId;
     }
 
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Long getProId() {
-        return proId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProId(Long proId) {
-        this.proId = proId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public BigDecimal getCount() {
@@ -74,5 +77,13 @@ public class ShopItem {
 
     public void setNum(Integer num) {
         this.num = num;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

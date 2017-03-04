@@ -3,27 +3,29 @@
 <mapper namespace="edu.zju.cst.dao.ProductMapper" >
   <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Product" >
     <constructor >
-      <idArg column="pro_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <idArg column="product_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="category_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="promo_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="suplr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="promotion_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="supplier_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="product_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="picture" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="quantity" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_delete" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    pro_id, category_id, promo_id, suplr_id, product_name, price, picture, quantity, 
-    description
+    product_id, category_id, promotion_id, supplier_id, product_name, price, picture, 
+    quantity, description, is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from product
-    where pro_id = #{proId,jdbcType=BIGINT}
+    where product_id = #{productId,jdbcType=BIGINT}
   </select>
+
 
   <select id="selectByPageSize" resultMap="BaseResultMap"  >
     select
@@ -31,34 +33,35 @@
     from product limit #{num} offset #{offset}
   </select>
 
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from product
-    where pro_id = #{proId,jdbcType=BIGINT}
+    where product_id = #{productId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.Product" >
-    insert into product (pro_id, category_id, promo_id, 
-      suplr_id, product_name, price, 
-      picture, quantity, description
-      )
-    values (#{proId,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{promoId,jdbcType=BIGINT}, 
-      #{suplrId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
-      #{picture,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
-      )
+    insert into product (product_id, category_id, promotion_id, 
+      supplier_id, product_name, price, 
+      picture, quantity, description, 
+      is_delete)
+    values (#{productId,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{promotionId,jdbcType=BIGINT}, 
+      #{supplierId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{picture,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.Product" >
     insert into product
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="proId != null" >
-        pro_id,
+      <if test="productId != null" >
+        product_id,
       </if>
       <if test="categoryId != null" >
         category_id,
       </if>
-      <if test="promoId != null" >
-        promo_id,
+      <if test="promotionId != null" >
+        promotion_id,
       </if>
-      <if test="suplrId != null" >
-        suplr_id,
+      <if test="supplierId != null" >
+        supplier_id,
       </if>
       <if test="productName != null" >
         product_name,
@@ -75,19 +78,22 @@
       <if test="description != null" >
         description,
       </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="proId != null" >
-        #{proId,jdbcType=BIGINT},
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
       </if>
       <if test="categoryId != null" >
         #{categoryId,jdbcType=BIGINT},
       </if>
-      <if test="promoId != null" >
-        #{promoId,jdbcType=BIGINT},
+      <if test="promotionId != null" >
+        #{promotionId,jdbcType=BIGINT},
       </if>
-      <if test="suplrId != null" >
-        #{suplrId,jdbcType=BIGINT},
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=BIGINT},
       </if>
       <if test="productName != null" >
         #{productName,jdbcType=VARCHAR},
@@ -104,6 +110,9 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Product" >
@@ -112,11 +121,11 @@
       <if test="categoryId != null" >
         category_id = #{categoryId,jdbcType=BIGINT},
       </if>
-      <if test="promoId != null" >
-        promo_id = #{promoId,jdbcType=BIGINT},
+      <if test="promotionId != null" >
+        promotion_id = #{promotionId,jdbcType=BIGINT},
       </if>
-      <if test="suplrId != null" >
-        suplr_id = #{suplrId,jdbcType=BIGINT},
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=BIGINT},
       </if>
       <if test="productName != null" >
         product_name = #{productName,jdbcType=VARCHAR},
@@ -133,19 +142,29 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
     </set>
-    where pro_id = #{proId,jdbcType=BIGINT}
+    where product_id = #{productId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Product" >
     update product
     set category_id = #{categoryId,jdbcType=BIGINT},
-      promo_id = #{promoId,jdbcType=BIGINT},
-      suplr_id = #{suplrId,jdbcType=BIGINT},
+      promotion_id = #{promotionId,jdbcType=BIGINT},
+      supplier_id = #{supplierId,jdbcType=BIGINT},
       product_name = #{productName,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       picture = #{picture,jdbcType=VARCHAR},
       quantity = #{quantity,jdbcType=INTEGER},
-      description = #{description,jdbcType=VARCHAR}
-    where pro_id = #{proId,jdbcType=BIGINT}
+      description = #{description,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=BIGINT}
+  </update>
+  <update id="deleteByUpdate" parameterType="java.lang.Long" >
+    update product
+    set c
+    is_delete = 1
+    where product_id = #{productId,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -5,15 +5,16 @@
     <constructor >
       <idArg column="item_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="order_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="pro_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="price" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="product_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="total_price" jdbcType="DECIMAL" javaType="java.lang.Long" />
       <arg column="num" jdbcType="DECIMAL" javaType="java.lang.Integer" />
       <arg column="note" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="count" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="item_price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="is_delete" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    item_id, order_id, pro_id, price, num, note, count
+    item_id, order_id, product_id, total_price, num, note, item_price, is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -26,12 +27,12 @@
     where item_id = #{itemId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.Orderitem" >
-    insert into orderitem (item_id, order_id, pro_id, 
-      price, num, note, count
-      )
-    values (#{itemId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{proId,jdbcType=BIGINT}, 
-      #{price,jdbcType=DECIMAL}, #{num,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}, #{count,jdbcType=DECIMAL}
-      )
+    insert into orderitem (item_id, order_id, product_id, 
+      total_price, num, note, 
+      item_price, is_delete)
+    values (#{itemId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{totalPrice,jdbcType=DECIMAL}, #{num,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}, 
+      #{itemPrice,jdbcType=DECIMAL}, #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.Orderitem" >
     insert into orderitem
@@ -42,11 +43,11 @@
       <if test="orderId != null" >
         order_id,
       </if>
-      <if test="proId != null" >
-        pro_id,
+      <if test="productId != null" >
+        product_id,
       </if>
-      <if test="price != null" >
-        price,
+      <if test="totalPrice != null" >
+        total_price,
       </if>
       <if test="num != null" >
         num,
@@ -54,8 +55,11 @@
       <if test="note != null" >
         note,
       </if>
-      <if test="count != null" >
-        count,
+      <if test="itemPrice != null" >
+        item_price,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -65,11 +69,11 @@
       <if test="orderId != null" >
         #{orderId,jdbcType=BIGINT},
       </if>
-      <if test="proId != null" >
-        #{proId,jdbcType=BIGINT},
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
       </if>
-      <if test="price != null" >
-        #{price,jdbcType=DECIMAL},
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=DECIMAL},
       </if>
       <if test="num != null" >
         #{num,jdbcType=DECIMAL},
@@ -77,8 +81,11 @@
       <if test="note != null" >
         #{note,jdbcType=VARCHAR},
       </if>
-      <if test="count != null" >
-        #{count,jdbcType=DECIMAL},
+      <if test="itemPrice != null" >
+        #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -88,11 +95,11 @@
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=BIGINT},
       </if>
-      <if test="proId != null" >
-        pro_id = #{proId,jdbcType=BIGINT},
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=BIGINT},
       </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DECIMAL},
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=DECIMAL},
       </if>
       <if test="num != null" >
         num = #{num,jdbcType=DECIMAL},
@@ -100,8 +107,11 @@
       <if test="note != null" >
         note = #{note,jdbcType=VARCHAR},
       </if>
-      <if test="count != null" >
-        count = #{count,jdbcType=DECIMAL},
+      <if test="itemPrice != null" >
+        item_price = #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
     </set>
     where item_id = #{itemId,jdbcType=BIGINT}
@@ -109,11 +119,12 @@
   <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Orderitem" >
     update orderitem
     set order_id = #{orderId,jdbcType=BIGINT},
-      pro_id = #{proId,jdbcType=BIGINT},
-      price = #{price,jdbcType=DECIMAL},
+      product_id = #{productId,jdbcType=BIGINT},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
       num = #{num,jdbcType=DECIMAL},
       note = #{note,jdbcType=VARCHAR},
-      count = #{count,jdbcType=DECIMAL}
+      item_price = #{itemPrice,jdbcType=DECIMAL},
+      is_delete = #{isDelete,jdbcType=INTEGER}
     where item_id = #{itemId,jdbcType=BIGINT}
   </update>
 </mapper>

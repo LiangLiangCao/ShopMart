@@ -58,10 +58,9 @@ public class OrderServiceImpl implements IOrderService{
         int orderId = add(order);
 //        Promotion promotion =
         Orderitem orderitem = new Orderitem();
-        orderitem.setCount(new BigDecimal(1));
-        orderitem.setPrice(product.getPrice().longValue());
+        orderitem.setTotalPrice(product.getPrice().longValue());
         orderitem.setOrderId((long) orderId);
-        orderitem.setProId(product.getProId());
+        orderitem.setProductId(product.getProductId());
 
         int orderItemId = orderitemMapper.insert(orderitem);
 

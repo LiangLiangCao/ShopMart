@@ -5,13 +5,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PromotionMapper {
-    int deleteByPrimaryKey(Long promoId);
+    int deleteByPrimaryKey(Long promotionId);
 
     int insert(Promotion record);
 
     int insertSelective(Promotion record);
 
-    Promotion selectByPrimaryKey(Long promoId);
+    Promotion selectByPrimaryKey(Long promotionId);
 
     int updateByPrimaryKeySelective(Promotion record);
 

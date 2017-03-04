@@ -3,11 +3,9 @@ package edu.zju.cst.bean;
 import java.util.Date;
 
 public class Promotion {
-    private Long promoId;
+    private Long promotionId;
 
-    private Long suplrId;
-
-    private String promoName;
+    private String promotionName;
 
     private Date beginTime;
 
@@ -15,41 +13,35 @@ public class Promotion {
 
     private Short discount;
 
-    public Promotion(Long promoId, Long suplrId, String promoName, Date beginTime, Date endTime, Short discount) {
-        this.promoId = promoId;
-        this.suplrId = suplrId;
-        this.promoName = promoName;
+    private Integer isDelete;
+
+    public Promotion(Long promotionId, String promotionName, Date beginTime, Date endTime, Short discount, Integer isDelete) {
+        this.promotionId = promotionId;
+        this.promotionName = promotionName;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.discount = discount;
+        this.isDelete = isDelete;
     }
 
     public Promotion() {
         super();
     }
 
-    public Long getPromoId() {
-        return promoId;
+    public Long getPromotionId() {
+        return promotionId;
     }
 
-    public void setPromoId(Long promoId) {
-        this.promoId = promoId;
+    public void setPromotionId(Long promotionId) {
+        this.promotionId = promotionId;
     }
 
-    public Long getSuplrId() {
-        return suplrId;
+    public String getPromotionName() {
+        return promotionName;
     }
 
-    public void setSuplrId(Long suplrId) {
-        this.suplrId = suplrId;
-    }
-
-    public String getPromoName() {
-        return promoName;
-    }
-
-    public void setPromoName(String promoName) {
-        this.promoName = promoName == null ? null : promoName.trim();
+    public void setPromotionName(String promotionName) {
+        this.promotionName = promotionName == null ? null : promotionName.trim();
     }
 
     public Date getBeginTime() {
@@ -74,5 +66,13 @@ public class Promotion {
 
     public void setDiscount(Short discount) {
         this.discount = discount;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

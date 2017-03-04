@@ -22,4 +22,6 @@ public interface OrdersMapper {
     int updateByPrimaryKey(Orders record);
 
     List<Orders> selectByPageSize(@Param("num") int num, @Param("offset")int offset);
+    int deleteByUpdate(Long userId);
+
 }

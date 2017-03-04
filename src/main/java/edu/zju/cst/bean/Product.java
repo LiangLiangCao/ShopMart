@@ -3,13 +3,13 @@ package edu.zju.cst.bean;
 import java.math.BigDecimal;
 
 public class Product {
-    private Long proId;
+    private Long productId;
 
     private Long categoryId;
 
-    private Long promoId;
+    private Long promotionId;
 
-    private Long suplrId;
+    private Long supplierId;
 
     private String productName;
 
@@ -21,28 +21,31 @@ public class Product {
 
     private String description;
 
-    public Product(Long proId, Long categoryId, Long promoId, Long suplrId, String productName, BigDecimal price, String picture, Integer quantity, String description) {
-        this.proId = proId;
+    private Integer isDelete;
+
+    public Product(Long productId, Long categoryId, Long promotionId, Long supplierId, String productName, BigDecimal price, String picture, Integer quantity, String description, Integer isDelete) {
+        this.productId = productId;
         this.categoryId = categoryId;
-        this.promoId = promoId;
-        this.suplrId = suplrId;
+        this.promotionId = promotionId;
+        this.supplierId = supplierId;
         this.productName = productName;
         this.price = price;
         this.picture = picture;
         this.quantity = quantity;
         this.description = description;
+        this.isDelete = isDelete;
     }
 
     public Product() {
         super();
     }
 
-    public Long getProId() {
-        return proId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProId(Long proId) {
-        this.proId = proId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Long getCategoryId() {
@@ -53,20 +56,20 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public Long getPromoId() {
-        return promoId;
+    public Long getPromotionId() {
+        return promotionId;
     }
 
-    public void setPromoId(Long promoId) {
-        this.promoId = promoId;
+    public void setPromotionId(Long promotionId) {
+        this.promotionId = promotionId;
     }
 
-    public Long getSuplrId() {
-        return suplrId;
+    public Long getSupplierId() {
+        return supplierId;
     }
 
-    public void setSuplrId(Long suplrId) {
-        this.suplrId = suplrId;
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
     }
 
     public String getProductName() {
@@ -107,5 +110,13 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

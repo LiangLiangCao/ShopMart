@@ -8,17 +8,19 @@ import java.util.List;
 
 @Repository
 public interface ProductMapper {
-    int deleteByPrimaryKey(Long proId);
+    int deleteByPrimaryKey(Long productId);
 
     int insert(Product record);
 
     int insertSelective(Product record);
 
-    Product selectByPrimaryKey(Long proId);
+    Product selectByPrimaryKey(Long productId);
 
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
 
     List<Product> selectByPageSize(@Param("num") int num, @Param("offset")int offset);
+    int deleteByUpdate(Long userId);
+
 }

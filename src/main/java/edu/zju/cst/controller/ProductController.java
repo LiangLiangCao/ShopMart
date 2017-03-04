@@ -2,7 +2,7 @@ package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
 import edu.zju.cst.bean.Product;
-import edu.zju.cst.bean.ResultSupport;
+import edu.zju.cst.util.ResultSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +57,6 @@ public class ProductController extends BaseController{
     @ResponseBody
     public String addProduct(@RequestBody Product product) {
         int re  = productService.add(product);
-
 
         ResultSupport result = new ResultSupport();
         if(re>0){

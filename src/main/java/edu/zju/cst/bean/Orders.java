@@ -6,7 +6,7 @@ import java.util.Date;
 public class Orders {
     private Long ordrId;
 
-    private Long uid;
+    private Long userId;
 
     private String name;
 
@@ -22,7 +22,7 @@ public class Orders {
 
     private String deliveryMethod;
 
-    private BigDecimal proToatl;
+    private BigDecimal productToatl;
 
     private Date createTime;
 
@@ -32,9 +32,11 @@ public class Orders {
 
     private String state;
 
-    public Orders(Long ordrId, Long uid, String name, String address, String phone, Integer postage, BigDecimal total, String deliveryDate, String deliveryMethod, BigDecimal proToatl, Date createTime, Date payTime, Date closeTime, String state) {
+    private Integer isDelete;
+
+    public Orders(Long ordrId, Long userId, String name, String address, String phone, Integer postage, BigDecimal total, String deliveryDate, String deliveryMethod, BigDecimal productToatl, Date createTime, Date payTime, Date closeTime, String state, Integer isDelete) {
         this.ordrId = ordrId;
-        this.uid = uid;
+        this.userId = userId;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -42,11 +44,12 @@ public class Orders {
         this.total = total;
         this.deliveryDate = deliveryDate;
         this.deliveryMethod = deliveryMethod;
-        this.proToatl = proToatl;
+        this.productToatl = productToatl;
         this.createTime = createTime;
         this.payTime = payTime;
         this.closeTime = closeTime;
         this.state = state;
+        this.isDelete = isDelete;
     }
 
     public Orders() {
@@ -61,12 +64,12 @@ public class Orders {
         this.ordrId = ordrId;
     }
 
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -125,12 +128,12 @@ public class Orders {
         this.deliveryMethod = deliveryMethod == null ? null : deliveryMethod.trim();
     }
 
-    public BigDecimal getProToatl() {
-        return proToatl;
+    public BigDecimal getProductToatl() {
+        return productToatl;
     }
 
-    public void setProToatl(BigDecimal proToatl) {
-        this.proToatl = proToatl;
+    public void setProductToatl(BigDecimal productToatl) {
+        this.productToatl = productToatl;
     }
 
     public Date getCreateTime() {
@@ -163,5 +166,13 @@ public class Orders {
 
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

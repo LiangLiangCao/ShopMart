@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
     private UserMapper usrMapper;
 
     public int deleteByID(Long uid) {
-        return usrMapper.deleteByPrimaryKey(uid);
+        return usrMapper.deleteByUpdate(uid);
     }
 
     public int addUser(String email, String password, String role) {
@@ -123,7 +123,5 @@ public class UserServiceImpl implements IUserService {
         return users;
     }
 
-    public int deleteUser(long uId) {
-        return 0;
-    }
+
 }

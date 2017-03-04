@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="edu.zju.cst.bean.Orders" >
     <constructor >
       <idArg column="ordr_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="uid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -12,16 +12,17 @@
       <arg column="total" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="delivery_date" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="delivery_method" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="pro_toatl" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="product_toatl" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="pay_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="close_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="state" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_delete" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ordr_id, uid, name, address, phone, postage, total, delivery_date, delivery_method, 
-    pro_toatl, create_time, pay_time, close_time, state
+    ordr_id, user_id, name, address, phone, postage, total, delivery_date, delivery_method, 
+    product_toatl, create_time, pay_time, close_time, state, is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -29,7 +30,6 @@
     from orders
     where ordr_id = #{ordrId,jdbcType=BIGINT}
   </select>
-
 
   <select id="selectByPageSize" resultMap="BaseResultMap"  >
     select
@@ -42,16 +42,18 @@
     where ordr_id = #{ordrId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="edu.zju.cst.bean.Orders" >
-    insert into orders (ordr_id, uid, name, 
+    insert into orders (ordr_id, user_id, name, 
       address, phone, postage, 
       total, delivery_date, delivery_method, 
-      pro_toatl, create_time, pay_time, 
-      close_time, state)
-    values (#{ordrId,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      product_toatl, create_time, pay_time, 
+      close_time, state, is_delete
+      )
+    values (#{ordrId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{postage,jdbcType=DECIMAL}, 
       #{total,jdbcType=DECIMAL}, #{deliveryDate,jdbcType=VARCHAR}, #{deliveryMethod,jdbcType=VARCHAR}, 
-      #{proToatl,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, 
-      #{closeTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR})
+      #{productToatl,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{closeTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="edu.zju.cst.bean.Orders" >
     insert into orders
@@ -59,8 +61,8 @@
       <if test="ordrId != null" >
         ordr_id,
       </if>
-      <if test="uid != null" >
-        uid,
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="name != null" >
         name,
@@ -83,8 +85,8 @@
       <if test="deliveryMethod != null" >
         delivery_method,
       </if>
-      <if test="proToatl != null" >
-        pro_toatl,
+      <if test="productToatl != null" >
+        product_toatl,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -98,13 +100,16 @@
       <if test="state != null" >
         state,
       </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="ordrId != null" >
         #{ordrId,jdbcType=BIGINT},
       </if>
-      <if test="uid != null" >
-        #{uid,jdbcType=BIGINT},
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -127,8 +132,8 @@
       <if test="deliveryMethod != null" >
         #{deliveryMethod,jdbcType=VARCHAR},
       </if>
-      <if test="proToatl != null" >
-        #{proToatl,jdbcType=DECIMAL},
+      <if test="productToatl != null" >
+        #{productToatl,jdbcType=DECIMAL},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -142,13 +147,16 @@
       <if test="state != null" >
         #{state,jdbcType=VARCHAR},
       </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.zju.cst.bean.Orders" >
     update orders
     <set >
-      <if test="uid != null" >
-        uid = #{uid,jdbcType=BIGINT},
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -171,8 +179,8 @@
       <if test="deliveryMethod != null" >
         delivery_method = #{deliveryMethod,jdbcType=VARCHAR},
       </if>
-      <if test="proToatl != null" >
-        pro_toatl = #{proToatl,jdbcType=DECIMAL},
+      <if test="productToatl != null" >
+        product_toatl = #{productToatl,jdbcType=DECIMAL},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -186,12 +194,15 @@
       <if test="state != null" >
         state = #{state,jdbcType=VARCHAR},
       </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
     </set>
     where ordr_id = #{ordrId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.zju.cst.bean.Orders" >
     update orders
-    set uid = #{uid,jdbcType=BIGINT},
+    set user_id = #{userId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
@@ -199,11 +210,18 @@
       total = #{total,jdbcType=DECIMAL},
       delivery_date = #{deliveryDate,jdbcType=VARCHAR},
       delivery_method = #{deliveryMethod,jdbcType=VARCHAR},
-      pro_toatl = #{proToatl,jdbcType=DECIMAL},
+      product_toatl = #{productToatl,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       pay_time = #{payTime,jdbcType=TIMESTAMP},
       close_time = #{closeTime,jdbcType=TIMESTAMP},
-      state = #{state,jdbcType=VARCHAR}
+      state = #{state,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where ordr_id = #{ordrId,jdbcType=BIGINT}
+  </update>
+  <update id="deleteByUpdate" parameterType="java.lang.Long" >
+    update orders
+    set
+    is_delete = 1
     where ordr_id = #{ordrId,jdbcType=BIGINT}
   </update>
 </mapper>

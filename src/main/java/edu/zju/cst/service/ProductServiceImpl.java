@@ -28,7 +28,7 @@ public class ProductServiceImpl implements IProductService{
     }
 
     public int del(String id) {
-        int re = productMapper.deleteByPrimaryKey(Long.parseLong(id));
+        int re = productMapper.deleteByUpdate(Long.parseLong(id));
         return re;
     }
 

@@ -7,24 +7,27 @@ public class Orderitem {
 
     private Long orderId;
 
-    private Long proId;
+    private Long productId;
 
-    private Long price;
+    private Long totalPrice;
 
     private Integer num;
 
     private String note;
 
-    private BigDecimal count;
+    private BigDecimal itemPrice;
 
-    public Orderitem(Long itemId, Long orderId, Long proId, Long price, Integer num, String note, BigDecimal count) {
+    private Integer isDelete;
+
+    public Orderitem(Long itemId, Long orderId, Long productId, Long totalPrice, Integer num, String note, BigDecimal itemPrice, Integer isDelete) {
         this.itemId = itemId;
         this.orderId = orderId;
-        this.proId = proId;
-        this.price = price;
+        this.productId = productId;
+        this.totalPrice = totalPrice;
         this.num = num;
         this.note = note;
-        this.count = count;
+        this.itemPrice = itemPrice;
+        this.isDelete = isDelete;
     }
 
     public Orderitem() {
@@ -47,20 +50,20 @@ public class Orderitem {
         this.orderId = orderId;
     }
 
-    public Long getProId() {
-        return proId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProId(Long proId) {
-        this.proId = proId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public Long getPrice() {
-        return price;
+    public Long getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setTotalPrice(Long totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Integer getNum() {
@@ -79,11 +82,19 @@ public class Orderitem {
         this.note = note == null ? null : note.trim();
     }
 
-    public BigDecimal getCount() {
-        return count;
+    public BigDecimal getItemPrice() {
+        return itemPrice;
     }
 
-    public void setCount(BigDecimal count) {
-        this.count = count;
+    public void setItemPrice(BigDecimal itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }
