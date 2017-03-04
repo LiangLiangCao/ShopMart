@@ -43,7 +43,7 @@
         <div class="description">
             <h2>${item.productName}</h2>
             <p>${item.description}<p>
-            <a class="btn btn-default" href="#" role="button">View details »</a></p>
+            <a class="btn btn-default" href="/product/" role="button">View details »</a></p>
         </div>
     </div>
 </div>
@@ -63,7 +63,6 @@
     </div>
 
 
-    <div>${some}</div>
 
     <div class="row">
         <div class="col-md-4">

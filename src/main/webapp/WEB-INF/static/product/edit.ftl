@@ -40,7 +40,13 @@
             <th>quantity</th>
             <th>description</th>
 
-            <th><span class=" glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <th>
+                <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#addModal" v-on:click="add()" >
+
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true">
+
+                            </span>
+                </button>
 
             </th>
 
@@ -184,6 +190,103 @@
     </div>
 </div> <!-- /.modal -->
 
+
+
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addModal" tabindex="-1"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    添加商品
+                </h4>
+            </div>
+            <div class="modal-body" id="product_info">
+
+                <div class="input-group">
+                    <span class="input-group-addon">  product_id  </span>
+                    <input  v-model="product.proId" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">  categoryId  </span>
+                    <input  v-model="product.categoryId" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+
+                <div class="input-group">
+                    <span class="input-group-addon">  promoId  </span>
+                    <input  v-model="product.promoId" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">  suplrId  </span>
+                    <input  v-model="product.suplrId" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+
+                <div class="input-group">
+                    <span class="input-group-addon"> product_name </span>
+                    <input v-model="product.productName" type="text" class="form-control" placeholder=""
+                           aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">  price  </span>
+                    <input  v-model="product.price" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">  picture  </span>
+                    <input  v-model="product.picture" type="text" class="form-control" placeholder=""
+                            aria-describedby="basic-addon1">
+                </div>
+
+
+                <div class="input-group">
+                    <span class="input-group-addon"> quantity </span>
+                    <input v-model="product.quantity" type="text" class="form-control" placeholder=""
+                           aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon"> description </span>
+                    <input v-model="product.description" type="text" class="form-control" placeholder=""
+                           aria-describedby="basic-addon1">
+                </div>
+
+                <hr>
+
+                <div id="mail_content" style="min-height: 50px"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" v-on:click="add()">
+                    确定修改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div> <!-- /.modal -->
+
+
+
+
 <#include "../foot.ftl">
 
 <script>
@@ -247,31 +350,17 @@
             update: function () {
 
                 $.ajax({
-                    // 数据传送方式
                     type: 'POST',
-//                    headers: {
-//                        'Accept': 'application/json',
-//                        'Content-Type': 'application/json'
-//                    },
                     contentType: "application/json; charset=utf-8",
-                    // 数据处理文件
                     url: '/product/update',
-                    // JSON格式数据
                     data:JSON.stringify(vm.product),
-                    // 预期返回 html
                     dataType: 'json',
                     async:true,
-//                    beforeSend : function(req) {
-//
-//                        req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');  ///加这一行解决问题
-//                    },
-                    // @msg: 数据返回值
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
                         console.log("修改数据啦");
                     },
-                    // Degbug
                     error: function (xhr, desc, err) {
                         console.log(xhr);
                         console.log("Details: " + desc + "\nError:" + err);
@@ -296,6 +385,27 @@
                     }
                 });
             },
+
+            add: function () {
+
+                $.ajax({
+                    type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    url: '/product/add',
+                    data:JSON.stringify(vm.product),
+                    dataType: 'json',
+                    async:true,
+                    success: function (msg, status) {
+                        console.log(typeof msg);
+                        console.log(msg);
+                    },
+                    error: function (xhr, desc, err) {
+                        console.log(xhr);
+                        console.log("Details: " + desc + "\nError:" + err);
+                    }
+                });
+            },
+
 
         }
 

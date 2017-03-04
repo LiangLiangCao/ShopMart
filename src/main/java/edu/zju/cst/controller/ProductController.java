@@ -2,6 +2,7 @@ package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
 import edu.zju.cst.bean.Product;
+import edu.zju.cst.bean.ResultSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/product")
 public class ProductController extends BaseController{
+
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String productList(ModelMap map) {
@@ -39,17 +42,33 @@ public class ProductController extends BaseController{
     public String delProduct(ModelMap map, @RequestParam(value = "product_id") int product_id) {
 
         int re = productService.del(product_id+"");
-        return re + " the result" ;
+
+        ResultSupport result = new ResultSupport();
+        if(re>0){
+            result.setCode(1);
+            return JSON.toJSONString(result);
+        }else {
+            result.setCode(0);
+            result.setMsg("删除错误");
+            return JSON.toJSONString(result);
+        }
+
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addProduct(@RequestBody Product product) {
         int re  = productService.add(product);
+
+
+        ResultSupport result = new ResultSupport();
         if(re>0){
-            return 1+"";
+            result.setCode(1);
+            return JSON.toJSONString(result);
         }else {
-            return 0+"";
+            result.setCode(0);
+            result.setMsg("添加错误");
+            return JSON.toJSONString(result);
         }
     }
 
@@ -58,7 +77,17 @@ public class ProductController extends BaseController{
     public String update(@RequestBody Product product) {
 
         int re = productService.update(product);
-        return "{}";
+
+        ResultSupport result = new ResultSupport();
+        if(re>0){
+            result.setCode(1);
+            return JSON.toJSONString(result);
+        }else {
+            result.setCode(0);
+            result.setMsg("更新错误");
+            return JSON.toJSONString(result);
+        }
+
     }
 
 
