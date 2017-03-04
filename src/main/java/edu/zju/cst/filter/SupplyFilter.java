@@ -9,8 +9,7 @@
 package edu.zju.cst.filter;
 
 import edu.zju.cst.bean.Supplier;
-import edu.zju.cst.bean.User;
-import edu.zju.cst.constant.SystemConstant;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
 import org.apache.log4j.Logger;
 
@@ -44,9 +43,9 @@ public class SupplyFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        User usr = (User) request.getSession().getAttribute(sessionKey);
-        if (usr == null&&(!checkRequestURIIntNotFilterList(request))) {
-            response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL);
+        Supplier supplier = (Supplier) request.getSession().getAttribute(sessionKey);
+        if (supplier == null && (!checkRequestURIIntNotFilterList(request))) {
+            response.sendRedirect(HttpUtils.getBasePath(request) + redirectURL);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
@@ -63,7 +62,7 @@ public class SupplyFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
         redirectURL = filterConfig.getInitParameter("redirectURL");
-        sessionKey = SystemConstant.SESSION_SUPPLY;
+        sessionKey = SystemConstants.SESSION_SUPPLY;
 
         String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
 

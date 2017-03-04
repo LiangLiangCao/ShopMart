@@ -32,7 +32,7 @@
                     </header>
                     <div class="panel-body">
                         <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off"
-                              action="${BASE_PATH}/admin/manage/addNew.json">
+                              action="${BASE_PATH}/admin/manage/addNew">
                             <fieldset>
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">用户邮箱</label>

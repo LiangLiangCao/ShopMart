@@ -27,7 +27,7 @@
 <div class="container">
 
     <form class="form-signin" id="adminForm"
-          action="${BASE_PATH}/admin/login.json" autocomplete="off"
+          action="${BASE_PATH}/admin/login" autocomplete="off"
           method="post">
         <h2 class="form-signin-heading">
             <img src="${BASE_PATH}/static/images/logo.png"
@@ -59,17 +59,11 @@
         $('#adminForm').ajaxForm({
             dataType: 'json',
             success: function (data) {
-                console.log("===================data:"+data);
-
                 if (data.result) {
-                    console.log("===================true:"+data);
-
                     bootbox.alert("login success,we will jump to another page~", function () {
-                        window.location.href = "${BASE_PATH}/admin/manage.htm";
+                        window.location.href = "${BASE_PATH}/admin/manage";
                     });
                 } else {
-                    console.log("===================false:"+data);
-
                     bootbox.alert("login error: " + data.password);
                 }
                 );

@@ -9,7 +9,7 @@ package edu.zju.cst.controller;
 
 
 import edu.zju.cst.bean.User;
-import edu.zju.cst.constant.SystemConstant;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.service.IProductService;
 import edu.zju.cst.service.ISupplierService;
 import edu.zju.cst.service.IUserService;
@@ -38,34 +38,34 @@ public class BaseController {
     //① 获取保存在Session中的用户对象
     protected User getSessionUser(HttpServletRequest request) {
         this.request = request;
-        return (User) request.getSession().getAttribute(SystemConstant.SESSION_CUSTOM);
+        return (User) request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
     }
 
     //②将用户对象保存到Session中
     protected void setSessionUser(HttpServletRequest request,User user) {
-        request.getSession().setAttribute(SystemConstant.SESSION_CUSTOM,
+        request.getSession().setAttribute(SystemConstants.SESSION_CUSTOM,
                 user);
     }
     //① 获取保存在Session中的用户对象
     protected User getSessionAdmin(HttpServletRequest request) {
         this.request = request;
-        return (User) request.getSession().getAttribute(SystemConstant.SESSION_ADMIN);
+        return (User) request.getSession().getAttribute(SystemConstants.SESSION_ADMIN);
     }
 
     //②将用户对象保存到Session中
     protected void setSessionAdmin(HttpServletRequest request,User user) {
-        request.getSession().setAttribute(SystemConstant.SESSION_ADMIN,user);
+        request.getSession().setAttribute(SystemConstants.SESSION_ADMIN,user);
     }
 
     //① 获取保存在Session中的用户对象
     protected User getSessionSupply(HttpServletRequest request) {
         this.request = request;
-        return (User) request.getSession().getAttribute(SystemConstant.SESSION_SUPPLY);
+        return (User) request.getSession().getAttribute(SystemConstants.SESSION_SUPPLY);
     }
 
     //②将用户对象保存到Session中
     protected void setSessionSupplyr(HttpServletRequest request,User user) {
-        request.getSession().setAttribute(SystemConstant.SESSION_SUPPLY,
+        request.getSession().setAttribute(SystemConstants.SESSION_SUPPLY,
                 user);
     }
 }

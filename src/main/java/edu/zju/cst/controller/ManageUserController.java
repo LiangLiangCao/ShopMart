@@ -35,7 +35,7 @@ public class ManageUserController extends BaseController {
      * todo
      * 进入管理员管理页面
      */
-    @RequestMapping(value = "/manage.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/manage", method = RequestMethod.GET)
     public String manage(ModelMap modelMap) {
         List<User> usrs = usrService.getAllListPage(10, 1);
         modelMap.put("users", usrs);
@@ -46,7 +46,7 @@ public class ManageUserController extends BaseController {
      * 添加Admin
      */
     @ResponseBody
-    @RequestMapping(value = "/addNew.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/addNew", method = RequestMethod.POST)
     public String addNewUser(@RequestParam(value = "email") String email,
                              @RequestParam(value = "password") String password,
                              @RequestParam(value = "role") String role) {

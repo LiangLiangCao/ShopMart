@@ -9,7 +9,7 @@
 package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import edu.zju.cst.constant.SystemConstant;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,20 +29,20 @@ public class AdminLoginController extends BaseController {
 
 
 
-    @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {
         return "/admin/login";
     }
 
-    @RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String usrLogout(HttpServletRequest request, ModelMap modelMap) {
-        request.getSession().removeAttribute(SystemConstant.SESSION_ADMIN);
+        request.getSession().removeAttribute(SystemConstants.SESSION_ADMIN);
 
         return "redirect:" + HttpUtils.getBasePath(request);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/login.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String usrLogin(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password,
                          HttpServletRequest request, ModelMap modelMap) {
         JSONObject json = new JSONObject();

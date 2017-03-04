@@ -9,7 +9,7 @@
 package edu.zju.cst.filter;
 
 import edu.zju.cst.bean.User;
-import edu.zju.cst.constant.SystemConstant;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
 import org.apache.log4j.Logger;
 
@@ -21,7 +21,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +63,7 @@ public class AdminFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
         redirectURL = filterConfig.getInitParameter("redirectURL");
-        sessionKey = SystemConstant.SESSION_ADMIN;
+        sessionKey = SystemConstants.SESSION_ADMIN;
 
         String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
 

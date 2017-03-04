@@ -9,11 +9,9 @@
 package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import edu.zju.cst.constant.SystemConstant;
-import edu.zju.cst.service.IUserService;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,19 +30,19 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomLoginController extends BaseController {
 
 
-    @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {
         return "/custom/login";
     }
 
-    @RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String usrLogout(HttpServletRequest request, ModelMap modelMap) {
-        request.getSession().removeAttribute(SystemConstant.SESSION_CUSTOM);
+        request.getSession().removeAttribute(SystemConstants.SESSION_CUSTOM);
         return "redirect:" + HttpUtils.getBasePath(request);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/login.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String usrLogin(@RequestParam(value = "name") String name,
                          @RequestParam(value = "password") String password,
                          HttpServletRequest request,

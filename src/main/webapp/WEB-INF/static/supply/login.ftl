@@ -1,64 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Liang">
-    <meta name="keyword"
-          content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<#assign menu="admin_list">
+<#assign submenu="add_admin">
+<#include "../head.ftl">
+<style type="text/css">
+    p.error {
+        color: #DE5959;
+    }
 
-    <title>ShopMart登录页面</title>
+    .form-signin input[type="text"].error, .form-signin input[type="password"].error {
+        border-color: #b94a48;
+        color: #b94a48;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
 
-    <!-- Bootstrap core CSS -->
-    <link href="${BASE_PATH}/static/manage/css/bootstrap.min.css"
-          rel="stylesheet">
-    <link href="${BASE_PATH}/static/manage/css/bootstrap-reset.css"
-          rel="stylesheet">
-    <!--external css-->
-    <link href="${BASE_PATH}/static/manage/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
-    <!-- Custom styles for this template -->
-    <link href="${BASE_PATH}/static/manage/css/style.css" rel="stylesheet">
-    <link href="${BASE_PATH}/static/manage/css/style-responsive.css"
-          rel="stylesheet"/>
+    input.error:focus {
+        border-color: #953b39;
+        color: #b94a48;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+    }
+</style>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-    <!--[if lt IE 9]>
-    <script src="${BASE_PATH}/static/manage/js/html5shiv.js"></script>
-    <script src="${BASE_PATH}/static/manage/js/respond.min.js"></script>
-    <![endif]-->
-    <script src="${BASE_PATH}/static/manage/js/jquery.js"></script>
-    <script src="${BASE_PATH}/static/manage/js/jquery.form.min.js"></script>
-    <style type="text/css">
-        p.error {
-            color: #DE5959;
-        }
-
-        .form-signin input[type="text"].error, .form-signin input[type="password"].error {
-            border-color: #b94a48;
-            color: #b94a48;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        }
-
-        input.error:focus {
-            border-color: #953b39;
-            color: #b94a48;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-        }
-    </style>
-</head>
 
 <body class="login-body">
 
 <div class="container">
 
     <form class="form-signin" id="adminForm"
-          action="${BASE_PATH}/supply/login.json" autocomplete="off"
+          action="${BASE_PATH}/supply/login" autocomplete="off"
           method="post">
         <h2 class="form-signin-heading">
-            <img src="${BASE_PATH}/static/manage/img/logo.png"
+            <img src="${BASE_PATH}/static/images/logo.png"
                  style="height: 38px;"/>
         </h2>
         <div class="login-wrap">
@@ -81,30 +55,7 @@
 
 </div>
 <script type="text/javascript">
-    /**
-     * 显示表单的错误提示
-     * @param id 表单ID
-     * @param errors 错误列表
-     */
-    function showErrors(id, errors) {
-        id.find('p[class=error]').hide();
-        id.find('input,select').removeClass("error");
-        for (var name in errors) {
-            var e = id.find('p[for=' + name + ']');
-            id.find('input[name=' + name + '],select[name=' + name + ']')
-                    .addClass("error");
-            if (e.length == 0) {
-                id.find('input[name=' + name + '],select[name=' + name+ ']')
-                        .after('<p for="' + name + '" class="error"></p>');
 
-                e = id.find('p[for=' + name + ']');
-            }
-            if (errors[name] != "") {
-                e.html(errors[name]);
-                e.show();
-            }
-        }
-    }
 
 </script>
 </body>

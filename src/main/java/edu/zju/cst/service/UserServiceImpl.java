@@ -1,7 +1,7 @@
 package edu.zju.cst.service;
 
 import edu.zju.cst.bean.User;
-import edu.zju.cst.constant.SystemConstant;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.dao.UserMapper;
 import edu.zju.cst.exception.AuthException;
 import edu.zju.cst.util.AuthUtils;
@@ -60,7 +60,7 @@ public class UserServiceImpl implements IUserService {
         if (usr == null) {
             throw new AuthException("username user does not exist.");
         }
-        boolean isCustom = usr.getRole().trim().equals(SystemConstant.CUSTOM_KIND_USR);
+        boolean isCustom = usr.getRole().trim().equals(SystemConstants.CUSTOM_KIND_USR);
         if (isCustom) {
             throw new AuthException("not admin,please login by user page.");
         }
@@ -69,15 +69,15 @@ public class UserServiceImpl implements IUserService {
         if (loginPassword.equals(usr.getPassword())) {
             HttpSession session = request.getSession();
             usr.setPassword("");
-            String superAdmin = PropertyUtils.getValue(SystemConstant.SUPER_ADMIN);
+            String superAdmin = PropertyUtils.getValue(SystemConstants.SUPER_ADMIN);
             if (name.equals(superAdmin)) {
                 //0:超级管理员
-                usr.setRole(SystemConstant.SUPER_ADMIN_USR);
+                usr.setRole(SystemConstants.SUPER_ADMIN_USR);
             } else {
                 //1:普通用户
-                usr.setRole(SystemConstant.ADMIN_KIND_USR);
+                usr.setRole(SystemConstants.ADMIN_KIND_USR);
             }
-            session.setAttribute(SystemConstant.SESSION_ADMIN, usr);
+            session.setAttribute(SystemConstants.SESSION_ADMIN, usr);
         } else {
             throw new AuthException("password or username wrong!");
         }
@@ -95,14 +95,14 @@ public class UserServiceImpl implements IUserService {
         if (usr == null) {
             throw new AuthException("username user does not exist.");
         }
-        boolean isCustom = usr.getRole().equals(SystemConstant.CUSTOM_KIND_USR);
+        boolean isCustom = usr.getRole().equals(SystemConstants.CUSTOM_KIND_USR);
         boolean isPassed = AuthUtils.getPassword(password).equals(usr.getPassword());
 
         if (isCustom && isPassed) {
             HttpSession session = request.getSession();
             usr.setPassword("");
-            usr.setRole(SystemConstant.CUSTOM_KIND_USR);
-            session.setAttribute(SystemConstant.SESSION_CUSTOM, usr);
+            usr.setRole(SystemConstants.CUSTOM_KIND_USR);
+            session.setAttribute(SystemConstants.SESSION_CUSTOM, usr);
         } else {
             throw new AuthException("password or username wrong!");
         }

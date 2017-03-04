@@ -8,7 +8,7 @@ Source Database       : shopmart
 
 Target Server Type    : MYSQL
 Target Server Version : 50717
-File Encoding         : 65001
+File Encoding         : 65001a
 
 Date: 2017-03-03 17:34:56
 */

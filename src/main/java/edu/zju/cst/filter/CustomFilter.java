@@ -10,7 +10,7 @@ package edu.zju.cst.filter;
 
 
 import edu.zju.cst.bean.User;
-import edu.zju.cst.constant.SystemConstant;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
 import org.apache.log4j.Logger;
 
@@ -67,7 +67,7 @@ public class CustomFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.filterConfig = filterConfig;
 		redirectURL = filterConfig.getInitParameter("redirectURL");
-		sessionKey = SystemConstant.SESSION_CUSTOM;
+		sessionKey = SystemConstants.SESSION_CUSTOM;
 
 		String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
 
