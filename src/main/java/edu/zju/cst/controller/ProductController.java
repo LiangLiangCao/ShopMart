@@ -44,12 +44,11 @@ public class ProductController extends BaseController{
         ResultSupport result = new ResultSupport();
         if(re>0){
             result.setCode(1);
-            return JSON.toJSONString(result);
         }else {
             result.setCode(0);
             result.setMsg("删除错误");
-            return JSON.toJSONString(result);
         }
+        return JSON.toJSONString(result);
 
     }
 
@@ -61,29 +60,26 @@ public class ProductController extends BaseController{
         ResultSupport result = new ResultSupport();
         if(re>0){
             result.setCode(1);
-            return JSON.toJSONString(result);
         }else {
             result.setCode(0);
             result.setMsg("添加错误");
-            return JSON.toJSONString(result);
         }
+        return JSON.toJSONString(result);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public String update(@RequestBody Product product) {
-
         int re = productService.update(product);
 
         ResultSupport result = new ResultSupport();
         if(re>0){
             result.setCode(1);
-            return JSON.toJSONString(result);
         }else {
             result.setCode(0);
             result.setMsg("更新错误");
-            return JSON.toJSONString(result);
         }
+        return JSON.toJSONString(result);
 
     }
 

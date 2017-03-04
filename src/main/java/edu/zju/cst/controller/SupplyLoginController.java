@@ -8,9 +8,12 @@
 
 package edu.zju.cst.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
+import edu.zju.cst.util.ResultSupport;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by SX2601 on 2017/2/28.
  */
-@RequestMapping(value="supply")
+@RequestMapping(value = "supply")
 @Controller
 public class SupplyLoginController extends BaseController {
 
@@ -45,17 +48,18 @@ public class SupplyLoginController extends BaseController {
                            @RequestParam(value = "password") String password,
                            HttpServletRequest request,
                            ModelMap modelMap) {
-        JSONObject json = new JSONObject();
-        try {
+        ResultSupport result = new ResultSupport();
 
-            json.put("result", "true");
+        try {
+            result.setCode(1);
             supplierService.supplierLogin(name, password, request);
 
         } catch (Exception e) {
-            json.put("result", "false");
-            json.put("password", "email or password wrong.");
+            result.setCode(0);
+            result.setMsg("email or password wrong.");
+            e.printStackTrace();
         }
-        return json.toString();
+        return JSON.toJSONString(result);
     }
 
 }

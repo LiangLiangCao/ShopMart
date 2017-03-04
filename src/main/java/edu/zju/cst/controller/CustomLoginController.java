@@ -8,9 +8,11 @@
 
 package edu.zju.cst.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
+import edu.zju.cst.util.ResultSupport;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,18 +49,20 @@ public class CustomLoginController extends BaseController {
                            @RequestParam(value = "password") String password,
                            HttpServletRequest request,
                            ModelMap modelMap) {
-        JSONObject json = new JSONObject();
+        ResultSupport result = new ResultSupport();
         try {
             if (StringUtils.isBlank(password)) {
-                json.put("password", "password cannot be null.");
+                result.setCode(0);
+                result.setMsg("password cannot be null.");
             }
-            json.put("result", true);
+            result.setCode(1);
             usrService.usrLogin(name, password, request);
 
         } catch (Exception e) {
-            json.put("result", false);
-            json.put("password", "email or password wrong.");
+            result.setCode(0);
+            result.setMsg("email or password wrong.");
+            e.printStackTrace();
         }
-        return json.toString();
+        return JSON.toJSONString(result);
     }
 }

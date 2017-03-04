@@ -17,41 +17,40 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/order")
-public class OrderController extends BaseController{
+public class OrderController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showAll(ModelMap map) {
 
-        List<Orders> orderList = orderService.getOrders(10,1);
+        List<Orders> orderList = orderService.getOrders(10, 1);
 
-        map.put("orders",orderList);
+        map.put("orders", orderList);
         return "order/edit";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public String get(ModelMap map,@RequestParam(value = "id") int id) {
+    public String get(ModelMap map, @RequestParam(value = "id") int id) {
 
-        Orders order = orderService.get(id+"");
+        Orders order = orderService.get(id + "");
         return JSON.toJSONString(order);
     }
 
 
-    @RequestMapping(value = "/del", method = RequestMethod.GET )
+    @RequestMapping(value = "/del", method = RequestMethod.GET)
     @ResponseBody
     public String del(ModelMap map, @RequestParam(value = "id") int id) {
 
-        int re = orderService.del(id+"");
+        int re = orderService.del(id + "");
 
         ResultSupport result = new ResultSupport();
-        if(re>0){
+        if (re > 0) {
             result.setCode(1);
-            return JSON.toJSONString(result);
-        }else {
+        } else {
             result.setCode(0);
             result.setMsg("删除错误");
-            return JSON.toJSONString(result);
         }
+        return JSON.toJSONString(result);
 
     }
 
@@ -62,14 +61,15 @@ public class OrderController extends BaseController{
         int re = orderService.addOrder(product);
 
         ResultSupport result = new ResultSupport();
-        if(re>0){
+        if (re > 0) {
             result.setCode(re);
-            return JSON.toJSONString(result);
-        }else {
+        } else {
             result.setCode(0);
             result.setMsg("添加错误");
-            return JSON.toJSONString(result);
+
         }
+        return JSON.toJSONString(result);
+
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -79,14 +79,13 @@ public class OrderController extends BaseController{
         int re = orderService.update(order);
 
         ResultSupport result = new ResultSupport();
-        if(re>0){
+        if (re > 0) {
             result.setCode(1);
-            return JSON.toJSONString(result);
-        }else {
+        } else {
             result.setCode(0);
             result.setMsg("更新错误");
-            return JSON.toJSONString(result);
         }
+        return JSON.toJSONString(result);
 
     }
 
