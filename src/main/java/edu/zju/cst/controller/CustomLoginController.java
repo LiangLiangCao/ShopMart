@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @Controller
-@RequestMapping(value="custom")
+@RequestMapping(value = "custom")
 public class CustomLoginController extends BaseController {
 
 
@@ -44,9 +44,9 @@ public class CustomLoginController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String usrLogin(@RequestParam(value = "name") String name,
-                         @RequestParam(value = "password") String password,
-                         HttpServletRequest request,
-                         ModelMap modelMap) {
+                           @RequestParam(value = "password") String password,
+                           HttpServletRequest request,
+                           ModelMap modelMap) {
         JSONObject json = new JSONObject();
         try {
             if (StringUtils.isBlank(password)) {

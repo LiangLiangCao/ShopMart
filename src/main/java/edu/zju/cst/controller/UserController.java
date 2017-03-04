@@ -29,7 +29,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "usrmanage")
-public class ManageUserController extends BaseController {
+public class UserController extends BaseController {
 
     /**
      * todo

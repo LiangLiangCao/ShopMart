@@ -45,9 +45,9 @@ LOCK TABLES `category` WRITE;
 
 INSERT INTO `category` (`category_id`, `cat_category_id`, `suplr_id`, `categ_name`, `is_delete`)
 VALUES
-	(1,NULL,1,'电子商品',NULL),
-	(2,NULL,1,'服装',NULL),
-	(3,NULL,1,'化妆品',NULL);
+	(1,NULL,1,'电子商品',1),
+	(2,NULL,1,'服装',1),
+	(3,NULL,1,'化妆品',1);
 
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -132,13 +132,13 @@ CREATE TABLE `product` (
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 
-INSERT INTO `product` (`pro_id`, `category_id`, `promo_id`, `suplr_id`, `product_name`, `price`, `picture`, `quantity`, `description`)
+INSERT INTO `product` (`pro_id`, `category_id`, `promo_id`, `suplr_id`, `product_name`, `price`, `picture`, `quantity`, `description`, `is_delete`)
 VALUES
-	(1,1,NULL,1,'mac pro 13',10000,NULL,20,'ssd固态硬盘'),
-	(2,1,NULL,1,'u盘',1,NULL,10,'Kingston 16g 红色'),
-	(3,2,NULL,1,'zara连衣裙',500,NULL,8,'白色，修身'),
-	(4,2,NULL,1,'zara长裤',450,NULL,18,'黑色直筒'),
-	(5,3,NULL,1,'make up forever粉底液',500,NULL,20,'四色可选');
+	(1,1,NULL,1,'mac pro 13',10000,NULL,20,'ssd固态硬盘',1),
+	(2,1,NULL,1,'u盘',1,NULL,10,'Kingston 16g 红色',1),
+	(3,2,NULL,1,'zara连衣裙',500,NULL,8,'白色，修身',1),
+	(4,2,NULL,1,'zara长裤',450,NULL,18,'黑色直筒',1),
+	(5,3,NULL,1,'make up forever粉底液',500,NULL,20,'四色可选',1);
 
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -205,9 +205,9 @@ CREATE TABLE `supplier` (
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
 
-INSERT INTO `supplier` (`suplr_id`, `suplyr_name`, `address`, `phone`, `type`, `postcode`, `register_time`, `password`, `suply_name`)
+INSERT INTO `supplier` (`suplr_id`, `suplyr_name`, `address`, `phone`, `type`, `postcode`, `register_time`, `password`, `suply_name`, `is_delete`)
 VALUES
-	(1,'1','1','1','1','1',NULL,'c4ca4238a0b923820dcc509a6f75849b',NULL);
+	(1,'1','1','1','1','1',NULL,'c4ca4238a0b923820dcc509a6f75849b',NULL,1);
 
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -233,17 +233,17 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
-INSERT INTO `user` (`uid`, `password`, `gender`, `email`, `phone`, `role`, `score`)
+INSERT INTO `user` (`uid`, `password`, `gender`, `email`, `phone`, `role`, `score`, `is_delete`)
 VALUES
-	(1,'c4ca4238a0b923820dcc509a6f75849b','','121@qq.com','123','0',NULL),
-	(2,'c4ca4238a0b923820dcc509a6f75849b',NULL,'1@qq.com',NULL,'1',NULL),
-	(3,'c4ca4238a0b923820dcc509a6f75849b',NULL,'3@qq.com',NULL,'2',NULL),
-	(4,'c4ca4238a0b923820dcc509a6f75849b',NULL,'123456789@qq.com',NULL,'2',NULL),
-	(5,'c4ca4238a0b923820dcc509a6f75849b',NULL,'123@qq.com',NULL,'2',NULL),
-	(6,'c4ca4238a0b923820dcc509a6f75849b',NULL,'1@qq.com',NULL,'1',NULL),
-	(7,'c4ca4238a0b923820dcc509a6f75849b',NULL,'12@163.com',NULL,'1',NULL),
-	(8,'c4ca4238a0b923820dcc509a6f75849b',NULL,'2@qq.com',NULL,'1',NULL),
-	(10,'c4ca4238a0b923820dcc509a6f75849b',NULL,'54@qq.com',NULL,'2',NULL);
+	(1,'c4ca4238a0b923820dcc509a6f75849b','','121@qq.com','123','0',NULL,1),
+	(2,'c4ca4238a0b923820dcc509a6f75849b',NULL,'1@qq.com',NULL,'1',NULL,1),
+	(3,'c4ca4238a0b923820dcc509a6f75849b',NULL,'3@qq.com',NULL,'2',NULL,1),
+	(4,'c4ca4238a0b923820dcc509a6f75849b',NULL,'123456789@qq.com',NULL,'2',NULL,1),
+	(5,'c4ca4238a0b923820dcc509a6f75849b',NULL,'123@qq.com',NULL,'2',NULL,1),
+	(6,'c4ca4238a0b923820dcc509a6f75849b',NULL,'1@qq.com',NULL,'1',NULL,1),
+	(7,'c4ca4238a0b923820dcc509a6f75849b',NULL,'12@163.com',NULL,'1',NULL,1),
+	(8,'c4ca4238a0b923820dcc509a6f75849b',NULL,'2@qq.com',NULL,'1',NULL,1),
+	(10,'c4ca4238a0b923820dcc509a6f75849b',NULL,'54@qq.com',NULL,'2',NULL,1);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;

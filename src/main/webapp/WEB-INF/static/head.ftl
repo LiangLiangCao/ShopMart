@@ -12,7 +12,7 @@
 
 <meta name="keyword"
 	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="img/favicon.png">
+<link rel="shortcut icon" href="${BASE_PATH}/static/images/logo.png">
 <title>后台</title>
 <!-- Bootstrap core CSS -->
 
@@ -48,10 +48,9 @@
                 <a class="blog-nav-item active" href="/">CMBShop</a>
                 <a class="blog-nav-item" href="#">商品</a>
                 <a class="blog-nav-item" href="#">用户</a>
-                <a class="blog-nav-item" href="/admin">管理后台</a>
-                <a class="blog-nav-item" href="/admin/login.htm">管理员登录</a>
-                <a class="blog-nav-item" href="/supply/login.htm">供应商登录</a>
-                <a class="blog-nav-item" href="/custom/login.htm">用户登录</a>
+                <a class="blog-nav-item" href="${BASE_PATH}/admin/login">管理员登录</a>
+                <a class="blog-nav-item" href="${BASE_PATH}/supply/login">供应商登录</a>
+                <a class="blog-nav-item" href="${BASE_PATH}/custom/login">用户登录</a>
             </nav>
         </div>
     </div>

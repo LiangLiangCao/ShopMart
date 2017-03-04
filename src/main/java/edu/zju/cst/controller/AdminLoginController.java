@@ -27,8 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class AdminLoginController extends BaseController {
 
-
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {
         return "/admin/login";
