@@ -19,7 +19,7 @@ public class Supplier {
 
     private String password;
 
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public Supplier(Long supplierId, String supplierName, String address, String phone, String type, String postcode, Date registerTime, String password, Integer isDelete) {
         this.supplierId = supplierId;

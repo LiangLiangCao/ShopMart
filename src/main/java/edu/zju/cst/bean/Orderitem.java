@@ -17,7 +17,7 @@ public class Orderitem {
 
     private BigDecimal itemPrice;
 
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public Orderitem(Long itemId, Long orderId, Long productId, Long totalPrice, Integer num, String note, BigDecimal itemPrice, Integer isDelete) {
         this.itemId = itemId;

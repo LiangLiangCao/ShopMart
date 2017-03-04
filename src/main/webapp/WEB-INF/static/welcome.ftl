@@ -32,7 +32,7 @@
         <div class="description">
             <h2>${item.productName}</h2>
             <p>${item.description}<p>
-            <a class="btn btn-default" href="/product/${item.proId}" role="button">View details »</a></p>
+            <a class="btn btn-default" href="/product/${item.productId}" role="button">View details »</a></p>
         </div>
     </div>
 </div>

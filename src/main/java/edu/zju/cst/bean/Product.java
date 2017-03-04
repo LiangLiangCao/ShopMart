@@ -21,7 +21,7 @@ public class Product {
 
     private String description;
 
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public Product(Long productId, Long categoryId, Long promotionId, Long supplierId, String productName, BigDecimal price, String picture, Integer quantity, String description, Integer isDelete) {
         this.productId = productId;

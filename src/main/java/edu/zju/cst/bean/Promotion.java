@@ -13,7 +13,7 @@ public class Promotion {
 
     private Short discount;
 
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public Promotion(Long promotionId, String promotionName, Date beginTime, Date endTime, Short discount, Integer isDelete) {
         this.promotionId = promotionId;

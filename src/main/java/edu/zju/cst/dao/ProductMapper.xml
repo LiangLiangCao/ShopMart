@@ -20,17 +20,14 @@
     quantity, description, is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from product
+    select <include refid="Base_Column_List" /> from product
     where product_id = #{productId,jdbcType=BIGINT}
   </select>
 
 
   <select id="selectByPageSize" resultMap="BaseResultMap"  >
-    select
-    <include refid="Base_Column_List" />
-    from product limit #{num} offset #{offset}
+    select <include refid="Base_Column_List" />
+    from product where is_delete = 0 limit #{num} offset #{offset}
   </select>
 
 
@@ -163,7 +160,7 @@
   </update>
   <update id="deleteByUpdate" parameterType="java.lang.Long" >
     update product
-    set c
+    set
     is_delete = 1
     where product_id = #{productId,jdbcType=BIGINT}
   </update>

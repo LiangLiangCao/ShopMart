@@ -15,7 +15,7 @@ public class ShopItem {
 
     private Integer num;
 
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public ShopItem(Long shopId, Long userId, Long productId, BigDecimal count, Long price, Integer num, Integer isDelete) {
         this.shopId = shopId;

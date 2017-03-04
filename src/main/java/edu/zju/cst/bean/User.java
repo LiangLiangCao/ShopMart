@@ -15,7 +15,7 @@ public class User {
 
     private Long score;
 
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public User(Long userId, String password, String gender, String email, String phone, String role, Long score, Integer isDelete) {
         this.userId = userId;

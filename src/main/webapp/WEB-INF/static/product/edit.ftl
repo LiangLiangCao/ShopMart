@@ -14,10 +14,10 @@
 </div>
 
 
-<#--proId-->
+<#--productId-->
 <#--categoryId-->
-<#--promoId-->
-<#--suplrId-->
+<#--promotionId-->
+<#--supplier-->
 <#--productName-->
 <#--price-->
 <#--picture-->
@@ -58,10 +58,10 @@
 
             <tr>
                 <th scope="row">1</th>
-                <th>${item.proId!}</th>
+                <th>${item.productId!}</th>
                 <#--<th>${item.categoryId}</th>-->
-                <#--<th>${item.promoId}</th>-->
-                <#--<th>${item.suplrId}</th>-->
+                <#--<th>${item.promotionId}</th>-->
+                <#--<th>${item.supplier}</th>-->
                 <th>${item.productName!}</th>
                 <th>${item.price!}</th>
                 <th>${item.picture!}</th>
@@ -73,7 +73,7 @@
                     <#--<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>-->
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#myModal" v-on:click="edit(${item.proId})" >
+                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#myModal" v-on:click="edit(${item.productId})" >
 
                             <span class="glyphicon glyphicon-edit" aria-hidden="true">
 
@@ -81,7 +81,7 @@
                         </button>
 
 
-                        <button type="button" class="btn btn-default" aria-label="Center Align"  v-on:click="delete(${item.proId})">
+                        <button type="button" class="btn btn-default" aria-label="Center Align"  v-on:click="delete(${item.productId})">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true">
 
                             </span>
@@ -118,7 +118,7 @@
 
                 <div class="input-group">
                     <span class="input-group-addon">  product_id  </span>
-                    <input  v-model="product.proId" type="text" class="form-control" placeholder=""
+                    <input  v-model="product.productId" type="text" class="form-control" placeholder=""
                             aria-describedby="basic-addon1" disabled>
                 </div>
 
@@ -130,14 +130,14 @@
 
 
                 <div class="input-group">
-                    <span class="input-group-addon">  promoId  </span>
-                    <input  v-model="product.promoId" type="text" class="form-control" placeholder=""
+                    <span class="input-group-addon">  promotionId  </span>
+                    <input  v-model="product.promotionId" type="text" class="form-control" placeholder=""
                             aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group">
-                    <span class="input-group-addon">  suplrId  </span>
-                    <input  v-model="product.suplrId" type="text" class="form-control" placeholder=""
+                    <span class="input-group-addon">  supplier  </span>
+                    <input  v-model="product.supplier" type="text" class="form-control" placeholder=""
                             aria-describedby="basic-addon1">
                 </div>
 
@@ -212,7 +212,7 @@
 
                 <div class="input-group">
                     <span class="input-group-addon">  product_id  </span>
-                    <input  v-model="product.proId" type="text" class="form-control" placeholder=""
+                    <input  v-model="product.productId" type="text" class="form-control" placeholder=""
                             aria-describedby="basic-addon1">
                 </div>
 
@@ -224,14 +224,14 @@
 
 
                 <div class="input-group">
-                    <span class="input-group-addon">  promoId  </span>
-                    <input  v-model="product.promoId" type="text" class="form-control" placeholder=""
+                    <span class="input-group-addon">  promotionId  </span>
+                    <input  v-model="product.promotionId" type="text" class="form-control" placeholder=""
                             aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group">
-                    <span class="input-group-addon">  suplrId  </span>
-                    <input  v-model="product.suplrId" type="text" class="form-control" placeholder=""
+                    <span class="input-group-addon">  supplier  </span>
+                    <input  v-model="product.supplier" type="text" class="form-control" placeholder=""
                             aria-describedby="basic-addon1">
                 </div>
 

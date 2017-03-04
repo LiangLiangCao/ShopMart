@@ -9,7 +9,7 @@ public class Category {
 
     private String categoryName;
 
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public Category(Long categoryId, Long parentCategoryId, Long supplierId, String categoryName, Integer isDelete) {
         this.categoryId = categoryId;

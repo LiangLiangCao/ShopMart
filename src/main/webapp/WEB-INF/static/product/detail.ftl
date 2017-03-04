@@ -3,10 +3,10 @@
 <#include "../head.ftl">
 
 
-<#--proId-->
+<#--productId-->
 <#--categoryId-->
-<#--promoId-->
-<#--suplrId-->
+<#--promotionId-->
+<#--supplierId-->
 <#--productName-->
 <#--price-->
 <#--picture-->
@@ -24,8 +24,8 @@
 
             <h3>价格 ${product.price}</h3>
 
-            <h3> 促销类型 ${product.proId}</h3>
-            <h3> 供应商 ID ${product.suplrId}</h3>
+            <h3> 促销类型 ${product.productId}</h3>
+            <h3> 供应商 ID ${product.supplierId}</h3>
             <h3> 数量 ${product.quantity}</h3>
             <h3> 商品类别 ${product.categoryId}</h3>
             <p> 商品描述 ${product.description}<p>

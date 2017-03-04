@@ -32,7 +32,7 @@ public class Orders {
 
     private String state;
 
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public Orders(Long ordrId, Long userId, String name, String address, String phone, Integer postage, BigDecimal total, String deliveryDate, String deliveryMethod, BigDecimal productToatl, Date createTime, Date payTime, Date closeTime, String state, Integer isDelete) {
         this.ordrId = ordrId;
