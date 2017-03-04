@@ -17,18 +17,7 @@
     float:left;
 }
 </style>
-<div class="blog-masthead">
-    <div class="container">
-        <nav class="blog-nav">
-            <a class="blog-nav-item active" href="#">CMBShop</a>
-            <a class="blog-nav-item" href="#">商品</a>
-            <a class="blog-nav-item" href="#">用户</a>
-            <a class="blog-nav-item" href="#">商家</a>
-            <a class="blog-nav-item" href="/admin/login.htm">管理员登录</a>
-            <a class="blog-nav-item" href="/login.htm">登录</a>
-        </nav>
-    </div>
-</div>
+
 
 <div class="container">
 
@@ -43,7 +32,7 @@
         <div class="description">
             <h2>${item.productName}</h2>
             <p>${item.description}<p>
-            <a class="btn btn-default" href="/product/" role="button">View details »</a></p>
+            <a class="btn btn-default" href="/product/${item.proId}" role="button">View details »</a></p>
         </div>
     </div>
 </div>

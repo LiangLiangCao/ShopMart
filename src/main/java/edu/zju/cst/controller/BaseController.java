@@ -10,6 +10,7 @@ package edu.zju.cst.controller;
 
 import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstants;
+import edu.zju.cst.service.IOrderService;
 import edu.zju.cst.service.IProductService;
 import edu.zju.cst.service.ISupplierService;
 import edu.zju.cst.service.IUserService;
@@ -27,12 +28,15 @@ public class BaseController {
     protected final Logger logger =Logger.getLogger(this.getClass());
 
     protected HttpServletRequest request;
+
     @Autowired
     protected IUserService usrService;
     @Autowired
     protected IProductService productService;
     @Autowired
     protected ISupplierService supplierService;
+    @Autowired
+    protected IOrderService orderService;
 
 
     //① 获取保存在Session中的用户对象

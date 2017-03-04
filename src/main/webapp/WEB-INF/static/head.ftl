@@ -41,3 +41,17 @@
 
 
 <div  id="app" class="container">
+
+    <div class="blog-masthead">
+        <div class="container">
+            <nav class="blog-nav">
+                <a class="blog-nav-item active" href="/">CMBShop</a>
+                <a class="blog-nav-item" href="#">商品</a>
+                <a class="blog-nav-item" href="#">用户</a>
+                <a class="blog-nav-item" href="/admin">管理后台</a>
+                <a class="blog-nav-item" href="/admin/login.htm">管理员登录</a>
+                <a class="blog-nav-item" href="/supply/login.htm">供应商登录</a>
+                <a class="blog-nav-item" href="/custom/login.htm">用户登录</a>
+            </nav>
+        </div>
+    </div>

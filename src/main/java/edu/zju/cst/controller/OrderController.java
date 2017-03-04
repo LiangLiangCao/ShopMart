@@ -1,12 +1,13 @@
 package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
-import edu.zju.cst.bean.Product;
-import edu.zju.cst.bean.ResultSupport;
+import edu.zju.cst.bean.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -14,32 +15,32 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/product")
-public class ProductController extends BaseController{
+@RequestMapping("/order")
+public class OrderController extends BaseController{
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String productList(ModelMap map) {
+    public String showAll(ModelMap map) {
 
-        List<Product> productList = productService.getProducts(10,1);
+        List<Orders> orderList = orderService.getOrders(10,1);
 
-        map.put("latestProduct",productList);
-        return "product/edit";
+        map.put("orders",orderList);
+        return "order/edit";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public String get(ModelMap map,@RequestParam(value = "product_id") int product_id) {
+    public String get(ModelMap map,@RequestParam(value = "id") int id) {
 
-        Product product = productService.get(product_id+"");
-        return JSON.toJSONString(product);
+        Orders order = orderService.get(id+"");
+        return JSON.toJSONString(order);
     }
 
 
     @RequestMapping(value = "/del", method = RequestMethod.GET )
     @ResponseBody
-    public String delProduct(ModelMap map, @RequestParam(value = "product_id") int product_id) {
+    public String del(ModelMap map, @RequestParam(value = "id") int id) {
 
-        int re = productService.del(product_id+"");
+        int re = orderService.del(id+"");
 
         ResultSupport result = new ResultSupport();
         if(re>0){
@@ -55,13 +56,13 @@ public class ProductController extends BaseController{
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addProduct(@RequestBody Product product) {
-        int re  = productService.add(product);
+    public String add(@RequestBody Product product) {
 
+        int re = orderService.addOrder(product);
 
         ResultSupport result = new ResultSupport();
         if(re>0){
-            result.setCode(1);
+            result.setCode(re);
             return JSON.toJSONString(result);
         }else {
             result.setCode(0);
@@ -72,9 +73,9 @@ public class ProductController extends BaseController{
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public String update(@RequestBody Product product) {
+    public String update(@RequestBody Orders order) {
 
-        int re = productService.update(product);
+        int re = orderService.update(order);
 
         ResultSupport result = new ResultSupport();
         if(re>0){
