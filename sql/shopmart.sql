@@ -29,25 +29,25 @@ DROP TABLE IF EXISTS `category`;
 
 CREATE TABLE `category` (
   `category_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类别编号',
-  `cat_category_id` bigint(20) DEFAULT NULL COMMENT '种类_类别编号',
-  `suplr_id` bigint(20) DEFAULT NULL COMMENT '供应商编号',
-  `categ_name` varchar(50) DEFAULT NULL COMMENT '类别名称',
+  `parent_category_id` bigint(20) DEFAULT NULL COMMENT '种类_类别编号',
+  `supplier_id` bigint(20) DEFAULT NULL COMMENT '供应商编号',
+  `category_name` varchar(50) DEFAULT NULL COMMENT '类别名称',
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`category_id`),
-  KEY `FK_Relationship_11` (`cat_category_id`),
-  KEY `FK_Relationship_7` (`suplr_id`),
-  CONSTRAINT `FK_Relationship_11` FOREIGN KEY (`cat_category_id`) REFERENCES `category` (`category_id`),
-  CONSTRAINT `FK_Relationship_7` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`)
+  KEY `FK_Relationship_11` (`parent_category_id`),
+  KEY `FK_Relationship_7` (`supplier_id`),
+  CONSTRAINT `FK_Relationship_11` FOREIGN KEY (`parent_category_id`) REFERENCES `category` (`category_id`),
+  CONSTRAINT `FK_Relationship_7` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 
-INSERT INTO `category` (`category_id`, `cat_category_id`, `suplr_id`, `categ_name`, `is_delete`)
+INSERT INTO `category` (`category_id`, `parent_category_id`, `supplier_id`, `category_name`, `is_delete`)
 VALUES
-	(1,NULL,1,'电子商品',1),
-	(2,NULL,1,'服装',1),
-	(3,NULL,1,'化妆品',1);
+	(1,NULL,1,'电子商品',0),
+	(2,NULL,1,'服装',0),
+	(3,NULL,1,'化妆品',0);
 
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -61,17 +61,17 @@ DROP TABLE IF EXISTS `orderitem`;
 CREATE TABLE `orderitem` (
   `item_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单项编号',
   `order_id` bigint(20) DEFAULT NULL COMMENT '订单编号',
-  `pro_id` bigint(20) DEFAULT NULL COMMENT '产品编号',
-  `price` decimal(10,0) DEFAULT NULL COMMENT '价格',
+  `product_id` bigint(20) DEFAULT NULL COMMENT '产品编号',
+  `total_price` decimal(10,0) DEFAULT NULL COMMENT '价格',
   `num` decimal(8,0) DEFAULT NULL COMMENT '数量',
   `note` varchar(50) DEFAULT NULL COMMENT '订单项留言',
-  `count` decimal(20,0) DEFAULT NULL COMMENT '条目总价',
+  `item_price` decimal(20,0) DEFAULT NULL COMMENT '条目总价',
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`item_id`),
   KEY `FK_Relationship_3` (`order_id`),
-  KEY `FK_Relationship_5` (`pro_id`),
+  KEY `FK_Relationship_5` (`product_id`),
   CONSTRAINT `FK_Relationship_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`ordr_id`),
-  CONSTRAINT `FK_Relationship_5` FOREIGN KEY (`pro_id`) REFERENCES `product` (`pro_id`)
+  CONSTRAINT `FK_Relationship_5` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -83,7 +83,7 @@ DROP TABLE IF EXISTS `orders`;
 
 CREATE TABLE `orders` (
   `ordr_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单编号',
-  `uid` bigint(20) DEFAULT NULL COMMENT '主键',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '主键',
   `name` varchar(50) DEFAULT NULL COMMENT '收货人姓名',
   `address` varchar(100) DEFAULT NULL COMMENT '住址',
   `phone` varchar(20) DEFAULT NULL COMMENT '电话',
@@ -91,15 +91,15 @@ CREATE TABLE `orders` (
   `total` decimal(20,0) DEFAULT NULL COMMENT '订单总价',
   `delivery_date` varchar(50) DEFAULT NULL COMMENT '交付日期',
   `delivery_method` varchar(100) DEFAULT NULL COMMENT '交付方式',
-  `pro_toatl` decimal(20,0) DEFAULT NULL COMMENT '商品总价',
+  `product_toatl` decimal(20,0) DEFAULT NULL COMMENT '商品总价',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `pay_time` datetime DEFAULT NULL COMMENT '付款时间',
   `close_time` datetime DEFAULT NULL COMMENT '完成时间',
   `state` varchar(4) DEFAULT NULL COMMENT '状态',
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`ordr_id`),
-  KEY `FK_Relationship_1` (`uid`),
-  CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
+  KEY `FK_Relationship_1` (`user_id`),
+  CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -110,35 +110,35 @@ CREATE TABLE `orders` (
 DROP TABLE IF EXISTS `product`;
 
 CREATE TABLE `product` (
-  `pro_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '产品编号',
+  `product_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '产品编号',
   `category_id` bigint(20) DEFAULT NULL COMMENT '类别编号',
-  `promo_id` bigint(20) DEFAULT NULL COMMENT '促销编号',
-  `suplr_id` bigint(20) DEFAULT NULL COMMENT '供应商编号',
+  `promotion_id` bigint(20) DEFAULT NULL COMMENT '促销编号',
+  `supplier_id` bigint(20) DEFAULT NULL COMMENT '供应商编号',
   `product_name` varchar(1024) DEFAULT NULL COMMENT '产品名称',
   `price` decimal(20,0) DEFAULT NULL COMMENT '产品价格',
   `picture` varchar(50) DEFAULT NULL COMMENT '图片',
   `quantity` int(255) DEFAULT NULL COMMENT '产品描述',
   `description` varchar(100) DEFAULT NULL COMMENT '商品存量',
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
-  PRIMARY KEY (`pro_id`),
-  KEY `FK_Relationship_10` (`suplr_id`),
+  PRIMARY KEY (`product_id`),
+  KEY `FK_Relationship_10` (`supplier_id`),
   KEY `FK_Relationship_6` (`category_id`),
-  KEY `FK_Relationship_8` (`promo_id`),
-  CONSTRAINT `FK_Relationship_10` FOREIGN KEY (`suplr_id`) REFERENCES `supplier` (`suplr_id`),
+  KEY `FK_Relationship_8` (`promotion_id`),
+  CONSTRAINT `FK_Relationship_10` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
   CONSTRAINT `FK_Relationship_6` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
-  CONSTRAINT `FK_Relationship_8` FOREIGN KEY (`promo_id`) REFERENCES `promotion` (`promo_id`)
+  CONSTRAINT `FK_Relationship_8` FOREIGN KEY (`promotion_id`) REFERENCES `promotion` (`promotion_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 
-INSERT INTO `product` (`pro_id`, `category_id`, `promo_id`, `suplr_id`, `product_name`, `price`, `picture`, `quantity`, `description`, `is_delete`)
+INSERT INTO `product` (`product_id`, `category_id`, `promotion_id`, `supplier_id`, `product_name`, `price`, `picture`, `quantity`, `description`, `is_delete`)
 VALUES
-	(1,1,NULL,1,'mac pro 13',10000,NULL,20,'ssd固态硬盘',1),
-	(2,1,NULL,1,'u盘',1,NULL,10,'Kingston 16g 红色',1),
-	(3,2,NULL,1,'zara连衣裙',500,NULL,8,'白色，修身',1),
-	(4,2,NULL,1,'zara长裤',450,NULL,18,'黑色直筒',1),
-	(5,3,NULL,1,'make up forever粉底液',500,NULL,20,'四色可选',1);
+	(1,1,NULL,1,'mac pro 13',10000,NULL,20,'ssd固态硬盘',0),
+	(2,1,NULL,1,'u盘',1,NULL,10,'Kingston 16g 红色',0),
+	(3,2,NULL,1,'zara连衣裙',500,NULL,8,'白色，修身',0),
+	(4,2,NULL,1,'zara长裤',450,NULL,18,'黑色直筒',0),
+	(5,3,NULL,1,'make up forever粉底液',500,NULL,20,'四色可选',0);
 
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -150,13 +150,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `promotion`;
 
 CREATE TABLE `promotion` (
-  `promo_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '促销编号',
-  `promo_name` varchar(50) DEFAULT NULL COMMENT '促销名称',
+  `promotion_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '促销编号',
+  `promotion_name` varchar(50) DEFAULT NULL COMMENT '促销名称',
   `begin_time` datetime DEFAULT NULL COMMENT '促销开始时间',
   `end_time` datetime DEFAULT NULL COMMENT '停止时间',
   `discount` decimal(4,0) DEFAULT NULL COMMENT '促销折扣',
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
-  PRIMARY KEY (`promo_id`)
+  PRIMARY KEY (`promotion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -168,17 +168,17 @@ DROP TABLE IF EXISTS `shopitem`;
 
 CREATE TABLE `shopitem` (
   `shop_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Item编号',
-  `uid` bigint(20) DEFAULT NULL COMMENT '主键',
-  `pro_id` bigint(20) DEFAULT NULL COMMENT '产品编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '主键',
+  `product_id` bigint(20) DEFAULT NULL COMMENT '产品编号',
   `count` decimal(20,0) DEFAULT NULL COMMENT '条目总价',
   `price` decimal(10,0) DEFAULT NULL COMMENT '价格',
   `num` decimal(8,0) DEFAULT NULL COMMENT '数量',
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`shop_id`),
-  KEY `FK_Relationship_2` (`uid`),
-  KEY `FK_Relationship_4` (`pro_id`),
-  CONSTRAINT `FK_Relationship_2` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`),
-  CONSTRAINT `FK_Relationship_4` FOREIGN KEY (`pro_id`) REFERENCES `product` (`pro_id`)
+  KEY `FK_Relationship_2` (`user_id`),
+  KEY `FK_Relationship_4` (`product_id`),
+  CONSTRAINT `FK_Relationship_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `FK_Relationship_4` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -189,25 +189,24 @@ CREATE TABLE `shopitem` (
 DROP TABLE IF EXISTS `supplier`;
 
 CREATE TABLE `supplier` (
-  `suplr_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '供应商编号',
-  `suplyr_name` varchar(100) DEFAULT NULL COMMENT '供应商名称',
+  `supplier_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '供应商编号',
+  `supplier_name` varchar(100) DEFAULT NULL COMMENT '供应商名称',
   `address` varchar(100) DEFAULT NULL COMMENT '住址',
   `phone` varchar(20) DEFAULT NULL COMMENT '电话',
   `type` varchar(100) DEFAULT NULL COMMENT '供货方式',
   `postcode` varchar(20) DEFAULT NULL COMMENT '邮编',
   `register_time` datetime DEFAULT NULL COMMENT '注册时间',
   `password` varchar(50) DEFAULT NULL COMMENT '密码',
-  `suply_name` varchar(50) DEFAULT NULL COMMENT '用户名',
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
-  PRIMARY KEY (`suplr_id`)
+  PRIMARY KEY (`supplier_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
 
-INSERT INTO `supplier` (`suplr_id`, `suplyr_name`, `address`, `phone`, `type`, `postcode`, `register_time`, `password`, `suply_name`, `is_delete`)
+INSERT INTO `supplier` (`supplier_id`, `supplier_name`, `address`, `phone`, `type`, `postcode`, `register_time`, `password`, `is_delete`)
 VALUES
-	(1,'1','1','1','1','1',NULL,'c4ca4238a0b923820dcc509a6f75849b',NULL,1);
+	(1,'1','1','1','1','1',NULL,'c4ca4238a0b923820dcc509a6f75849b',0);
 
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -219,7 +218,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `uid` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `password` varchar(50) DEFAULT NULL COMMENT '密码',
   `gender` char(1) DEFAULT NULL COMMENT '性别',
   `email` varchar(50) DEFAULT NULL COMMENT '电子邮件',
@@ -227,23 +226,23 @@ CREATE TABLE `user` (
   `role` varchar(4) DEFAULT NULL COMMENT '积分',
   `score` bigint(20) DEFAULT NULL COMMENT '角色',
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
-  PRIMARY KEY (`uid`)
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
-INSERT INTO `user` (`uid`, `password`, `gender`, `email`, `phone`, `role`, `score`, `is_delete`)
+INSERT INTO `user` (`user_id`, `password`, `gender`, `email`, `phone`, `role`, `score`, `is_delete`)
 VALUES
-	(1,'c4ca4238a0b923820dcc509a6f75849b','','121@qq.com','123','0',NULL,1),
-	(2,'c4ca4238a0b923820dcc509a6f75849b',NULL,'1@qq.com',NULL,'1',NULL,1),
-	(3,'c4ca4238a0b923820dcc509a6f75849b',NULL,'3@qq.com',NULL,'2',NULL,1),
-	(4,'c4ca4238a0b923820dcc509a6f75849b',NULL,'123456789@qq.com',NULL,'2',NULL,1),
-	(5,'c4ca4238a0b923820dcc509a6f75849b',NULL,'123@qq.com',NULL,'2',NULL,1),
-	(6,'c4ca4238a0b923820dcc509a6f75849b',NULL,'1@qq.com',NULL,'1',NULL,1),
-	(7,'c4ca4238a0b923820dcc509a6f75849b',NULL,'12@163.com',NULL,'1',NULL,1),
-	(8,'c4ca4238a0b923820dcc509a6f75849b',NULL,'2@qq.com',NULL,'1',NULL,1),
-	(10,'c4ca4238a0b923820dcc509a6f75849b',NULL,'54@qq.com',NULL,'2',NULL,1);
+	(1,'c4ca4238a0b923820dcc509a6f75849b','','121@qq.com','123','0',NULL,0),
+	(2,'c4ca4238a0b923820dcc509a6f75849b',NULL,'1@qq.com',NULL,'1',NULL,0),
+	(3,'c4ca4238a0b923820dcc509a6f75849b',NULL,'3@qq.com',NULL,'2',NULL,0),
+	(4,'c4ca4238a0b923820dcc509a6f75849b',NULL,'123456789@qq.com',NULL,'2',NULL,0),
+	(5,'c4ca4238a0b923820dcc509a6f75849b',NULL,'123@qq.com',NULL,'2',NULL,0),
+	(6,'c4ca4238a0b923820dcc509a6f75849b',NULL,'1@qq.com',NULL,'1',NULL,0),
+	(7,'c4ca4238a0b923820dcc509a6f75849b',NULL,'12@163.com',NULL,'1',NULL,0),
+	(8,'c4ca4238a0b923820dcc509a6f75849b',NULL,'2@qq.com',NULL,'1',NULL,0),
+	(10,'c4ca4238a0b923820dcc509a6f75849b',NULL,'54@qq.com',NULL,'2',NULL,0);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;

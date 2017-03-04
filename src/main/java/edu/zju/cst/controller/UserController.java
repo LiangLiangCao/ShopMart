@@ -10,8 +10,8 @@ package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
 import edu.zju.cst.bean.User;
+import edu.zju.cst.util.ResultSupport;
 import org.apache.commons.lang.StringUtils;
-import org.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,25 +50,24 @@ public class UserController extends BaseController {
     public String addNewUser(@RequestParam(value = "email") String email,
                              @RequestParam(value = "password") String password,
                              @RequestParam(value = "role") String role) {
-        JSONObject json = new JSONObject();
+        ResultSupport result = new ResultSupport();
         if (email.equals("") || StringUtils.isBlank(password)) {
-            json.put("email", "email or password cannot be null");
-            return json.toString();
+
+            result.setCode(0);
+            result.setMsg("email or password cannot be null");
+            return JSON.toJSONString(result);
         }
         User user = usrService.findByEmail(email);
         if (user == null) {
-            try {
-                usrService.addUser(email, password, role);
-                json.put("result", true);
-            } catch (Exception e) {
-                json.put("result", false);
-                json.put("password", e.getMessage());
+            int re = usrService.addUser(email, password, role);
+            if (re > 0) {
+                result.setCode(re);
+            } else {
+                result.setCode(0);
+                result.setMsg("添加错误");
             }
-        } else {
-            json.put("email", "email exist.");
-            json.put("result", false);
         }
-        return json.toString();
+        return JSON.toJSONString(result);
     }
 
     /**
@@ -86,15 +85,16 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateUser(@RequestBody User user, HttpServletRequest request) {
-        JSONObject json = new JSONObject();
-        try{
-             int re= usrService.updateByID(user);
-            json.put("result", true);
-         }catch(Exception e){
-            json.put("result", false);
-            json.put("password", e.getMessage());
+        int re= usrService.updateByID(user);
+        ResultSupport result = new ResultSupport();
+        if (re > 0) {
+            result.setCode(re);
+        } else {
+            result.setCode(0);
+            result.setMsg("update错误");
+
         }
-        return json.toString();
+        return JSON.toJSONString(result);
     }
 
     /**
@@ -103,15 +103,19 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(value = "uId") long uId, HttpServletRequest request) {
-        JSONObject json = new JSONObject();
-        try {
-            usrService.deleteByID(uId);
-            json.put("result", true);
-        } catch (Exception e) {
-            json.put("result", false);
-            json.put("password", e.getMessage());
+
+        int re =  usrService.deleteByID(uId);
+
+        ResultSupport result = new ResultSupport();
+        if (re > 0) {
+            result.setCode(re);
+            return JSON.toJSONString(result);
+        } else {
+            result.setCode(0);
+            result.setMsg("delete错误");
+            return JSON.toJSONString(result);
         }
-        return json.toString();
+
     }
 
 }

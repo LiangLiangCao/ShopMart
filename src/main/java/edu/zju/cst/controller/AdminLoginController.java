@@ -8,9 +8,11 @@
 
 package edu.zju.cst.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
+import edu.zju.cst.util.ResultSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,18 +44,19 @@ public class AdminLoginController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String usrLogin(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password,
-                         HttpServletRequest request, ModelMap modelMap) {
-        JSONObject json = new JSONObject();
+                           HttpServletRequest request, ModelMap modelMap) {
+        ResultSupport result = new ResultSupport();
+
         try {
-            json.put("result", true);
+            result.setCode(1);
             usrService.adminLogin(name, password, request);
 
         } catch (Exception e) {
-            json.put("result", false);
-            json.put("password", "email or password wrong.");
+            result.setCode(0);
+            result.setMsg("email or password wrong.");
             e.printStackTrace();
         }
-        return json.toJSONString();
+        return JSON.toJSONString(result);
     }
 
 }
