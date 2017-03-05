@@ -20,7 +20,7 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    List<User> selectByPageSize(@Param("size") int size, @Param("offset") int offset);
+    List<User> selectByPageSize(@Param("num") int num, @Param("offset") int offset);
 
     User selectByEmail(String email);
     int deleteByUpdate(Long userId);

@@ -108,9 +108,9 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-    public List<User> getAllListPage(int size, int pageNum) {
-        int offset = (pageNum - 1) * size;
-        List<User> users = usrMapper.selectByPageSize(size, offset);
+    public List<User> getAllListPage(int num, int pageNum) {
+        int offset = (pageNum - 1) * num;
+        List<User> users = usrMapper.selectByPageSize(num, offset);
 
         for (User item : users) {
             String role = item.getRole();

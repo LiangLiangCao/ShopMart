@@ -20,7 +20,6 @@ public class ProductController extends BaseController{
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String productList(ModelMap map,@RequestParam(value = "page", required=false) Integer page, @RequestParam(value = "perpage", required=false) Integer perpage) {
 
-
         if(perpage == null){
             perpage = 10;
         }
@@ -90,6 +89,5 @@ public class ProductController extends BaseController{
         return JSON.toJSONString(result);
 
     }
-
 
 }

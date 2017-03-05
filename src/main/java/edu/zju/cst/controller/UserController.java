@@ -28,7 +28,7 @@ import java.util.List;
  * Created by Liang on 2/25/17.
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/admin/user")
 public class UserController extends BaseController {
 
     /**

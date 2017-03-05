@@ -17,6 +17,10 @@ public class SystemConstants {
      */
     public static final String SESSION_CUSTOM = "SESSION_CUSTOM";
     /**
+     * Session中的正在支付的产品的Key
+     */
+    public static final String SESSION_PRODUCT = "SESSION_PRODUCT";
+    /**
      * 超级管理员配置文件key
      */
     public static final String SUPER_ADMIN = "shopMart.admin";

@@ -22,7 +22,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="image">
-            <img src="/static/images/iphone.webp" width="100px" height="100px" alt="iphone" class="img-rounded">
+            <img src="${BASE_PATH}/static/images/iphone.webp" width="100px" height="100px" alt="iphone" class="img-rounded">
         </div>
         <div class="description">
             <h2>${item.productName}</h2>

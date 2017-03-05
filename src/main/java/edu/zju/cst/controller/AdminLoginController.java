@@ -42,8 +42,10 @@ public class AdminLoginController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String usrLogin(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password,
-                           HttpServletRequest request, ModelMap modelMap) {
+    public String usrLogin(@RequestParam(value = "name") String name,
+                           @RequestParam(value = "password") String password,
+                           HttpServletRequest request,
+                           ModelMap modelMap) {
         ResultSupport result = new ResultSupport();
 
         try {

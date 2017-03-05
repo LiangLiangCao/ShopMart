@@ -25,16 +25,6 @@
   </select>
 
 
-  <select id="selectByPageSize" resultMap="BaseResultMap"  >
-    select <include refid="Base_Column_List" />
-    from product where is_delete = 0 limit #{num} offset #{offset}
-  </select>
-
-  <select id="countTotal" resultType="java.lang.Integer"  >
-    select count(*) from product
-  </select>
-
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from product
     where product_id = #{productId,jdbcType=BIGINT}
@@ -168,4 +158,13 @@
     is_delete = 1
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
+
+    <select id="countTotal" resultType="java.lang.Integer"  >
+        select count(*) from product
+    </select>
+
+  <select id="selectByPageSize" resultMap="BaseResultMap"  >
+    select <include refid="Base_Column_List" />
+    from product where is_delete = 0 limit #{num} offset #{offset}
+  </select>
 </mapper>

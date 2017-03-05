@@ -28,55 +28,62 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * 
  * 管理过滤器
- * 
+ *
  * @author Herbert
- * 
  */
 public class CustomFilter implements Filter {
 
-	protected final Logger logger = Logger.getLogger(this.getClass());
+    protected final Logger logger = Logger.getLogger(this.getClass());
 
-	protected FilterConfig filterConfig = null;
-	private String redirectURL = null;
-	private List notCheckURLList = new ArrayList();
-	private String sessionKey = null;
+    protected FilterConfig filterConfig = null;
+    private String redirectURL = null;
+    private List notCheckURLList = new ArrayList();
+    private String sessionKey = null;
 
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-			throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) servletRequest;
-		HttpServletResponse response = (HttpServletResponse) servletResponse;
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
 
-		User usr = (User) request.getSession().getAttribute(sessionKey);
-		if (usr == null&&(!checkRequestURIIntNotFilterList(request))) {
-			response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL);
-		}
-		filterChain.doFilter(servletRequest, servletResponse);
-	}
+        System.out.println("\n\n------------------------- meox 5--------------------------\n\n");
 
-	public void destroy() {
-		notCheckURLList.clear();
-	}
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-	private boolean checkRequestURIIntNotFilterList(HttpServletRequest request) {
-		String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
-		return notCheckURLList.contains(uri);
-	}
+        User usr = (User) request.getSession().getAttribute(sessionKey);
+        if (usr == null && (!checkRequestURIIntNotFilterList(request))) {
+            response.sendRedirect(HttpUtils.getBasePath(request) + redirectURL);
+        }
+        filterChain.doFilter(servletRequest, servletResponse);
+    }
 
-	public void init(FilterConfig filterConfig) throws ServletException {
-		this.filterConfig = filterConfig;
-		redirectURL = filterConfig.getInitParameter("redirectURL");
-		sessionKey = SystemConstants.SESSION_CUSTOM;
+    public void destroy() {
 
-		String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
+        System.out.println("\n\n------------------------- meox 6--------------------------\n\n");
 
-		if (notCheckURLListStr != null) {
-			StringTokenizer st = new StringTokenizer(notCheckURLListStr, ";");
-			notCheckURLList.clear();
-			while (st.hasMoreTokens()) {
-				notCheckURLList.add(st.nextToken());
-			}
-		}
-	}
+        notCheckURLList.clear();
+    }
+
+    private boolean checkRequestURIIntNotFilterList(HttpServletRequest request) {
+        String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
+        return notCheckURLList.contains(uri);
+    }
+
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+        System.out.println("\n\n------------------------- meox 4--------------------------\n\n");
+
+        this.filterConfig = filterConfig;
+        redirectURL = filterConfig.getInitParameter("redirectURL");
+        sessionKey = SystemConstants.SESSION_CUSTOM;
+
+        String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
+
+        if (notCheckURLListStr != null) {
+            StringTokenizer st = new StringTokenizer(notCheckURLListStr, ";");
+            notCheckURLList.clear();
+            while (st.hasMoreTokens()) {
+                notCheckURLList.add(st.nextToken());
+            }
+        }
+    }
 }

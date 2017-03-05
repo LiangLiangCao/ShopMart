@@ -27,6 +27,7 @@ public class FtlFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.sendRedirect(HttpUtils.getBasePath(request) + "/404.htm");
+        chain.doFilter(servletRequest, servletResponse);
     }
 
     public void destroy() {

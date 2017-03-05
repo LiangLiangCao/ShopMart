@@ -44,23 +44,28 @@
     vm = new Vue({
         el: '#app',
         data: {
-            product: ${product_var}
+            product: ${product_var},
         },
         methods: {
             add: function () {
 
+                console.log("hi,cbb");
+
                 $.ajax({
                     type: 'POST',
                     contentType: "application/json; charset=utf-8",
-                    url: '/order/add',
+                    url: '${BASE_PATH}/order/pay',
                     data:JSON.stringify(vm.product),
                     dataType: 'json',
                     async:true,
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
+                        window.location.href=msg.msg;
                     },
                     error: function (xhr, desc, err) {
+
+                        console.log("hi,cbb");
                         console.log(xhr);
                         console.log("Details: " + desc + "\nError:" + err);
                     }

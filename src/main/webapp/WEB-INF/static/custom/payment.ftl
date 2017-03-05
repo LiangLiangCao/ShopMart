@@ -23,31 +23,32 @@
 </head>
 
 <body class="login-body">
-
+<header class="panel-heading">
+    订单支付
+</header>
 <div class="container">
 
     <form class="form-signin" id="adminForm"
-          action="${BASE_PATH}/admin/login" autocomplete="off"
+          action="${BASE_PATH}/order/addNew" autocomplete="off"
           method="post">
         <h2 class="form-signin-heading">
-            <img src="${BASE_PATH}/static/images/logo.png"
-                 style="height: 38px;"/>
+            <img src="${BASE_PATH}/static/images/logo.png" style="height: 38px;"/>
         </h2>
+
         <div class="login-wrap">
             <div class="form-group">
                 <label for="exampleInputEmail1">用户名</label>
-                <input type="text" name="name" class="form-control" placeholder="用户名" value="" style="*width: 250px;"
+                <input type="text" name="name" class="form-control" placeholder="${username}" value="${username}" style="*width: 250px;"
                        autofocus>
             </div>
+
             <div class="form-group">
                 <label for="exampleInputEmail1">密码</label>
                 <input type="password" name="password" class="form-control" placeholder="密码" value=""
                        style="*width: 250px;">
             </div>
 
-            <div class="clearfix"></div>
-
-            <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
+            <button class="btn btn-lg btn-login btn-block" type="submit">支付</button>
         </div>
     </form>
 

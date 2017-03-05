@@ -9,7 +9,7 @@
 package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
 import edu.zju.cst.util.ResultSupport;
@@ -49,6 +49,8 @@ public class CustomLoginController extends BaseController {
                            @RequestParam(value = "password") String password,
                            HttpServletRequest request,
                            ModelMap modelMap) {
+
+
         ResultSupport result = new ResultSupport();
         try {
             if (StringUtils.isBlank(password)) {
@@ -64,5 +66,24 @@ public class CustomLoginController extends BaseController {
             e.printStackTrace();
         }
         return JSON.toJSONString(result);
+    }
+
+    @RequestMapping(value = "/payment", method = RequestMethod.GET)
+    public String payment(ModelMap map,HttpServletRequest request) {
+        System.out.println("\n\n------------------------- meox 1--------------------------\n\n");
+
+        User user=(User) request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
+
+        System.out.println("\n\n------------------------- meox 2--------------------------\n\n");
+
+        if(user!=null){
+            map.put("username",user.getUserId());
+        }else{
+            map.put("username","xcb");
+        }
+
+        System.out.println("\n\n------------------------- meox 3--------------------------\n\n");
+
+        return "/custom/payment";
     }
 }
