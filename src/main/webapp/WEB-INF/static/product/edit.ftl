@@ -78,6 +78,34 @@
 </table>
 
 
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+
+        <li v-bind:class="{ hide: page==1}">
+            <a href="./" aria-label="First Page">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+        </li>
+        <li v-bind:class="{ hide: page==1}">
+            <a href="./?page=${page-1}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li v-bind:class="{ hide: page==lastPage}">
+            <a href="./?page=${page+1}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+
+        <li v-bind:class="{ hide: page==lastPage}">
+            <a href="./?page=${lastPage}" aria-label="Last Page">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
 
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
@@ -269,52 +297,25 @@
     vm = new Vue({
         el: '#app',
         data: {
-
-            product: '',
-            active:0,
-            message: 'Hello Vue.js!',
-            isDebug: false,
-
-            receivers: 'jianghan.jh@alibaba-inc.com',
-            cc_receivers: 'hanjiang.it@qq.com',
-            bcc_receivers: '',
-            subject: "朱雀项目bug周报--Send From AliAVMS",
-            content: "",
-
-            project_id:'2334',
-            status_list:'Open,New',
-            module_id_list:'7541',
-
-            maxToasts: 6,
-            position: 'bottom right',
-            theme: 'error',
-            timeLife: 3000,
-            closeBtn: true,
+            product: {},
+            total:${total},
+            page:${page},
+            lastPage:${lastPage},
+            perpage:${perpage},
         },
         methods: {
             edit: function (product_id) {
 
                 $.ajax({
-                    // 数据传送方式
                     type: 'GET',
-                    //
                     contentType: "application/json; charset=utf-8",
-                    // 数据处理文件
                     url: '/product/get/?product_id='+product_id,
-                    // JSON格式数据
-//                    data:data,
-                    // 预期返回 html
                     dataType: 'json',
                     async:true,
-                    // @msg: 数据返回值
                     success: function (msg, status) {
                         console.log(typeof msg)
-                        // console.log(msg);
-//                        vm.content = msg;
-
                         vm.product = msg;
                     },
-                    // Degbug
                     error: function (xhr, desc, err) {
                         console.log(xhr);
                         console.log("Details: " + desc + "\nError:" + err);
