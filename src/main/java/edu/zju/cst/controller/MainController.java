@@ -19,16 +19,18 @@ import java.util.List;
 @Controller
 public class MainController extends BaseController {
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String welcome(ModelMap map) {
 
-        List<Product> productList = productService.getProducts(3,1);
-        map.put("latestProduct",productList);
-
-        map.put("total",productService.getCount());
+        int count = productService.getCount();
+        int perpage = 10;
+        map.put("total",count);
         map.put("page",1);
-        map.put("perpage",2);
+        map.put("perpage",perpage);
+        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
+
+        List<Product> productList = productService.getProducts(perpage,1);
+        map.put("latestProduct",productList);
 
         return "welcome";
     }
@@ -36,12 +38,15 @@ public class MainController extends BaseController {
     @RequestMapping(value = "/page/{pageNum}", method = RequestMethod.GET)
     public String welcome(ModelMap map, @PathVariable int pageNum) {
 
-        List<Product> productList = productService.getProducts(3,pageNum);
-        map.put("latestProduct",productList);
-
-        map.put("total",productService.getCount());
+        int count = productService.getCount();
+        int perpage = 10;
+        map.put("total",count);
         map.put("page",pageNum);
-        map.put("perpage",2);
+        map.put("perpage",perpage);
+        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
+
+        List<Product> productList = productService.getProducts(perpage,pageNum);
+        map.put("latestProduct",productList);
 
         return "welcome";
     }

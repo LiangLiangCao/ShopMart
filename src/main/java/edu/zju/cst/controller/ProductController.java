@@ -22,7 +22,7 @@ public class ProductController extends BaseController{
 
 
         if(perpage == null){
-            perpage = 2;
+            perpage = 10;
         }
         if(page == null){
             page = 1;

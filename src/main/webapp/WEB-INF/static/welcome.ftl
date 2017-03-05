@@ -38,15 +38,27 @@
 
 <nav aria-label="Page navigation">
     <ul class="pagination">
-        <li>
+
+        <li v-bind:class="{ hide: page==1}">
+            <a href="/" aria-label="First Page">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+        </li>
+        <li v-bind:class="{ hide: page==1}">
             <a href="/page/${page-1}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
 
-        <li>
+        <li v-bind:class="{ hide: page==lastPage}">
             <a href="/page/${page+1}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+
+        <li v-bind:class="{ hide: page==lastPage}">
+            <a href="/page/${lastPage}" aria-label="Last Page">
+                <span aria-hidden="true">&raquo;&raquo;</span>
             </a>
         </li>
     </ul>
@@ -62,8 +74,10 @@
     vm = new Vue({
         el:"#app",
         data: {
-
-            perpage:2,
+            total:${total},
+            page:${page},
+            lastPage:${lastPage},
+            perpage:${perpage},
         },
         computed:{
             PerPage: function() {
