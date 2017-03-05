@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("order")
 public class OrderController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

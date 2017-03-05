@@ -17,5 +17,4 @@ public interface SupplierMapper {
 
     int updateByPrimaryKey(Supplier record);
     int deleteByUpdate(Long userId);
-
 }
