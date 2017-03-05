@@ -16,4 +16,7 @@ public interface PromotionMapper {
     int updateByPrimaryKeySelective(Promotion record);
 
     int updateByPrimaryKey(Promotion record);
+
+
+    int getCount();
 }

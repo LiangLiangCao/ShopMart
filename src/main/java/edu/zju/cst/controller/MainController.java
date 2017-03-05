@@ -19,14 +19,33 @@ import java.util.List;
 @Controller
 public class MainController extends BaseController {
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String welcome(ModelMap map) {
 
-        List<Product> productList = productService.getProducts(10,1);
+        List<Product> productList = productService.getProducts(3,1);
         map.put("latestProduct",productList);
+
+        map.put("total",productService.getCount());
+        map.put("page",1);
+        map.put("perpage",2);
 
         return "welcome";
     }
+
+    @RequestMapping(value = "/page/{pageNum}", method = RequestMethod.GET)
+    public String welcome(ModelMap map, @PathVariable int pageNum) {
+
+        List<Product> productList = productService.getProducts(3,pageNum);
+        map.put("latestProduct",productList);
+
+        map.put("total",productService.getCount());
+        map.put("page",pageNum);
+        map.put("perpage",2);
+
+        return "welcome";
+    }
+
 
 
 

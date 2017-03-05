@@ -42,4 +42,9 @@ public class ProductServiceImpl implements IProductService{
         int offset = (page-1) * size;
         return productMapper.selectByPageSize(size,offset);
     }
+
+
+    public int getCount(){
+        return productMapper.countTotal();
+    }
 }

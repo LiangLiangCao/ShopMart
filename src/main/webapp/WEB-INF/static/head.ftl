@@ -48,9 +48,12 @@
                 <a class="blog-nav-item active" href="/">CMBShop</a>
                 <a class="blog-nav-item" href="#">商品</a>
                 <a class="blog-nav-item" href="#">用户</a>
-                <a class="blog-nav-item" href="${BASE_PATH}/admin/login">管理员登录</a>
-                <a class="blog-nav-item" href="${BASE_PATH}/supply/login">供应商登录</a>
                 <a class="blog-nav-item" href="${BASE_PATH}/custom/login">用户登录</a>
+
+                <a class="blog-nav-item" href="">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </a>
+
             </nav>
         </div>
     </div>

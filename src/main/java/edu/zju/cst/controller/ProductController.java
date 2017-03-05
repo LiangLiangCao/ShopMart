@@ -18,9 +18,17 @@ import java.util.List;
 public class ProductController extends BaseController{
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String productList(ModelMap map) {
+    public String productList(ModelMap map,@RequestParam(value = "page", required=false) Integer page, @RequestParam(value = "perpage", required=false) Integer perpage) {
 
-        List<Product> productList = productService.getProducts(10,1);
+
+        if(perpage == null){
+            perpage = 2;
+        }
+        if(page == null){
+            page = 1;
+        }
+
+        List<Product> productList = productService.getProducts(perpage,page);
 
         map.put("latestProduct",productList);
         return "product/edit";

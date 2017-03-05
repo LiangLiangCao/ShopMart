@@ -1,18 +1,4 @@
-<#assign menu="admin_list">
-<#assign submenu="add_admin">
 <#include "../head.ftl">
-
-<!--main content start-->
-<div class="blog-masthead">
-    <div class="container">
-        <nav class="blog-nav">
-            <a class="blog-nav-item active" href="#">CMBShop</a>
-            <a class="blog-nav-item" href="#">编辑</a>
-            <a class="blog-nav-item" href="#">删除</a>
-        </nav>
-    </div>
-</div>
-
 
 <#--productId-->
 <#--categoryId-->
@@ -23,7 +9,6 @@
 <#--picture-->
 <#--quantity-->
 <#--description-->
-
 
 <table class="table">
     <caption>Product List</caption>
@@ -41,13 +26,9 @@
             <th>description</th>
 
             <th>
-                <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#addModal" v-on:click="add()" >
+                <span class="glyphicon glyphicon-plus" aria-hidden="true" data-toggle="modal" data-target="#addModal" v-on:click="addReset()">
 
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true">
-
-                            </span>
-                </button>
-
+                </span>
             </th>
 
         </tr>
@@ -61,33 +42,30 @@
                 <th>${item.productId!}</th>
                 <#--<th>${item.categoryId}</th>-->
                 <#--<th>${item.promotionId}</th>-->
-                <#--<th>${item.supplier}</th>-->
+                <#--<th>${item.supplier_id}</th>-->
                 <th>${item.productName!}</th>
                 <th>${item.price!}</th>
                 <th>${item.picture!}</th>
                 <th>${item.quantity!}</th>
                 <th>${item.description!}</th>
                 <th>
-                    <#--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->
 
-                    <#--<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>-->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#updateModal" v-on:click="edit(${item.productId})" >
 
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#myModal" v-on:click="edit(${item.productId})" >
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true">
 
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true">
-
-                            </span>
-                        </button>
+                        </span>
+                    </button>
 
 
-                        <button type="button" class="btn btn-default" aria-label="Center Align"  v-on:click="delete(${item.productId})">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true">
+                    <button type="button" class="btn btn-default" aria-label="Center Align"  v-on:click="delete(${item.productId})">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true">
 
-                            </span>
-                        </button>
+                        </span>
+                    </button>
 
-                    </div>
+                </div>
 
                 </th>
             </tr>
@@ -99,10 +77,8 @@
 
 
 
-
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1"
-     aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -110,7 +86,7 @@
                         data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="myModalLabel">
+                <h4 class="modal-title" >
                     编辑条目
                 </h4>
             </div>
@@ -192,11 +168,8 @@
 
 
 
-
-
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="addModal" tabindex="-1"
-     aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -204,7 +177,7 @@
                         data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="myModalLabel">
+                <h4 class="modal-title">
                     添加商品
                 </h4>
             </div>
@@ -360,6 +333,7 @@
                         console.log(typeof msg);
                         console.log(msg);
                         console.log("修改数据啦");
+                        $('#updateModal').modal('hide')
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);
@@ -386,6 +360,12 @@
                 });
             },
 
+            addReset: function () {
+
+                vm.product.productId = ""
+
+            },
+
             add: function () {
 
                 $.ajax({
@@ -398,6 +378,7 @@
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
+                        $('#addModal').modal('hide')
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);

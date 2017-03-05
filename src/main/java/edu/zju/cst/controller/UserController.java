@@ -25,17 +25,17 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by SX2601 on 2017/2/28.
+ * Created by Liang on 2/25/17.
  */
 @Controller
-@RequestMapping(value = "usrmanage")
+@RequestMapping("/user")
 public class UserController extends BaseController {
 
     /**
      * todo
      * 进入管理员管理页面
      */
-    @RequestMapping(value = "/manage", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String manage(ModelMap modelMap) {
         List<User> usrs = usrService.getAllListPage(10, 1);
         modelMap.put("users", usrs);

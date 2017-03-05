@@ -1,7 +1,5 @@
-<#assign menu="admin_list">
-<#assign submenu="admin_list">
-<#include "head.ftl">
 
+<#include "head.ftl">
 
 <style>
 
@@ -19,10 +17,7 @@
 </style>
 
 
-<div class="container">
-
 <#list latestProduct as item>
-
 
 <div class="row">
     <div class="col-md-12">
@@ -32,7 +27,7 @@
         <div class="description">
             <h2>${item.productName}</h2>
             <p>${item.description}<p>
-            <a class="btn btn-default" href="/product/${item.productId}" role="button">View details »</a></p>
+            <a class="btn btn-sm btn-primary" href="/product/${item.productId}" role="button">查看详情</a></p>
         </div>
     </div>
 </div>
@@ -41,53 +36,54 @@
 </#list>
 
 
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li>
+            <a href="/page/${page-1}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
 
-
-    <div class="search-box row">
-        <div class="col-md-3"></div>
-        <form class="col-md-7 col-md-offset-3 form-inline">
-            <input type="text" class="form-control" id="searchInput" placeholder="输入关键字">
-            <span type="submit" class="btn btn-primary" id="go" onclick="jumpTo();" alt="Search">搜索</span>
-        </form>
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-md-4">
-            <table class="table table-hover table-condensed" id="wordFreqRank">
-                <h4 class="th-center">热词排行</h4>
-                <th>排名</th>
-                <th>关键词</th>
-                <th>频率</th>
-                <th>趋势</th>
-            </table>
-        </div>
-        <div class="col-md-4">
-            <table class="table table-hover table-condensed" id="wordUptrendRank">
-                <h4 class="th-center">上升最快</h4>
-                <th>排名</th>
-                <th>关键词</th>
-                <th>频率</th>
-                <th>同比</th>
-            </table>
-        </div>
-        <div class="col-md-4">
-            <table class="table table-hover table-condensed" id="siteUpdateNumRank">
-                <h4 class="th-center">最近更新网站</h4>
-                <th>排名</th>
-                <th>网站</th>
-                <th>更新数</th>
-                <th>同比</th>
-            </table>
-        </div>
-    </div>
-
-</div><!-- /.container -->
+        <li>
+            <a href="/page/${page+1}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 
 
 
 <#include "foot.ftl">
+
+
+<script>
+
+    vm = new Vue({
+        el:"#app",
+        data: {
+
+            perpage:2,
+        },
+        computed:{
+            PerPage: function() {
+                return this.perpage? parseInt(this.perpage):10;
+            }
+        },
+        methods: {
+            refresh: function() {
+                this.$refs.table.setPage(vm.page);
+            },
+        },
+        ready: function() {
+            this.$on('vue-pagination::table', function(page) {
+                this.table1Page = page;
+            });
+        },
+
+    })
+
+</script>
 
 </body>
 

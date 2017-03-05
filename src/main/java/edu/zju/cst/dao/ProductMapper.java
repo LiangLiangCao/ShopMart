@@ -21,6 +21,9 @@ public interface ProductMapper {
     int updateByPrimaryKey(Product record);
 
     List<Product> selectByPageSize(@Param("num") int num, @Param("offset")int offset);
+
     int deleteByUpdate(Long userId);
+
+    int countTotal();
 
 }
