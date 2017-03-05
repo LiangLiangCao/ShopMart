@@ -58,7 +58,10 @@ public class OrderServiceImpl implements IOrderService{
 
         Orders order = new Orders();
 
-        int orderId = add(order);
+        add(order);
+        int orderId = order.getOrdrId().intValue();
+
+
 //        Promotion promotion =
         Orderitem orderitem = new Orderitem();
         orderitem.setTotalPrice(product.getPrice().longValue());
