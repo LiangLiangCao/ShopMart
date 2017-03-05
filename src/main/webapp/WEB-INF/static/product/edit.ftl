@@ -35,10 +35,12 @@
     </thead>
     <tbody>
 
-        <#list latestProduct as item>
+        <#list items as item>
 
             <tr>
                 <th scope="row">1</th>
+
+
                 <th>${item.productId!}</th>
                 <#--<th>${item.categoryId}</th>-->
                 <#--<th>${item.promotionId}</th>-->

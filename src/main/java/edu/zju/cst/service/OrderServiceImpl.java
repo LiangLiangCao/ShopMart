@@ -35,7 +35,7 @@ public class OrderServiceImpl implements IOrderService{
     }
 
     public int del(String id) {
-        int re = orderMapper.deleteByPrimaryKey(Long.parseLong(id));
+        int re = orderMapper.deleteByUpdate(Long.parseLong(id));
         return re;
     }
 
@@ -50,6 +50,9 @@ public class OrderServiceImpl implements IOrderService{
         return orderMapper.selectByPageSize(size,offset);
     }
 
+    public int getCount(){
+        return orderMapper.countTotal();
+    }
 
     public int addOrder(Product product){
 
@@ -69,7 +72,6 @@ public class OrderServiceImpl implements IOrderService{
         System.out.println("orderItemId id is "+ orderItemId);
 
         return orderId;
-
-
     }
+
 }

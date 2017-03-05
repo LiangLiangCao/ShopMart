@@ -92,4 +92,21 @@
       is_delete = #{isDelete,jdbcType=INTEGER}
     where category_id = #{categoryId,jdbcType=BIGINT}
   </update>
+
+
+  <update id="deleteByUpdate" parameterType="java.lang.Long" >
+    update category
+    set
+    is_delete = 1
+    where category_id = #{category_id,jdbcType=BIGINT}
+  </update>
+
+  <select id="countTotal" resultType="java.lang.Integer"  >
+    select count(*) from category where is_delete=0
+  </select>
+
+  <select id="selectByPageSize" resultMap="BaseResultMap"  >
+    select <include refid="Base_Column_List" />
+    from category where is_delete = 0 limit #{num} offset #{offset}
+  </select>
 </mapper>

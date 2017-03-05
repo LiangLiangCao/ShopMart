@@ -10,10 +10,7 @@ package edu.zju.cst.controller;
 
 import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstants;
-import edu.zju.cst.service.IOrderService;
-import edu.zju.cst.service.IProductService;
-import edu.zju.cst.service.ISupplierService;
-import edu.zju.cst.service.IUserService;
+import edu.zju.cst.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +34,9 @@ public class BaseController {
     protected ISupplierService supplierService;
     @Autowired
     protected IOrderService orderService;
+    @Autowired
+    protected ICategoryService categoryService;
+
 
 
     //① 获取保存在Session中的用户对象

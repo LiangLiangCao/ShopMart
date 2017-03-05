@@ -160,7 +160,7 @@
   </update>
 
     <select id="countTotal" resultType="java.lang.Integer"  >
-        select count(*) from product
+        select count(*) from product where is_delete=0
     </select>
 
   <select id="selectByPageSize" resultMap="BaseResultMap"  >

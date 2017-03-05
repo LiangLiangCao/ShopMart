@@ -40,7 +40,7 @@
 </head>
 
 
-<div  id="app" class="container">
+<div id="app" class="container">
 
     <div class="blog-masthead">
         <div class="container">

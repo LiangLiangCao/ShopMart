@@ -30,13 +30,6 @@
     from orders
     where ordr_id = #{ordrId,jdbcType=BIGINT}
   </select>
-
-  <select id="selectByPageSize" resultMap="BaseResultMap"  >
-    select
-    <include refid="Base_Column_List" />
-    from orders limit #{num} offset #{offset}
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from orders
     where ordr_id = #{ordrId,jdbcType=BIGINT}
@@ -224,4 +217,12 @@
     is_delete = 1
     where ordr_id = #{ordrId,jdbcType=BIGINT}
   </update>
+  <select id="selectByPageSize" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from orders where is_delete=0 limit #{num} offset #{offset}
+  </select>
+  <select id="countTotal" resultType="java.lang.Integer"  >
+    select count(*) from orders where is_delete=0
+  </select>
 </mapper>

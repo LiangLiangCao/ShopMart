@@ -20,6 +20,8 @@ public interface IOrderService {
 
     List<Orders> getOrders(int size, int page);
 
+    int getCount();
+
     int addOrder(Product product);
 
 }

@@ -43,7 +43,6 @@ public class ProductServiceImpl implements IProductService{
         return productMapper.selectByPageSize(size,offset);
     }
 
-
     public int getCount(){
         return productMapper.countTotal();
     }
