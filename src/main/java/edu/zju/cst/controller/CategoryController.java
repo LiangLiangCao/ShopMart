@@ -27,6 +27,14 @@ public class CategoryController extends BaseController{
             page = 1;
         }
 
+        int count = categoryService.getCount();
+        map.put("total",count);
+        map.put("page",page);
+        map.put("perpage",perpage);
+
+        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
+
+
         List<Category> categoryList = categoryService.getCategories(perpage,page);
 
         map.put("items",categoryList);

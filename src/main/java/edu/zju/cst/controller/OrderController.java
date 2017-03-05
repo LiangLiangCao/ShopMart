@@ -33,6 +33,14 @@ public class OrderController extends BaseController {
             page = 1;
         }
 
+        int count = orderService.getCount();
+        map.put("total",count);
+        map.put("page",page);
+        map.put("perpage",perpage);
+
+        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
+
+
         List<Orders> orderList = orderService.getOrders(perpage,page);
         map.put("items",orderList);
 

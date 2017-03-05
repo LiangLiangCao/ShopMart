@@ -29,6 +29,14 @@ public class ProductController extends BaseController{
             page = 1;
         }
 
+        int count = productService.getCount();
+        map.put("total",count);
+        map.put("page",page);
+        map.put("perpage",perpage);
+
+        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
+
+
         List<Product> productList = productService.getProducts(perpage,page);
 
 

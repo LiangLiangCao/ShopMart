@@ -29,7 +29,11 @@ import javax.servlet.http.HttpServletRequest;
 public class AdminLoginController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLogin(HttpServletRequest request, ModelMap modelMap) {
+    public String getLogin(HttpServletRequest request,
+                           @RequestParam(value = "redirect", required = false) String redirect,
+                           ModelMap modelMap) {
+
+        modelMap.put("redirect",redirect);
         return "/admin/login";
     }
 
@@ -40,10 +44,10 @@ public class AdminLoginController extends BaseController {
         return "redirect:" + HttpUtils.getBasePath(request);
     }
 
-    @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String usrLogin(@RequestParam(value = "name") String name,
                            @RequestParam(value = "password") String password,
+                           @RequestParam(value = "redirect", required = false) String redirect,
                            HttpServletRequest request,
                            ModelMap modelMap) {
         ResultSupport result = new ResultSupport();
@@ -52,12 +56,17 @@ public class AdminLoginController extends BaseController {
             result.setCode(1);
             usrService.adminLogin(name, password, request);
 
+            if(redirect!=null){
+                return "redirect:" + HttpUtils.getBasePath(request)+redirect;
+
+            }
+
         } catch (Exception e) {
             result.setCode(0);
             result.setMsg("email or password wrong.");
             e.printStackTrace();
         }
-        return JSON.toJSONString(result);
+        return "redirect:" + HttpUtils.getBasePath(request)+"/admin/login";
     }
 
 }

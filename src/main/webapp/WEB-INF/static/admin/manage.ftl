@@ -104,11 +104,14 @@
                                         <th>score</th>
                                         <th><span class=" glyphicon glyphicon-plus" aria-hidden="true"></span></th>
                                     </tr>
+
+
+                                    
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                                     <#list users as e>
                                     <tr class="gradeA odd">
-                                        <td>${e.uid!}</td>
+                                        <td>${e.userId!}</td>
                                         <td> ${e.email!}</td>
                                         <td>${e.gender!}</td>
                                         <td> ${e.phone!}</td>
@@ -118,11 +121,11 @@
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-default" aria-label="Left Align"
                                                         data-toggle="modal" data-target="#myModal"
-                                                        v-on:click="edit(${e.uid!})">
+                                                        v-on:click="edit(${e.userId!})">
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"/>
                                                 </button>
                                                 <button type="button" class="btn btn-default" aria-label="Center Align"
-                                                        v-on:click="delete(${e.uid!})">
+                                                        v-on:click="deleteIt(${e.userId!})">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"/>
                                                 </button>
                                             </div>
@@ -151,8 +154,8 @@
             </div>
             <div class="modal-body" id="product_info">
                 <div class="input-group">
-                    <span class="input-group-addon">  uid  </span>
-                    <input v-model="user.uid" type="text" class="form-control" placeholder=""
+                    <span class="input-group-addon">  userId  </span>
+                    <input v-model="user.userId" type="text" class="form-control" placeholder=""
                            aria-describedby="basic-addon1" disabled>
                 </div>
                 <div class="input-group">
@@ -203,19 +206,16 @@
     vm = new Vue({
         el: '#app',
      data: {
-            user: '',
-            active: 0,
-            message: 'Hello Vue.js!',
-            isDebug: false
+            user: {},
         },
         methods: {
-            delete: function (uid) {
+            deleteIt: function (user_id) {
                 $.ajax({
                     type: 'GET',
                     contentType: "application/json; charset=utf-8",
-                    url: '/usrmanage/delete',
+                    url: '/admin/user/delete',
                     dataType: 'json',
-                    data: {uId: uid},
+                    data: {"user_id": user_id},
                     async: true,
                     success: function (msg, status) {
                         console.log(typeof msg)
@@ -227,27 +227,16 @@
                     }
                 });
             },
-            edit: function (uid) {
+            edit: function (user_id) {
                 $.ajax({
-                    // 数据传送方式
                     type: 'GET',
-                    //
                     contentType: "application/json; charset=utf-8",
-                    // 数据处理文件
-                    url: '/usrmanage/get/?uid=' + uid,
-                    // JSON格式数据
-//                    data:data,
-                    // 预期返回 html
+                    url: '/admin/user/get/?user_id=' + user_id,
                     dataType: 'json',
                     async: true,
-                    // @msg: 数据返回值
                     success: function (msg, status) {
-//                        console.log(typeof msg)
-//                         console.log(msg);
-//                        vm.content = msg;
                         vm.user = msg;
                     },
-                    // Degbug
                     error: function (xhr, desc, err) {
                         console.log(xhr);
                         console.log("Details: " + desc + "\nError:" + err);
@@ -257,31 +246,17 @@
 
             update: function () {
                 $.ajax({
-                    // 数据传送方式
                     type: 'POST',
-                    //                    headers: {
-//                        'Accept': 'application/json',
-//                        'Content-Type': 'application/json'
-//                    },
                     contentType: "application/json; charset=utf-8",
-                    // 数据处理文件
-                    url: '/usrmanage/update',
-                    // JSON格式数据
+                    url: '/admin/user/update',
                     data: JSON.stringify(vm.user),
-                    // 预期返回 html
                     dataType: 'json',
                     async: true,
-//                    beforeSend : function(req) {
-//
-//                        req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');  ///加这一行解决问题
-//                    },
-                    // @msg: 数据返回值
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
                         console.log("修改数据啦");
                     },
-                    // Degbug
                     error: function (xhr, desc, err) {
                         console.log(xhr);
                         console.log("Details: " + desc + "\nError:" + err);

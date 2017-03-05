@@ -62,6 +62,35 @@
 </table>
 
 
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+
+        <li v-bind:class="{ hide: page==1}">
+            <a href="./" aria-label="First Page">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+        </li>
+        <li v-bind:class="{ hide: page==1}">
+            <a href="./?page=${page-1}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li v-bind:class="{ hide: page==lastPage}">
+            <a href="./?page=${page+1}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+
+        <li v-bind:class="{ hide: page==lastPage}">
+            <a href="./?page=${lastPage}" aria-label="Last Page">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
 
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
@@ -176,6 +205,10 @@
         el: '#app',
         data: {
             item: {},
+            total:${total},
+            page:${page},
+            lastPage:${lastPage},
+            perpage:${perpage},
         },
         methods: {
             edit: function (category_id) {

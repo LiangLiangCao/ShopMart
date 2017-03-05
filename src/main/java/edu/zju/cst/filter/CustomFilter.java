@@ -27,11 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+
 /**
- * 管理过滤器
- *
- * @author Herbert
+ * Created by Liang on 25/02/2017.
  */
+
 public class CustomFilter implements Filter {
 
     protected final Logger logger = Logger.getLogger(this.getClass());
@@ -44,8 +44,6 @@ public class CustomFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
-        System.out.println("\n\n------------------------- meox 5--------------------------\n\n");
-
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
@@ -57,9 +55,6 @@ public class CustomFilter implements Filter {
     }
 
     public void destroy() {
-
-        System.out.println("\n\n------------------------- meox 6--------------------------\n\n");
-
         notCheckURLList.clear();
     }
 
@@ -69,8 +64,6 @@ public class CustomFilter implements Filter {
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {
-
-        System.out.println("\n\n------------------------- meox 4--------------------------\n\n");
 
         this.filterConfig = filterConfig;
         redirectURL = filterConfig.getInitParameter("redirectURL");

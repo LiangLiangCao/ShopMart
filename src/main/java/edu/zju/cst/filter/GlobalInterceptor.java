@@ -11,9 +11,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 
+
 /**
- * Created by SX2601 on 2017/2/22.
+ * Created by Liang on 25/02/2017.
  */
+
 @Component
 public class GlobalInterceptor implements HandlerInterceptor {
 
@@ -32,8 +34,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		// 系统配置参数
 		String basePath = HttpUtils.getBasePath(request);
 		modelAndView.addObject("BASE_PATH", basePath);
-		modelAndView.addObject("shopmart_title","ShopMart");
-		modelAndView.addObject("shopmart_description","simple shopping web");
+
 	}
 
 	public void afterCompletion(HttpServletRequest request,

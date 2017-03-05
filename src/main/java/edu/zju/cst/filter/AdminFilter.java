@@ -26,9 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+
 /**
- * Created by SX2601 on 2017/2/28.
+ * Created by Liang on 25/02/2017.
  */
+
 public class AdminFilter implements Filter {
 
     protected final Logger logger = Logger.getLogger(this.getClass());
@@ -44,9 +46,19 @@ public class AdminFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
+
         User usr = (User) request.getSession().getAttribute(sessionKey);
         if (usr == null&&(!checkRequestURIIntNotFilterList(request))) {
-           response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL);
+
+            System.out.println("\n\n------------------------- meox 6--------------------------\n\n");
+
+            System.out.println(redirectURL);
+//            if(redirectURL.equals("/admin/login")){
+//                response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL);
+//            }else {
+                response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL+"?redirect="+uri);
+//            }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

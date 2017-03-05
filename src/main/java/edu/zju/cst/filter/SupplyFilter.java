@@ -26,9 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+
 /**
- * Created by SX2601 on 2017/2/28.
+ * Created by Liang on 25/02/2017.
  */
+
 public class SupplyFilter implements Filter {
 
     protected final Logger logger = Logger.getLogger(this.getClass());

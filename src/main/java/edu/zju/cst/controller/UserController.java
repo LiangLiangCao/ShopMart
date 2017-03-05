@@ -75,8 +75,8 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public String getById(@RequestParam(value = "uid") String uid, HttpServletRequest request) {
-        User user = usrService.findByID(Long.parseLong(uid.trim()));
+    public String getById(@RequestParam(value = "user_id") String user_id, HttpServletRequest request) {
+        User user = usrService.findByID(Long.parseLong(user_id.trim()));
         return JSON.toJSONString(user);
     }
     /**
@@ -102,9 +102,9 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(value = "uId") long uId, HttpServletRequest request) {
+    public String delete(@RequestParam(value = "user_id") long user_id, HttpServletRequest request) {
 
-        int re =  usrService.deleteByID(uId);
+        int re =  usrService.deleteByID(user_id);
 
         ResultSupport result = new ResultSupport();
         if (re > 0) {

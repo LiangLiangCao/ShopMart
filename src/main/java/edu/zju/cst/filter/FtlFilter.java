@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 /**
- * Created by SX2601 on 2017/2/22.
+ * Created by Liang on 25/02/2017.
  */
+
 public class FtlFilter implements Filter{
     protected final Logger logger = Logger.getLogger(this.getClass());
 
