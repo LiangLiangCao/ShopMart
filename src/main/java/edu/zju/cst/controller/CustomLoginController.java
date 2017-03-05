@@ -9,6 +9,7 @@
 package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
+import edu.zju.cst.bean.Product;
 import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.HttpUtils;
@@ -16,10 +17,7 @@ import edu.zju.cst.util.ResultSupport;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(value = "custom")
 public class CustomLoginController extends BaseController {
-
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {
@@ -49,8 +46,6 @@ public class CustomLoginController extends BaseController {
                            @RequestParam(value = "password") String password,
                            HttpServletRequest request,
                            ModelMap modelMap) {
-
-
         ResultSupport result = new ResultSupport();
         try {
             if (StringUtils.isBlank(password)) {
@@ -69,21 +64,46 @@ public class CustomLoginController extends BaseController {
     }
 
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
-    public String payment(ModelMap map,HttpServletRequest request) {
-        System.out.println("\n\n------------------------- meox 1--------------------------\n\n");
-
-        User user=(User) request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
-
-        System.out.println("\n\n------------------------- meox 2--------------------------\n\n");
-
-        if(user!=null){
-            map.put("username",user.getUserId());
-        }else{
-            map.put("username","xcb");
+    public String payment(HttpServletRequest request,
+                          ModelMap map) {
+        User user = (User) request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
+        if (user != null) {
+            map.put("username", user.getUserId());
+        } else {
+            map.put("username", "xcb");
         }
-
-        System.out.println("\n\n------------------------- meox 3--------------------------\n\n");
-
         return "/custom/payment";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/pay", method = RequestMethod.POST)
+    public String pay(@RequestBody User user,
+                      HttpServletRequest request,
+                      ModelMap modelMap) {
+        ResultSupport result = new ResultSupport();
+        try {
+            if (StringUtils.isBlank(user.getPassword())) {
+                result.setCode(0);
+                result.setMsg("password cannot be null.");
+            }
+            user.setRole("2");
+            usrService.usrLogin(user.getUserId().toString(), user.getPassword(), request);
+            Product product = (Product) request.getSession().getAttribute(SystemConstants.SESSION_PRODUCT);
+            if (product != null) {
+                int re = orderService.addOrder(product);
+                if (re > 0) {
+                    result.setCode(re);
+                    result.setMsg("购买完成。");
+                } else {
+                    result.setCode(0);
+                    result.setMsg("购买错误");
+                }
+            }
+        } catch (Exception e) {
+            result.setCode(0);
+            result.setMsg("email or password wrong.");
+            e.printStackTrace();
+        }
+        return JSON.toJSONString(result);
     }
 }
