@@ -51,7 +51,7 @@ public class CustomFilter implements Filter {
         String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
 
         User usr = (User) request.getSession().getAttribute(sessionKey);
-        if (usr == null && (!checkRequestURIIntNotFilterList(request))) {
+        if (usr == null && (!isInWhiteList(request))) {
 
             //将被截获地址以参数的形式传递给跳转目标页面
             response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL+"?redirect="+uri);
@@ -63,7 +63,7 @@ public class CustomFilter implements Filter {
         notCheckURLList.clear();
     }
 
-    private boolean checkRequestURIIntNotFilterList(HttpServletRequest request) {
+    private boolean isInWhiteList(HttpServletRequest request) {
         String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
         return notCheckURLList.contains(uri);
     }
