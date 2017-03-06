@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SupplyLoginController extends BaseController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {
-        return "/supply/login";
+        return "/ftl//supply/login";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

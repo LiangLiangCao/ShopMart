@@ -40,7 +40,7 @@ public class OrderController extends BaseController {
         List<Orders> orderList = orderService.getOrders(perpage, page);
         map.put("items", orderList);
 
-        return "order/edit";
+        return "/ftl/order/edit";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)

@@ -38,7 +38,7 @@ public class CustomController extends BaseController {
         //获得跳转参数,登录成功后跳转回去
         if(redirect==null) redirect ="/";
         modelMap.put("redirect",redirect);
-        return "/custom/login";
+        return "/ftl/custom/login";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -83,7 +83,7 @@ public class CustomController extends BaseController {
         } else {
             map.put("username", "xcb");
         }
-        return "/custom/payment";
+        return "/ftl/custom/payment";
     }
 
     @ResponseBody
@@ -118,7 +118,7 @@ public class CustomController extends BaseController {
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public String info(ModelMap map, HttpServletRequest request) {
-        return "custom/order";
+        return "/ftl/custom/order";
     }
 
     @RequestMapping(value = "/receive", method = RequestMethod.POST)
@@ -142,7 +142,7 @@ public class CustomController extends BaseController {
         map.put("orders",orders);
         map.put("product",product);
 
-        return "custom/result";
+        return "/ftl/custom/result";
     }
     @RequestMapping(value="/orderAll",method = RequestMethod.GET)
     public String orderAll(ModelMap map,HttpServletRequest request){
@@ -153,6 +153,6 @@ public class CustomController extends BaseController {
 //        map.put("orders",orders);
 //        map.put("product",product);
 
-        return "custom/result";
+        return "/ftl/custom/result";
     }
 }

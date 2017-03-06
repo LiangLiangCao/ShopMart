@@ -38,7 +38,7 @@ public class CategoryController extends BaseController{
         List<Category> categoryList = categoryService.getCategories(perpage,page);
 
         map.put("items",categoryList);
-        return "category/edit";
+        return "/ftl/category/edit";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)

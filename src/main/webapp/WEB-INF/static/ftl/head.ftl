@@ -1,5 +1,4 @@
 <#assign config_v="20140830004">
-<#--<#assign BASE_PATH="http://localhost:8080/">-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,4 +40,3 @@
             </nav>
         </div>
     </div>
-</div>

@@ -34,7 +34,7 @@ public class ProductController extends BaseController{
 
         List<Product> productList = productService.getProducts(perpage,page);
         map.put("items",productList);
-        return "product/edit";
+        return "/ftl/product/edit";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)

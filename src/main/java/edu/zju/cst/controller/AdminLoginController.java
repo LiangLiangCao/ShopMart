@@ -37,7 +37,7 @@ public class AdminLoginController extends BaseController {
         if(redirect==null) redirect ="/";
         
         modelMap.put("redirect",redirect);
-        return "/admin/login";
+        return "/ftl/admin/login";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

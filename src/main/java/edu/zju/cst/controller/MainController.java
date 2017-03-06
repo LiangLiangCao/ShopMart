@@ -28,7 +28,7 @@ public class MainController extends BaseController {
         List<Product> productList = productService.getProducts(perpage,page);
         map.put("latestProduct",productList);
 
-        return "welcome";
+        return "/ftl/welcome";
     }
 
     @RequestMapping(value = "/page/{pageNum}", method = RequestMethod.GET)
@@ -42,6 +42,6 @@ public class MainController extends BaseController {
 
         List<Product> productList = productService.getProducts(perpage,pageNum);
         map.put("latestProduct",productList);
-        return "welcome";
+        return "/ftl/welcome";
     }
 }

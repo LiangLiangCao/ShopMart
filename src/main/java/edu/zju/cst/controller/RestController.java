@@ -26,6 +26,6 @@ public class RestController extends BaseController{
             map.put("product",product);
             map.put("product_var", JSON.toJSONString(product));
         }
-        return "/product/detail";
+        return "/ftl/product/detail";
     }
 }

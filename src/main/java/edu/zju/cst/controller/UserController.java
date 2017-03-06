@@ -39,7 +39,7 @@ public class UserController extends BaseController {
     public String manage(ModelMap modelMap) {
         List<User> usrs = usrService.getAllListPage(10, 1);
         modelMap.put("users", usrs);
-        return "admin/manage";
+        return "/ftl/admin/manage";
     }
 
     /**
