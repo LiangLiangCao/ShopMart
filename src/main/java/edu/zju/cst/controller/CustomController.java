@@ -36,6 +36,7 @@ public class CustomController extends BaseController {
                            @RequestParam(value = "redirect", required = false) String redirect,
                            ModelMap modelMap) {
         //获得跳转参数,登录成功后跳转回去
+        if(redirect==null) redirect ="/";
         modelMap.put("redirect",redirect);
         return "/custom/login";
     }

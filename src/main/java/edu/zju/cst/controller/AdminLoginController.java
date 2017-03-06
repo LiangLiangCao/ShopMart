@@ -33,6 +33,9 @@ public class AdminLoginController extends BaseController {
                            @RequestParam(value = "redirect", required = false) String redirect,
                            ModelMap modelMap) {
 
+        //输入登录页面地址登录,跳转到首页
+        if(redirect==null) redirect ="/";
+        
         modelMap.put("redirect",redirect);
         return "/admin/login";
     }
