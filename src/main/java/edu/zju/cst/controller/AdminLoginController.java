@@ -43,7 +43,6 @@ public class AdminLoginController extends BaseController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String usrLogout(HttpServletRequest request, ModelMap modelMap) {
         request.getSession().removeAttribute(SystemConstants.SESSION_ADMIN);
-
         return "redirect:" + HttpUtils.getBasePath(request);
     }
 
@@ -54,16 +53,13 @@ public class AdminLoginController extends BaseController {
                            HttpServletRequest request,
                            ModelMap modelMap) {
         ResultSupport result = new ResultSupport();
-
         try {
             result.setCode(1);
             usrService.adminLogin(name, password, request);
 
             if(redirect!=null){
                 return "redirect:" + HttpUtils.getBasePath(request)+redirect;
-
             }
-
         } catch (Exception e) {
             result.setCode(0);
             result.setMsg("email or password wrong.");
