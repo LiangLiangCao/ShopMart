@@ -144,4 +144,15 @@ public class CustomController extends BaseController {
 
         return "custom/result";
     }
+    @RequestMapping(value="/orderAll",method = RequestMethod.GET)
+    public String orderAll(ModelMap map,HttpServletRequest request){
+        User user=(User)request.getSession().getAttribute(SystemConstants.CUSTOM_KIND_USR);
+//        orderService.getOrders();
+                
+//        map.put("orderitem",orderitem);
+//        map.put("orders",orders);
+//        map.put("product",product);
+
+        return "custom/result";
+    }
 }

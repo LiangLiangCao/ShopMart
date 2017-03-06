@@ -2,6 +2,7 @@ package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
 import edu.zju.cst.bean.Product;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.util.ResultSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,10 +21,10 @@ public class ProductController extends BaseController{
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String productList(ModelMap map,@RequestParam(value = "page", required=false) Integer page, @RequestParam(value = "perpage", required=false) Integer perpage) {
         if(perpage == null){
-            perpage = 10;
+            perpage = SystemConstants.PER_PAGE;
         }
         if(page == null){
-            page = 1;
+            page = SystemConstants.FIRST_PAGE;
         }
         int count = productService.getCount();
         map.put("total",count);
@@ -38,15 +39,15 @@ public class ProductController extends BaseController{
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public String get(ModelMap map,@RequestParam(value = "product_id") int product_id) {
-        Product product = productService.get(product_id+"");
+    public String get(ModelMap map,@RequestParam(value = "product_id") int productId) {
+        Product product = productService.get(productId+"");
         return JSON.toJSONString(product);
     }
 
     @RequestMapping(value = "/del", method = RequestMethod.GET )
     @ResponseBody
-    public String delProduct(ModelMap map, @RequestParam(value = "product_id") int product_id) {
-        int re = productService.del(product_id+"");
+    public String delProduct(ModelMap map, @RequestParam(value = "product_id") int productId) {
+        int re = productService.del(productId+"");
 
         ResultSupport result = new ResultSupport();
         if(re>0){

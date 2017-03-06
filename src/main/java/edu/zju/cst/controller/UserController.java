@@ -79,13 +79,14 @@ public class UserController extends BaseController {
         User user = usrService.findByID(Long.parseLong(user_id.trim()));
         return JSON.toJSONString(user);
     }
+
     /**
      * 更新用户信息
      */
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateUser(@RequestBody User user, HttpServletRequest request) {
-        int re= usrService.updateByID(user);
+        int re = usrService.updateByID(user);
         ResultSupport result = new ResultSupport();
         if (re > 0) {
             result.setCode(re);
@@ -102,8 +103,8 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(value = "user_id") long user_id, HttpServletRequest request) {
-        int re =  usrService.deleteByID(user_id);
+    public String delete(@RequestParam(value = "user_id") long userId, HttpServletRequest request) {
+        int re = usrService.deleteByID(userId);
 
         ResultSupport result = new ResultSupport();
         if (re > 0) {

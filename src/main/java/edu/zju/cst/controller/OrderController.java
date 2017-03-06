@@ -27,20 +27,16 @@ public class OrderController extends BaseController {
     public String showAll(ModelMap map, @RequestParam(value = "page", required = false) Integer page,
                           @RequestParam(value = "perpage", required = false) Integer perpage) {
         if (perpage == null) {
-            perpage = 10;
+            perpage = SystemConstants.PER_PAGE;
         }
         if (page == null) {
-            page = 1;
+            page =SystemConstants.FIRST_PAGE;
         }
-
         int count = orderService.getCount();
         map.put("total", count);
         map.put("page", page);
         map.put("perpage", perpage);
-
         map.put("lastPage", (int) Math.ceil(count / (double) perpage));
-
-
         List<Orders> orderList = orderService.getOrders(perpage, page);
         map.put("items", orderList);
 
@@ -53,7 +49,6 @@ public class OrderController extends BaseController {
         Orders order = orderService.get(id + "");
         return JSON.toJSONString(order);
     }
-
 
     @RequestMapping(value = "/del", method = RequestMethod.GET)
     @ResponseBody

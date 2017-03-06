@@ -32,7 +32,6 @@
                    style="*width: 250px;"
                    autofocus>
         </div>
-
         <div class="form-group">
             <label for="exampleInputEmail1">密码</label>
             <input type="password" v-model="user.password" class="form-control" placeholder="密码" value=""

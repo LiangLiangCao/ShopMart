@@ -1,4 +1,12 @@
-package edu.zju.cst.service;
+/*
+ * LiangCao
+ *
+ *  Copyright (C) 2016 , Ltd. All rights reserved.
+ *
+ *  引用请标注来源
+ */
+
+package edu.zju.cst.service.impl;
 
 import edu.zju.cst.bean.Orderitem;
 import edu.zju.cst.bean.Orders;
@@ -6,6 +14,7 @@ import edu.zju.cst.bean.Product;
 import edu.zju.cst.dao.OrderitemMapper;
 import edu.zju.cst.dao.OrdersMapper;
 import edu.zju.cst.dao.ProductMapper;
+import edu.zju.cst.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +53,6 @@ public class OrderServiceImpl implements IOrderService {
 
     public Orders get(String id) {
         return orderMapper.selectByPrimaryKey(Long.parseLong(id));
-
     }
 
     public List<Orders> getOrders(int size, int page) {

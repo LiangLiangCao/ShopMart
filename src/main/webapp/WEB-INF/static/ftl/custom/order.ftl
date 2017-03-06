@@ -25,13 +25,10 @@
     订单信息
 </header>
 <div class="container">
-
     <h2 class="form-signin-heading">
         <img src="${BASE_PATH}/static/images/logo.png" style="height: 38px;"/>
     </h2>
-
     <div class="login-wrap">
-
         <div class="form-group">
             <label for="exampleInputEmail1">收货人姓名</label>
             <input type="text" v-model="orders.name" class="form-control" placeholder="张三" value="bill"
@@ -54,12 +51,9 @@
         </div>
         <button class="btn btn-lg btn-login btn-block" v-on:click="add()">确定</button>
     </div>
-
 </div>
 
-
 <#include "../foot.ftl">
-
 
 <script type="text/javascript">
     vm = new Vue({

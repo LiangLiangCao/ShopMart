@@ -1,17 +1,18 @@
 /*
- *  LiangCao
+ * LiangCao
  *
  *  Copyright (C) 2016 , Ltd. All rights reserved.
  *
  *  引用请标注来源
  */
 
-package edu.zju.cst.service;
+package edu.zju.cst.service.impl;
 
 import edu.zju.cst.bean.Supplier;
 import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.dao.SupplierMapper;
 import edu.zju.cst.exception.AuthException;
+import edu.zju.cst.service.ISupplierService;
 import edu.zju.cst.util.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -46,7 +46,7 @@
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">购买时间：</label>
-            <p class="col-sm-10">${(orders.payTime)!?string("yyyy-MM-dd hh:mm:ss")}</p>
+            <p class="col-sm-10">${(orders.payTime)!?string("yyyy-MM-dd HH:mm:ss")}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">购买数量：</label>

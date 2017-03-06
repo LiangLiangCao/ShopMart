@@ -1,19 +1,6 @@
 <#assign menu="admin_list">
 <#assign submenu="add_admin">
 <#include "../head.ftl">
-
-
-<#--productId-->
-<#--categoryId-->
-<#--promotionId-->
-<#--supplierId-->
-<#--productName-->
-<#--price-->
-<#--picture-->
-<#--quantity-->
-<#--description-->
-
-
 <div class="row">
     <div class="col-md-12">
         <div class="image">
@@ -21,9 +8,7 @@
         </div>
         <div class="description">
             <h2>商品名 ${product.productName}</h2>
-
             <h3>价格 ${product.price}</h3>
-
             <h3> 促销类型 ${product.productId}</h3>
             <h3> 供应商 ID ${product.supplierId}</h3>
             <h3> 数量 ${product.quantity}</h3>
@@ -33,14 +18,8 @@
         </div>
     </div>
 </div>
-
-
-
-
 <#include "../foot.ftl">
-
 <script>
-
     vm = new Vue({
         el: '#app',
         data: {
@@ -48,7 +27,6 @@
         },
         methods: {
             add: function () {
-
                 console.log("hi,cbb");
                 $.ajax({
                     type: 'POST',
@@ -69,15 +47,9 @@
                     }
                 });
             },
-
         }
-
     });
-
 </script>
-
-
 </body>
-
 </html>
 

@@ -11,6 +11,5 @@ public class Test {
         logger.info("This is info message.");
         // 记录error级别的信息
         logger.error("This is error message.");
-
     }
 }

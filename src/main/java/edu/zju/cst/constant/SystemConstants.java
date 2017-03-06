@@ -44,4 +44,12 @@ public class SystemConstants {
      * user的role字段为CUSTOM_KIND_USR则是普通用户
      */
     public static final String CUSTOM_KIND_USR = "2";
+    /**
+     * 分页每一页的条目数
+     */
+    public static final int PER_PAGE = 10;
+    /**
+     * 分页页第一页
+     */
+    public static final int FIRST_PAGE = 1;
 }

@@ -1,8 +1,17 @@
-package edu.zju.cst.service;
+/*
+ * LiangCao
+ *
+ *  Copyright (C) 2016 , Ltd. All rights reserved.
+ *
+ *  引用请标注来源
+ */
+
+package edu.zju.cst.service.impl;
 
 import edu.zju.cst.bean.Product;
 import edu.zju.cst.dao.ProductMapper;
 import edu.zju.cst.dao.SupplierMapper;
+import edu.zju.cst.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +21,7 @@ import java.util.List;
  * Created by Liang on 2/25/2017.
  */
 @Service
-public class ProductServiceImpl implements IProductService{
+public class ProductServiceImpl implements IProductService {
 
     @Autowired
     private ProductMapper productMapper;

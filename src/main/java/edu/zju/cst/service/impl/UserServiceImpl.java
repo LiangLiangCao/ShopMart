@@ -1,9 +1,18 @@
-package edu.zju.cst.service;
+/*
+ * LiangCao
+ *
+ *  Copyright (C) 2016 , Ltd. All rights reserved.
+ *
+ *  引用请标注来源
+ */
+
+package edu.zju.cst.service.impl;
 
 import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.dao.UserMapper;
 import edu.zju.cst.exception.AuthException;
+import edu.zju.cst.service.IUserService;
 import edu.zju.cst.util.AuthUtils;
 import edu.zju.cst.util.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;

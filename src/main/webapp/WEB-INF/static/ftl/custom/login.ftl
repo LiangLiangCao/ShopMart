@@ -22,12 +22,8 @@
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
     }
 </style>
-
-
 <body class="login-body">
-
 <div class="container">
-
         <#if redirect??>
         <form class="form-signin" id="adminForm"
               action="${BASE_PATH}/custom/login?redirect=${redirect!}" autocomplete="off"
@@ -37,7 +33,6 @@
               action="${BASE_PATH}/custom/login" autocomplete="off"
               method="post">
         </#if>
-
         <h2 class="form-signin-heading">
             <img src="${BASE_PATH}/static/images/logo.png"
                  style="height: 38px;"/>
@@ -59,7 +54,6 @@
             <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
         </div>
     </form>
-
 </div>
 </body>
 </html>
