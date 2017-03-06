@@ -18,16 +18,21 @@
 
 <#list items as item>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="image">
-            <img src="${BASE_PATH}/static/images/logo.png" width="100px" height="100px" alt="iphone" class="img-rounded">
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12 item_box">
+            <div class="item_image">
+                <img src="${BASE_PATH}/static/images/logo.png" width="100px" height="100px" alt="iphone" class="img-rounded">
+            </div>
+            <div class="item_detail">
+                <div class="item_title">${item.productName}</div>
+                <p class="item_description">${item.description}</p>
+                <a class="item_btn btn btn-xs btn-info" href="/product/${item.productId}" role="button">查看</a>
+            </div>
         </div>
-        <div class="description">
-            <h2>${item.productName}</h2>
-            <p>${item.description}<p>
-            <a class="btn btn-sm btn-primary" href="/product/${item.productId}" role="button">查看详情</a></p>
-        </div>
+
     </div>
 </div>
 

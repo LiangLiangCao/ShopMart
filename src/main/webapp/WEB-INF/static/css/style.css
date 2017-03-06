@@ -156,11 +156,44 @@ h6, .h6 {
 
 .blog-footer {
     padding: 40px 0;
-    color: #999;
+    color: rgba(153, 153, 153, 0.13);
     text-align: center;
     background-color: #f9f9f9;
     border-top: 1px solid #e5e5e5;
 }
 .blog-footer p:last-child {
     margin-bottom: 0;
+}
+
+
+.item_box{
+    float:left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 100%;
+    border-bottom: #e8f6ff;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.item_image{
+    float:left;
+}
+.item_detail{
+    float:left;
+}
+
+.item_title{
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.item_description{
+    padding-top: 5px;
+    padding-right: 10px;
+    font-size: 12px;
+
+}
+
+.item_btn{
+
 }
