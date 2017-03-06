@@ -225,7 +225,7 @@
     <select id="countTotal" resultType="java.lang.Integer">
     select count(*) from orders where is_delete=0
   </select>
-    <select id="selectByUser" resultType="BaseResultMap" parameterType="java.lang.Long">
+    <select id="selectByUser" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List"/>
         from orders
