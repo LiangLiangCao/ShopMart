@@ -22,26 +22,4 @@
 	<script src="${BASE_PATH}/static/js/common-scripts.js"></script>
 
 
-	<script>
-        vm = new Vue({
-            el:"#apphead",
-            data: {
-                username:None,
-                userEmail:None,
-            },
-            computed:{
-                value: function() {
-
-                }
-            },
-            methods: {
-                func: function() {
-
-                },
-            },
-            ready: function() {
-
-            },
-        })
-	</script>
 
