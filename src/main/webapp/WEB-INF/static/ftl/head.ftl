@@ -43,9 +43,22 @@
                     <a class="blog-nav-item" href="#">商品</a>
                     <a class="blog-nav-item" href="#">用户</a>
                     <a class="blog-nav-item" href="${BASE_PATH}/custom/login">用户登录</a>
-                    <a class="blog-nav-item" href="">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    </a>
+
+
+                    <li class="blog-nav-item dropdown ">
+                        <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="blog-nav-item" href="#">登录</a>
+                            </li>
+                            <li>
+                                <a class="blog-nav-item" href="#">登出</a>
+                            </li>
+                        </ul>
+                    </li>
+
                 </nav>
             <#elseif menu == "admin">
 

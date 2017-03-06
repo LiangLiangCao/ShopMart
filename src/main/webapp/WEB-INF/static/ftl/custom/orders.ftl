@@ -1,5 +1,5 @@
-<#assign menu="admin_list">
-<#assign submenu="add_admin">
+<#assign menu="default">
+
 <#include "../head.ftl">
 <style type="text/css">
     p.error {

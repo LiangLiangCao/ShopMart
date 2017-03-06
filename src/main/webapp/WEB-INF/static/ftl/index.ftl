@@ -1,5 +1,4 @@
 <#assign menu="default">
-<#assign submenu="">
 <#include "head.ftl">
 <style>
 .dd-handle {

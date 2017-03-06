@@ -1,6 +1,6 @@
 <#assign menu="default">
-<#include "head.ftl">
 
+<#include "head.ftl">
 
 <ul class="nav nav-tabs" id="myTabs" role="tablist">
 
@@ -38,7 +38,6 @@
 
 
 </#list>
-
 
 <nav aria-label="Page navigation">
     <ul class="pagination">
