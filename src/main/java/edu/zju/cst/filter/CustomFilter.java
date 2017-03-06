@@ -47,9 +47,14 @@ public class CustomFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        //获得被截获的地址 URI
+        String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
+
         User usr = (User) request.getSession().getAttribute(sessionKey);
         if (usr == null && (!checkRequestURIIntNotFilterList(request))) {
-            response.sendRedirect(HttpUtils.getBasePath(request) + redirectURL);
+
+            //将被截获地址以参数的形式传递给跳转目标页面
+            response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL+"?redirect="+uri);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

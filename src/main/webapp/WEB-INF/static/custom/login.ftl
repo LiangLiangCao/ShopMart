@@ -28,9 +28,16 @@
 
 <div class="container">
 
-    <form class="form-signin" id="adminForm"
-          action="${BASE_PATH}/custom/login" autocomplete="off"
-          method="post">
+        <#if redirect??>
+        <form class="form-signin" id="adminForm"
+              action="${BASE_PATH}/custom/login?redirect=${redirect!}" autocomplete="off"
+              method="post">
+        <#else>
+        <form class="form-signin" id="adminForm"
+              action="${BASE_PATH}/custom/login" autocomplete="off"
+              method="post">
+        </#if>
+
         <h2 class="form-signin-heading">
             <img src="${BASE_PATH}/static/images/logo.png"
                  style="height: 38px;"/>
