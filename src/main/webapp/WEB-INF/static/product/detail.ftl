@@ -50,7 +50,6 @@
             add: function () {
 
                 console.log("hi,cbb");
-
                 $.ajax({
                     type: 'POST',
                     contentType: "application/json; charset=utf-8",
@@ -64,7 +63,6 @@
                         window.location.href=msg.msg;
                     },
                     error: function (xhr, desc, err) {
-
                         console.log("hi,cbb");
                         console.log(xhr);
                         console.log("Details: " + desc + "\nError:" + err);

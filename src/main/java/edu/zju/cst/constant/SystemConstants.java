@@ -17,6 +17,10 @@ public class SystemConstants {
      */
     public static final String SESSION_CUSTOM = "SESSION_CUSTOM";
     /**
+     * Session中的订单的Key
+     */
+    public static final String SESSION_ORDER = "SESSION_ORDER";
+    /**
      * Session中的正在支付的产品的Key
      */
     public static final String SESSION_PRODUCT = "SESSION_PRODUCT";

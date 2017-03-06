@@ -10,14 +10,15 @@ import java.util.List;
  */
 public interface IProductService {
 
-     int add(Product product);
-     int update(Product product);
+    int add(Product product);
 
-     int del(String id);
+    int update(Product product);
 
-     Product get(String id);
+    int del(String id);
 
-     List<Product> getProducts(int size, int page);
+    Product get(String id);
 
-     int getCount();
+    List<Product> getProducts(int size, int page);
+
+    int getCount();
 }

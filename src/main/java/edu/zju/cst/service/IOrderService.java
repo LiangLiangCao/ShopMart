@@ -22,6 +22,7 @@ public interface IOrderService {
 
     int getCount();
 
+    Long addOrder(Product product, Orders orders);
     int addOrder(Product product);
 
 }

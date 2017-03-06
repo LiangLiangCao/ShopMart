@@ -22,7 +22,7 @@
 </style>
 
 <header class="panel-heading">
-    订单支付
+    订单信息
 </header>
 <div class="container">
 
@@ -31,19 +31,28 @@
     </h2>
 
     <div class="login-wrap">
-        <div class="form-group">
-            <label for="exampleInputEmail1">用户名</label>
-            <input type="text" v-model="user.userId" class="form-control" placeholder="${username}"
-                   style="*width: 250px;"
-                   autofocus>
-        </div>
 
         <div class="form-group">
-            <label for="exampleInputEmail1">密码</label>
-            <input type="password" v-model="user.password" class="form-control" placeholder="密码" value=""
+            <label for="exampleInputEmail1">收货人姓名</label>
+            <input type="text" v-model="orders.name" class="form-control" placeholder="张三" value="bill"
                    style="*width: 250px;">
         </div>
-        <button class="btn btn-lg btn-login btn-block" v-on:click="pay()">支付</button>
+        <div class="form-group">
+            <label for="exampleInputEmail1">收货人地址</label>
+            <input type="text" v-model="orders.address" class="form-control" placeholder="收货人地址" value="上海市浦东区翔融苑"
+                   style="*width: 250px;">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">收货人手机</label>
+            <input type="text" v-model="orders.phone" class="form-control" placeholder="18312000000" value="18312976875"
+                   style="*width: 250px;">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">送货方式</label>
+            <input type="text" v-model="orders.deliveryMethod" class="form-control" placeholder="快递" value="快递"
+                   style="*width: 250px;">
+        </div>
+        <button class="btn btn-lg btn-login btn-block" v-on:click="add()">确定</button>
     </div>
 
 </div>
@@ -56,24 +65,21 @@
     vm = new Vue({
         el: '#app',
         data: {
-            user: {}
+            orders:{}
         },
         methods: {
-            pay: function () {
-
-                console.log("hi,cbb");
-
+            add: function () {
                 $.ajax({
                     type: 'POST',
                     contentType: "application/json; charset=utf-8",
-                    url: '/custom/pay',
-                    data: JSON.stringify(vm.user),
+                    url: '/custom/receive',
+                    data: JSON.stringify(vm.orders),
                     dataType: 'json',
                     async: true,
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
-//                        window.location.href=msg.msg;
+                        window.location.href=msg.msg;
                     },
                     error: function (xhr, desc, err) {
 

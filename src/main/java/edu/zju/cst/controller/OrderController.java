@@ -73,9 +73,6 @@ public class OrderController extends BaseController {
 
     }
 
-
-
-
     @RequestMapping(value = "/addByProduct", method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody Product product) {
@@ -88,7 +85,6 @@ public class OrderController extends BaseController {
         } else {
             result.setCode(0);
             result.setMsg("添加错误");
-
         }
         return JSON.toJSONString(result);
 
@@ -106,7 +102,6 @@ public class OrderController extends BaseController {
         } else {
             result.setCode(0);
             result.setMsg("添加错误");
-
         }
         return JSON.toJSONString(result);
 
@@ -134,14 +129,13 @@ public class OrderController extends BaseController {
     public String pay(@RequestBody Product product, HttpServletRequest request) {
         request.getSession().setAttribute(SystemConstants.SESSION_PRODUCT, product);
         ResultSupport result = new ResultSupport();
-
         result.setCode(1);
-
-        result.setMsg(HttpUtils.getBasePath(request) + "/custom/payment");
+        result.setMsg(HttpUtils.getBasePath(request) + "/custom/info");
 
         return JSON.toJSONString(result);
 //        return "redirect:/" + HttpUtils.getBasePath(request) + "/custom/payment";
     }
+
 
 
 

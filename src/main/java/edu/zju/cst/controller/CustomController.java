@@ -9,6 +9,7 @@
 package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
+import edu.zju.cst.bean.Orders;
 import edu.zju.cst.bean.Product;
 import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstants;
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = "custom")
-public class CustomLoginController extends BaseController {
+public class CustomController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {
@@ -86,11 +87,13 @@ public class CustomLoginController extends BaseController {
                 result.setCode(0);
                 result.setMsg("password cannot be null.");
             }
-            user.setRole("2");
+            user.setRole(SystemConstants.CUSTOM_KIND_USR);
             usrService.usrLogin(user.getUserId().toString(), user.getPassword(), request);
             Product product = (Product) request.getSession().getAttribute(SystemConstants.SESSION_PRODUCT);
+            Orders orders = (Orders) request.getSession().getAttribute(SystemConstants.SESSION_ORDER);
             if (product != null) {
-                int re = orderService.addOrder(product);
+                int re = orderService.addOrder(product, orders).intValue();
+
                 if (re > 0) {
                     result.setCode(re);
                     result.setMsg("购买完成。");
@@ -104,6 +107,25 @@ public class CustomLoginController extends BaseController {
             result.setMsg("email or password wrong.");
             e.printStackTrace();
         }
+        return JSON.toJSONString(result);
+    }
+
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public String info(ModelMap map, HttpServletRequest request) {
+
+        return "custom/order";
+    }
+
+    @RequestMapping(value = "/receive", method = RequestMethod.POST)
+    @ResponseBody
+    public String receive(@RequestBody Orders orders, HttpServletRequest request) {
+        User user = getSessionUser(request);
+        orders.setUserId(user.getUserId());
+        request.getSession().setAttribute(SystemConstants.SESSION_ORDER, orders);
+        ResultSupport result = new ResultSupport();
+        result.setCode(1);
+        result.setMsg(HttpUtils.getBasePath(request) + "/custom/payment");
+
         return JSON.toJSONString(result);
     }
 }

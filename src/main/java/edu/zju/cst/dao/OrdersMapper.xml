@@ -34,7 +34,7 @@
     delete from orders
     where ordr_id = #{ordrId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="edu.zju.cst.bean.Orders" >
+  <insert id="insert" parameterType="edu.zju.cst.bean.Orders" useGeneratedKeys="true" keyProperty="ordrId">
     insert into orders (ordr_id, user_id, name, 
       address, phone, postage, 
       total, delivery_date, delivery_method, 

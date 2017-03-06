@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Liang on 2/25/2017.
  */
 @Service
-public class OrderServiceImpl implements IOrderService{
+public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     private OrdersMapper orderMapper;
@@ -25,8 +25,8 @@ public class OrderServiceImpl implements IOrderService{
     private OrderitemMapper orderitemMapper;
 
     public int add(Orders order) {
-        int re  = orderMapper.insert(order);
-        return  re;
+        int re = orderMapper.insert(order);
+        return re;
     }
 
     public int update(Orders order) {
@@ -46,15 +46,15 @@ public class OrderServiceImpl implements IOrderService{
 
     public List<Orders> getOrders(int size, int page) {
 
-        int offset = (page-1) * size;
-        return orderMapper.selectByPageSize(size,offset);
+        int offset = (page - 1) * size;
+        return orderMapper.selectByPageSize(size, offset);
     }
 
-    public int getCount(){
+    public int getCount() {
         return orderMapper.countTotal();
     }
 
-    public int addOrder(Product product){
+    public int addOrder(Product product) {
 
         Orders order = new Orders();
 
@@ -71,10 +71,24 @@ public class OrderServiceImpl implements IOrderService{
         int orderItemId = orderitemMapper.insert(orderitem);
 
 
-        System.out.println("Order id is "+ orderId);
-        System.out.println("orderItemId id is "+ orderItemId);
+        System.out.println("Order id is " + orderId);
+        System.out.println("orderItemId id is " + orderItemId);
 
         return orderId;
+    }
+
+    public Long addOrder(Product product, Orders orders) {
+
+        orderMapper.insert(orders);
+        Orderitem orderitem = new Orderitem();
+        orderitem.setTotalPrice(product.getPrice().longValue());
+        orderitem.setProductId(product.getProductId());
+        orderitem.setOrderId(orders.getOrdrId());
+
+        int orderItemId = orderitemMapper.insert(orderitem);
+        System.out.println("Order id is " + orders.getOrdrId());
+        System.out.println("orderItemId id is " + orderItemId);
+        return orders.getOrdrId();
     }
 
 }
