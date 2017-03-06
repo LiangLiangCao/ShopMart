@@ -1,21 +1,6 @@
 
 <#include "head.ftl">
 
-<style>
-
-.image{
-
-    float:left;
-    width: 100px;
-    height: 100px;
-}
-
-
-.description{
-    float:left;
-}
-</style>
-
 
 <#list latestProduct as item>
 

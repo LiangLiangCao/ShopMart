@@ -34,7 +34,7 @@
     <task:annotation-driven />
 
     <!--这样配置后，SpringMVC会自动给静态资源Response添加缓存头Cache-Control和Expires值-->
-    <mvc:resources location="/WEB-INF/static/" mapping="/static/**"  cache-period="31536000"/>
+    <mvc:resources location="/WEB-INF/static/ftl/" mapping="/static/**"  cache-period="31536000"/>
 
     <mvc:interceptors>
         <mvc:interceptor>
