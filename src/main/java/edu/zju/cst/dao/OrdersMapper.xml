@@ -48,7 +48,7 @@
       #{closeTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Orders" >
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Orders" useGeneratedKeys="true" keyProperty="ordrId">
     insert into orders
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ordrId != null" >

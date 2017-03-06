@@ -32,9 +32,7 @@ import java.util.StringTokenizer;
  */
 
 public class AdminFilter implements Filter {
-
     protected final Logger logger = Logger.getLogger(this.getClass());
-
 
     protected FilterConfig filterConfig = null;
     private String redirectURL = null;

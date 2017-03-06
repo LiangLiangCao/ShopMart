@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @Service
 public class OrderServiceImpl implements IOrderService {
+//    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @Autowired
     private OrdersMapper orderMapper;
@@ -45,7 +48,6 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     public List<Orders> getOrders(int size, int page) {
-
         int offset = (page - 1) * size;
         return orderMapper.selectByPageSize(size, offset);
     }
@@ -55,40 +57,33 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     public int addOrder(Product product) {
-
         Orders order = new Orders();
-
         add(order);
         int orderId = order.getOrdrId().intValue();
 
-
-//        Promotion promotion =
         Orderitem orderitem = new Orderitem();
         orderitem.setTotalPrice(product.getPrice().longValue());
         orderitem.setOrderId((long) orderId);
         orderitem.setProductId(product.getProductId());
+        orderitem.setNum(1);
 
-        int orderItemId = orderitemMapper.insert(orderitem);
-
-
-        System.out.println("Order id is " + orderId);
-        System.out.println("orderItemId id is " + orderItemId);
-
+        orderitemMapper.insert(orderitem);
         return orderId;
     }
 
-    public Long addOrder(Product product, Orders orders) {
-
+    public Orderitem addOrder(Product product, Orders orders) {
+        orders.setCreateTime(new Date());
+        orders.setPayTime(new Date());
         orderMapper.insert(orders);
+
         Orderitem orderitem = new Orderitem();
         orderitem.setTotalPrice(product.getPrice().longValue());
         orderitem.setProductId(product.getProductId());
         orderitem.setOrderId(orders.getOrdrId());
+        orderitem.setNum(1);
 
-        int orderItemId = orderitemMapper.insert(orderitem);
-        System.out.println("Order id is " + orders.getOrdrId());
-        System.out.println("orderItemId id is " + orderItemId);
-        return orders.getOrdrId();
+        orderitemMapper.insert(orderitem);
+        return orderitem;
     }
 
 }

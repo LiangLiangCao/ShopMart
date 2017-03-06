@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class RestController extends BaseController{
-
     @RequestMapping(value="/product/{id}",method= RequestMethod.GET)
     public String product(@PathVariable Long id, ModelMap map) {
 
@@ -29,6 +28,4 @@ public class RestController extends BaseController{
         }
         return "/product/detail";
     }
-
-
 }

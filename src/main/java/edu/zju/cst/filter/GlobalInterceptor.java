@@ -18,8 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Component
 public class GlobalInterceptor implements HandlerInterceptor {
-
-
 	public boolean preHandle(HttpServletRequest request,
 							 HttpServletResponse response, Object handler) throws Exception {
 		return true;
@@ -34,7 +32,6 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		// 系统配置参数
 		String basePath = HttpUtils.getBasePath(request);
 		modelAndView.addObject("BASE_PATH", basePath);
-
 	}
 
 	public void afterCompletion(HttpServletRequest request,

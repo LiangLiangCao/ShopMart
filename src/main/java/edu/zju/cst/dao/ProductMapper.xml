@@ -29,7 +29,7 @@
     delete from product
     where product_id = #{productId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="edu.zju.cst.bean.Product" >
+  <insert id="insert" parameterType="edu.zju.cst.bean.Product" useGeneratedKeys="true" keyProperty="productId">
     insert into product (product_id, category_id, promotion_id, 
       supplier_id, product_name, price, 
       picture, quantity, description, 
@@ -39,7 +39,7 @@
       #{picture,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
       #{isDelete,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Product" >
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Product" useGeneratedKeys="true" keyProperty="productId">
     insert into product
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="productId != null" >

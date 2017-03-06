@@ -28,7 +28,7 @@
     delete from supplier
     where supplier_id = #{supplierId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="edu.zju.cst.bean.Supplier" >
+  <insert id="insert" parameterType="edu.zju.cst.bean.Supplier" useGeneratedKeys="true" keyProperty="supplierId">
     insert into supplier (supplier_id, supplier_name, address,
       phone, type, postcode,
       register_time, password, is_delete
@@ -38,7 +38,7 @@
       #{registerTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Supplier" >
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Supplier" useGeneratedKeys="true" keyProperty="supplierId">
     insert into supplier
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="supplierId != null" >

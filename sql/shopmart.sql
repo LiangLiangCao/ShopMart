@@ -1,5 +1,3 @@
-
-
 # ************************************************************
 # Sequel Pro SQL dump
 # Version 4529
@@ -11,7 +9,6 @@
 # Database: ShopMart
 # Generation Time: 2017-03-04 10:30:57 +0000
 # ************************************************************
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -199,7 +196,6 @@ CREATE TABLE `promotion` (
   `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '1删除，0存在',
   PRIMARY KEY (`promotion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 # Dump of table shopitem

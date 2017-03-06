@@ -26,7 +26,7 @@
     delete from orderitem
     where item_id = #{itemId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="edu.zju.cst.bean.Orderitem" >
+  <insert id="insert" parameterType="edu.zju.cst.bean.Orderitem" useGeneratedKeys="true" keyProperty="itemId">
     insert into orderitem (item_id, order_id, product_id, 
       total_price, num, note, 
       item_price, is_delete)
@@ -34,7 +34,7 @@
       #{totalPrice,jdbcType=DECIMAL}, #{num,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}, 
       #{itemPrice,jdbcType=DECIMAL}, #{isDelete,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Orderitem" >
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Orderitem" useGeneratedKeys="true" keyProperty="itemId">
     insert into orderitem
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="itemId != null" >

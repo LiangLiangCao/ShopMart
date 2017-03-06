@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "supply")
 @Controller
 public class SupplyLoginController extends BaseController {
-
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request, ModelMap modelMap) {
         return "/supply/login";
@@ -49,7 +47,6 @@ public class SupplyLoginController extends BaseController {
                            HttpServletRequest request,
                            ModelMap modelMap) {
         ResultSupport result = new ResultSupport();
-
         try {
             result.setCode(1);
             supplierService.supplierLogin(name, password, request);
@@ -61,5 +58,4 @@ public class SupplyLoginController extends BaseController {
         }
         return JSON.toJSONString(result);
     }
-
 }

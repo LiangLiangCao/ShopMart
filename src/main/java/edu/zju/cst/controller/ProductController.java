@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,26 +19,19 @@ public class ProductController extends BaseController{
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String productList(ModelMap map,@RequestParam(value = "page", required=false) Integer page, @RequestParam(value = "perpage", required=false) Integer perpage) {
-
         if(perpage == null){
             perpage = 10;
         }
         if(page == null){
             page = 1;
         }
-
         int count = productService.getCount();
         map.put("total",count);
         map.put("page",page);
         map.put("perpage",perpage);
-
         map.put("lastPage",(int)Math.ceil(count/(double)perpage));
 
-
         List<Product> productList = productService.getProducts(perpage,page);
-
-
-
         map.put("items",productList);
         return "product/edit";
     }
@@ -48,16 +39,13 @@ public class ProductController extends BaseController{
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public String get(ModelMap map,@RequestParam(value = "product_id") int product_id) {
-
         Product product = productService.get(product_id+"");
         return JSON.toJSONString(product);
     }
 
-
     @RequestMapping(value = "/del", method = RequestMethod.GET )
     @ResponseBody
     public String delProduct(ModelMap map, @RequestParam(value = "product_id") int product_id) {
-
         int re = productService.del(product_id+"");
 
         ResultSupport result = new ResultSupport();
@@ -68,7 +56,6 @@ public class ProductController extends BaseController{
             result.setMsg("删除错误");
         }
         return JSON.toJSONString(result);
-
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -99,7 +86,6 @@ public class ProductController extends BaseController{
             result.setMsg("更新错误");
         }
         return JSON.toJSONString(result);
-
     }
 
 }

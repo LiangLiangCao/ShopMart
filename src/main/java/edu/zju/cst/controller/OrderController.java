@@ -24,25 +24,25 @@ public class OrderController extends BaseController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showAll(ModelMap map,@RequestParam(value = "page", required=false) Integer page, @RequestParam(value = "perpage", required=false) Integer perpage) {
-
-        if(perpage == null){
+    public String showAll(ModelMap map, @RequestParam(value = "page", required = false) Integer page,
+                          @RequestParam(value = "perpage", required = false) Integer perpage) {
+        if (perpage == null) {
             perpage = 10;
         }
-        if(page == null){
+        if (page == null) {
             page = 1;
         }
 
         int count = orderService.getCount();
-        map.put("total",count);
-        map.put("page",page);
-        map.put("perpage",perpage);
+        map.put("total", count);
+        map.put("page", page);
+        map.put("perpage", perpage);
 
-        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
+        map.put("lastPage", (int) Math.ceil(count / (double) perpage));
 
 
-        List<Orders> orderList = orderService.getOrders(perpage,page);
-        map.put("items",orderList);
+        List<Orders> orderList = orderService.getOrders(perpage, page);
+        map.put("items", orderList);
 
         return "order/edit";
     }
@@ -50,7 +50,6 @@ public class OrderController extends BaseController {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public String get(ModelMap map, @RequestParam(value = "order_id") int id) {
-
         Orders order = orderService.get(id + "");
         return JSON.toJSONString(order);
     }
@@ -59,7 +58,6 @@ public class OrderController extends BaseController {
     @RequestMapping(value = "/del", method = RequestMethod.GET)
     @ResponseBody
     public String del(ModelMap map, @RequestParam(value = "order_id") Integer id) {
-
         int re = orderService.del(id + "");
 
         ResultSupport result = new ResultSupport();
@@ -70,13 +68,11 @@ public class OrderController extends BaseController {
             result.setMsg("删除错误");
         }
         return JSON.toJSONString(result);
-
     }
 
     @RequestMapping(value = "/addByProduct", method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody Product product) {
-
         int re = orderService.addOrder(product);
 
         ResultSupport result = new ResultSupport();
@@ -87,13 +83,11 @@ public class OrderController extends BaseController {
             result.setMsg("添加错误");
         }
         return JSON.toJSONString(result);
-
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody Orders order) {
-
         int re = orderService.add(order);
 
         ResultSupport result = new ResultSupport();
@@ -104,13 +98,11 @@ public class OrderController extends BaseController {
             result.setMsg("添加错误");
         }
         return JSON.toJSONString(result);
-
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public String update(@RequestBody Orders order) {
-
         int re = orderService.update(order);
 
         ResultSupport result = new ResultSupport();
@@ -121,7 +113,6 @@ public class OrderController extends BaseController {
             result.setMsg("更新错误");
         }
         return JSON.toJSONString(result);
-
     }
 
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
@@ -133,10 +124,6 @@ public class OrderController extends BaseController {
         result.setMsg(HttpUtils.getBasePath(request) + "/custom/info");
 
         return JSON.toJSONString(result);
-//        return "redirect:/" + HttpUtils.getBasePath(request) + "/custom/payment";
+        //        return "redirect:/" + HttpUtils.getBasePath(request) + "/custom/payment";
     }
-
-
-
-
 }

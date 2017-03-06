@@ -26,7 +26,7 @@
     delete from user
     where user_id = #{userId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="edu.zju.cst.bean.User" >
+  <insert id="insert" parameterType="edu.zju.cst.bean.User" useGeneratedKeys="true" keyProperty="userId">
     insert into user (user_id, password, gender, 
       email, phone, role, 
       score, is_delete)
@@ -34,7 +34,7 @@
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, 
       #{score,jdbcType=BIGINT}, #{isDelete,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="edu.zju.cst.bean.User" >
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.User" useGeneratedKeys="true" keyProperty="userId">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >

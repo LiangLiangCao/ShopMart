@@ -1,5 +1,6 @@
 package edu.zju.cst.service;
 
+import edu.zju.cst.bean.Orderitem;
 import edu.zju.cst.bean.Orders;
 import edu.zju.cst.bean.Product;
 
@@ -22,7 +23,8 @@ public interface IOrderService {
 
     int getCount();
 
-    Long addOrder(Product product, Orders orders);
+    Orderitem addOrder(Product product, Orders orders);
+
     int addOrder(Product product);
 
 }

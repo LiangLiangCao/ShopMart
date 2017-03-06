@@ -9,6 +9,7 @@
 package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
+import edu.zju.cst.bean.Orderitem;
 import edu.zju.cst.bean.Orders;
 import edu.zju.cst.bean.Product;
 import edu.zju.cst.bean.User;
@@ -43,10 +44,8 @@ public class CustomController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String usrLogin(@RequestParam(value = "name") String name,
-                           @RequestParam(value = "password") String password,
-                           HttpServletRequest request,
-                           ModelMap modelMap) {
+    public String usrLogin(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password,
+                           HttpServletRequest request, ModelMap modelMap) {
         ResultSupport result = new ResultSupport();
         try {
             if (StringUtils.isBlank(password)) {
@@ -55,7 +54,6 @@ public class CustomController extends BaseController {
             }
             result.setCode(1);
             usrService.usrLogin(name, password, request);
-
         } catch (Exception e) {
             result.setCode(0);
             result.setMsg("email or password wrong.");
@@ -65,8 +63,7 @@ public class CustomController extends BaseController {
     }
 
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
-    public String payment(HttpServletRequest request,
-                          ModelMap map) {
+    public String payment(HttpServletRequest request, ModelMap map) {
         User user = (User) request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
         if (user != null) {
             map.put("username", user.getUserId());
@@ -78,9 +75,7 @@ public class CustomController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
-    public String pay(@RequestBody User user,
-                      HttpServletRequest request,
-                      ModelMap modelMap) {
+    public String pay(@RequestBody User user, HttpServletRequest request, ModelMap modelMap) {
         ResultSupport result = new ResultSupport();
         try {
             if (StringUtils.isBlank(user.getPassword())) {
@@ -91,20 +86,18 @@ public class CustomController extends BaseController {
             usrService.usrLogin(user.getUserId().toString(), user.getPassword(), request);
             Product product = (Product) request.getSession().getAttribute(SystemConstants.SESSION_PRODUCT);
             Orders orders = (Orders) request.getSession().getAttribute(SystemConstants.SESSION_ORDER);
-            if (product != null) {
-                int re = orderService.addOrder(product, orders).intValue();
 
-                if (re > 0) {
-                    result.setCode(re);
-                    result.setMsg("购买完成。");
-                } else {
-                    result.setCode(0);
-                    result.setMsg("购买错误");
-                }
+            if (product != null) {
+                Orderitem iterm = orderService.addOrder(product, orders);
+                orders.setOrdrId(iterm.getOrderId());
+                request.getSession().setAttribute(SystemConstants.SESSION_ORDERITERMT, iterm);
+                result.setCode(1);
+                result.setMsg(HttpUtils.getBasePath(request)+"/custom/result");
             }
+
         } catch (Exception e) {
             result.setCode(0);
-            result.setMsg("email or password wrong.");
+            result.setMsg("购买错误");
             e.printStackTrace();
         }
         return JSON.toJSONString(result);
@@ -112,7 +105,6 @@ public class CustomController extends BaseController {
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public String info(ModelMap map, HttpServletRequest request) {
-
         return "custom/order";
     }
 
@@ -125,7 +117,18 @@ public class CustomController extends BaseController {
         ResultSupport result = new ResultSupport();
         result.setCode(1);
         result.setMsg(HttpUtils.getBasePath(request) + "/custom/payment");
-
         return JSON.toJSONString(result);
+    }
+
+    @RequestMapping(value="/result",method = RequestMethod.GET)
+    public String result(ModelMap map,HttpServletRequest request){
+        Orderitem orderitem= (Orderitem) request.getSession().getAttribute(SystemConstants.SESSION_ORDERITERMT);
+        Orders orders = (Orders) request.getSession().getAttribute(SystemConstants.SESSION_ORDER);
+        Product product=(Product) request.getSession().getAttribute(SystemConstants.SESSION_PRODUCT);
+        map.put("orderitem",orderitem);
+        map.put("orders",orders);
+        map.put("product",product);
+
+        return "custom/result";
     }
 }

@@ -103,7 +103,6 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(value = "user_id") long user_id, HttpServletRequest request) {
-
         int re =  usrService.deleteByID(user_id);
 
         ResultSupport result = new ResultSupport();
@@ -115,7 +114,6 @@ public class UserController extends BaseController {
             result.setMsg("delete错误");
             return JSON.toJSONString(result);
         }
-
     }
 
 }

@@ -21,7 +21,6 @@ public class MainController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String welcome(ModelMap map) {
-
         int count = productService.getCount();
         int perpage = 10;
         map.put("total",count);
@@ -37,7 +36,6 @@ public class MainController extends BaseController {
 
     @RequestMapping(value = "/page/{pageNum}", method = RequestMethod.GET)
     public String welcome(ModelMap map, @PathVariable int pageNum) {
-
         int count = productService.getCount();
         int perpage = 10;
         map.put("total",count);
@@ -47,11 +45,6 @@ public class MainController extends BaseController {
 
         List<Product> productList = productService.getProducts(perpage,pageNum);
         map.put("latestProduct",productList);
-
         return "welcome";
     }
-
-
-
-
 }

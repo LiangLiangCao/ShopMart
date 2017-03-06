@@ -23,13 +23,13 @@
     delete from category
     where category_id = #{categoryId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="edu.zju.cst.bean.Category" >
+  <insert id="insert" parameterType="edu.zju.cst.bean.Category" useGeneratedKeys="true" keyProperty="categoryId">
     insert into category (category_id, parent_category_id, supplier_id, 
       category_name, is_delete)
     values (#{categoryId,jdbcType=BIGINT}, #{parentCategoryId,jdbcType=BIGINT}, #{supplierId,jdbcType=BIGINT}, 
       #{categoryName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Category" >
+  <insert id="insertSelective" parameterType="edu.zju.cst.bean.Category" useGeneratedKeys="true" keyProperty="categoryId">
     insert into category
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="categoryId != null" >
