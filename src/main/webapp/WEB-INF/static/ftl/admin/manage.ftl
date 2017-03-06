@@ -1,5 +1,4 @@
-<#assign menu="admin_list">
-<#assign submenu="admin_list">
+<#assign menu="admin">
 <#include "../head.ftl">
 <style type="text/css">
     .pagination {
@@ -268,4 +267,4 @@
 </script>
 </body >
 
-
+</html>

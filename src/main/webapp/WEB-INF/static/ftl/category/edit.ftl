@@ -1,3 +1,4 @@
+<#assign menu="admin">
 <#include "../head.ftl">
 <table class="table">
     <caption>Category List</caption>

@@ -1,3 +1,5 @@
+<#assign menu="admin">
+
 <#include "../head.ftl">
 <table class="table">
     <caption>Product List</caption>

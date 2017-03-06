@@ -1,3 +1,4 @@
+<#assign menu="admin">
 <#include "../head.ftl">
 <table class="table">
     <caption>Order List</caption>
@@ -35,13 +36,13 @@
         <th>${item.name!}</th>
         <th>${item.address!}</th>
         <th>${item.phone!}</th>
-        <th>${item.postage!}</th>
+        <#--<th>${item.postage!}</th>-->
     <#--<th>${item.total!}</th>-->
     <#--<th>${item.deliveryDate!}</th>-->
     <#--<th>${item.deliveryMethod!}</th>-->
     <#--<th>${item.orderToatl!}</th>-->
     <#--<th>${item.createTime!}</th>-->
-        <th>${item.payTime!}</th>
+        <th>${item.payTime!?datetime}</th>
     <#--<th>${item.closeTime!}</th>-->
     <#--<th>${item.state!}</th>-->
         <th>

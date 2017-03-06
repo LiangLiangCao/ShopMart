@@ -1,4 +1,4 @@
-
+<#assign menu="default">
 <#include "head.ftl">
 
 

@@ -26,17 +26,41 @@
     <script src="${BASE_PATH}/static/js/jquery.js?v=${config_v}"></script>
 </head>
 
+
+
+
 <div id="app" class="container">
+
+
+
     <div id="apphead" class="blog-masthead">
         <div class="container">
-            <nav class="blog-nav">
-                <a class="blog-nav-item active" href="/">CMBShop</a>
-                <a class="blog-nav-item" href="#">商品</a>
-                <a class="blog-nav-item" href="#">用户</a>
-                <a class="blog-nav-item" href="${BASE_PATH}/custom/login">用户登录</a>
-                <a class="blog-nav-item" href="">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                </a>
-            </nav>
+
+            <#if menu == "default">
+
+                <nav class="blog-nav">
+                    <a class="blog-nav-item active" href="/">CMBShop</a>
+                    <a class="blog-nav-item" href="#">商品</a>
+                    <a class="blog-nav-item" href="#">用户</a>
+                    <a class="blog-nav-item" href="${BASE_PATH}/custom/login">用户登录</a>
+                    <a class="blog-nav-item" href="">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </a>
+                </nav>
+            <#elseif menu == "admin">
+
+                <nav class="blog-nav">
+                    <a class="blog-nav-item active" disabled>管理后台</a>
+                    <a class="blog-nav-item" href="${BASE_PATH}/product/">商品</a>
+                    <a class="blog-nav-item" href="${BASE_PATH}/admin/user/">用户</a>
+                    <a class="blog-nav-item" href="${BASE_PATH}/order/"> 订单</a>
+                    <a class="blog-nav-item" href="${BASE_PATH}/category/"> 分类</a>
+
+                    <a class="blog-nav-item" href="">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </a>
+                </nav>
+            </#if>
+
         </div>
     </div>
