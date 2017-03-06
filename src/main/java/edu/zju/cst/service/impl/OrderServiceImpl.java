@@ -13,13 +13,10 @@ import edu.zju.cst.bean.Orders;
 import edu.zju.cst.bean.Product;
 import edu.zju.cst.dao.OrderitemMapper;
 import edu.zju.cst.dao.OrdersMapper;
-import edu.zju.cst.dao.ProductMapper;
 import edu.zju.cst.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +25,6 @@ import java.util.List;
  */
 @Service
 public class OrderServiceImpl implements IOrderService {
-//    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @Autowired
     private OrdersMapper orderMapper;
@@ -94,4 +90,11 @@ public class OrderServiceImpl implements IOrderService {
         return orderitem;
     }
 
+    public List<Orders> getOrdersByUser(long uid) {
+        return orderMapper.selectByUser(uid);
+    }
+
+    public List<Orderitem> getItermsByOrder(long uid) {
+        return orderitemMapper.selectByOrder(uid);
+    }
 }

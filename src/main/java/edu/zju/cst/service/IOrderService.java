@@ -27,4 +27,8 @@ public interface IOrderService {
 
     int addOrder(Product product);
 
+    public List<Orders> getOrdersByUser(long uid);
+
+    public List<Orderitem> getItermsByOrder(long uid);
+
 }

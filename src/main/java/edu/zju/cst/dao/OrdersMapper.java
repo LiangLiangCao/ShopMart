@@ -1,5 +1,6 @@
 package edu.zju.cst.dao;
 
+import edu.zju.cst.bean.Orderitem;
 import edu.zju.cst.bean.Orders;
 import edu.zju.cst.bean.Product;
 import org.apache.ibatis.annotations.Param;
@@ -26,5 +27,7 @@ public interface OrdersMapper {
     int deleteByUpdate(Long userId);
 
     int countTotal();
+
+    List<Orders> selectByUser(@Param("uid") Long uid);
 
 }

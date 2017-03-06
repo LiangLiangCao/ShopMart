@@ -22,6 +22,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Liang on 25/02/2017.
@@ -33,11 +36,12 @@ public class CustomController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLogin(HttpServletRequest request,
-                           @RequestParam(value = "redirect", required = false) String redirect,
-                           ModelMap modelMap) {
+                           @RequestParam(value = "redirect", required = false) String redirect, ModelMap modelMap) {
         //获得跳转参数,登录成功后跳转回去
-        if(redirect==null) redirect ="/";
-        modelMap.put("redirect",redirect);
+        if (redirect == null) {
+            redirect = "/";
+        }
+        modelMap.put("redirect", redirect);
         return "/ftl/custom/login";
     }
 
@@ -49,8 +53,7 @@ public class CustomController extends BaseController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String usrLogin(@RequestParam(value = "name") String name,
-                           @RequestParam(value = "password") String password,
+    public String usrLogin(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password,
                            @RequestParam(value = "redirect", required = false) String redirect,
                            HttpServletRequest request, ModelMap modelMap) {
         ResultSupport result = new ResultSupport();
@@ -62,8 +65,8 @@ public class CustomController extends BaseController {
             result.setCode(1);
             usrService.usrLogin(name, password, request);
 
-            if(redirect!=null){
-                return "redirect:" + HttpUtils.getBasePath(request)+redirect;
+            if (redirect != null) {
+                return "redirect:" + HttpUtils.getBasePath(request) + redirect;
             }
 
         } catch (Exception e) {
@@ -72,7 +75,7 @@ public class CustomController extends BaseController {
             e.printStackTrace();
         }
 
-        return "redirect:" + HttpUtils.getBasePath(request)+"/custom/login";
+        return "redirect:" + HttpUtils.getBasePath(request) + "/custom/login";
     }
 
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
@@ -105,7 +108,7 @@ public class CustomController extends BaseController {
                 orders.setOrdrId(iterm.getOrderId());
                 request.getSession().setAttribute(SystemConstants.SESSION_ORDERITERMT, iterm);
                 result.setCode(1);
-                result.setMsg(HttpUtils.getBasePath(request)+"/custom/result");
+                result.setMsg(HttpUtils.getBasePath(request) + "/custom/result");
             }
 
         } catch (Exception e) {
@@ -133,26 +136,36 @@ public class CustomController extends BaseController {
         return JSON.toJSONString(result);
     }
 
-    @RequestMapping(value="/result",method = RequestMethod.GET)
-    public String result(ModelMap map,HttpServletRequest request){
-        Orderitem orderitem= (Orderitem) request.getSession().getAttribute(SystemConstants.SESSION_ORDERITERMT);
+    @RequestMapping(value = "/result", method = RequestMethod.GET)
+    public String result(ModelMap map, HttpServletRequest request) {
+        Orderitem orderitem = (Orderitem) request.getSession().getAttribute(SystemConstants.SESSION_ORDERITERMT);
         Orders orders = (Orders) request.getSession().getAttribute(SystemConstants.SESSION_ORDER);
-        Product product=(Product) request.getSession().getAttribute(SystemConstants.SESSION_PRODUCT);
-        map.put("orderitem",orderitem);
-        map.put("orders",orders);
-        map.put("product",product);
+        Product product = (Product) request.getSession().getAttribute(SystemConstants.SESSION_PRODUCT);
+        map.put("orderitem", orderitem);
+        map.put("orders", orders);
+        map.put("product", product);
 
         return "/ftl/custom/result";
     }
-    @RequestMapping(value="/orderAll",method = RequestMethod.GET)
-    public String orderAll(ModelMap map,HttpServletRequest request){
-        User user=(User)request.getSession().getAttribute(SystemConstants.CUSTOM_KIND_USR);
-//        orderService.getOrders();
-                
-//        map.put("orderitem",orderitem);
-//        map.put("orders",orders);
-//        map.put("product",product);
 
-        return "/ftl/custom/result";
+    @RequestMapping(value = "/orderAll", method = RequestMethod.GET)
+    public String orderAll(ModelMap map, HttpServletRequest request) {
+        List<HashMap<String, Object>> arryList = new ArrayList<HashMap<String, Object>>();
+        User user = (User) request.getSession().getAttribute(SystemConstants.CUSTOM_KIND_USR);
+        List<Orders> orders = orderService.getOrdersByUser(user.getUserId());
+        for (Orders order : orders) {
+            List<Orderitem> orderIterm = orderService.getItermsByOrder(order.getOrdrId());
+            for (Orderitem iterm : orderIterm) {
+                Product product = productService.get(iterm.getProductId().toString());
+                HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                hashMap.put("orders", order);
+                hashMap.put("orderitem", orderIterm);
+                hashMap.put("product", product);
+                arryList.add(hashMap);
+            }
+        }
+        map.put("arryList", arryList);
+
+        return "/ftl/custom/orders";
     }
 }

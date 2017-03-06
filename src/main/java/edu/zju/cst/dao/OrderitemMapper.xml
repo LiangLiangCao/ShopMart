@@ -128,6 +128,11 @@
     where item_id = #{itemId,jdbcType=BIGINT}
   </update>
 
-
+  <select id="selectByOrder" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from orderitem
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </select>
 
 </mapper>
