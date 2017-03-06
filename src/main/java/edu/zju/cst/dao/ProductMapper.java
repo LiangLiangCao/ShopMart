@@ -24,7 +24,7 @@ public interface ProductMapper {
 
     int deleteByUpdate(Long userId);
 
-    int countTotal();
+    int countTotal(@Param("catId")Integer catId);
 
     List<Product> selectByCategory(@Param("num") int num,
                                    @Param("offset")int offset,

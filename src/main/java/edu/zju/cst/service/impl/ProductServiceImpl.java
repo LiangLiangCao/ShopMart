@@ -52,8 +52,8 @@ public class ProductServiceImpl implements IProductService {
         return productMapper.selectByPageSize(size,offset);
     }
 
-    public int getCount(){
-        return productMapper.countTotal();
+    public int getCount(Integer catId){
+        return productMapper.countTotal(catId);
     }
 
     public List<Product> getProducts(int size, int page,int catId) {

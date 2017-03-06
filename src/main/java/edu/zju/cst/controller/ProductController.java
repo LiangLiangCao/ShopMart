@@ -30,7 +30,7 @@ public class ProductController extends BaseController{
             page = SystemConstants.FIRST_PAGE;
         }
 
-        int count = productService.getCount();
+        int count = productService.getCount(catId);
         map.put("total",count);
         map.put("page",page);
         map.put("perpage",perpage);

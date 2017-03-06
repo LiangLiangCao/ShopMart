@@ -22,11 +22,10 @@ public class MainController extends BaseController {
                           @RequestParam(value = "perpage", required=false) Integer perpage,
                           @RequestParam(value = "catId", required=false) Integer catId) {
 
-
         List<Category> categories = categoryService.getCategories(3,1);
         map.put("catogeries",categories);
 
-        int total = productService.getCount();
+        int total = productService.getCount(catId);
         if(page == null) page=SystemConstants.FIRST_PAGE;
         if(perpage == null) perpage = SystemConstants.PER_PAGE;
 
@@ -34,6 +33,8 @@ public class MainController extends BaseController {
         map.put("page",page);
         map.put("perpage",perpage);
         map.put("lastPage",(int)Math.ceil(total/(double)perpage));
+
+        map.put("catId",catId);
 
         if(catId==null){
             List<Product> productList = productService.getProducts(perpage,page);

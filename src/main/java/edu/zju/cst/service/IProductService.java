@@ -20,7 +20,7 @@ public interface IProductService {
 
     List<Product> getProducts(int size, int page);
 
-    int getCount();
+    int getCount(Integer catId);
 
     public List<Product> getProducts(int size, int page,int catId);
 }

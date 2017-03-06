@@ -159,8 +159,11 @@
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
 
-    <select id="countTotal" resultType="java.lang.Integer"  >
+    <select id="countTotal" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
         select count(*) from product where is_delete=0
+        <if test="catId != null">
+          AND category_id = #{catId}
+        </if>
     </select>
 
   <select id="selectByPageSize" resultMap="BaseResultMap"  >

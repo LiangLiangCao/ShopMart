@@ -1,19 +1,27 @@
 
 <#include "head.ftl">
 
-<nav class="blog-nav">
-    <#list catogeries as cat>
-        <a class="blog-nav-item" href="/?catId=${cat.categoryId}">${cat.categoryName}</a>
-    </#list>
-</nav>
 
+<ul class="nav nav-tabs" id="myTabs" role="tablist">
+
+    <li role="presentation"  v-bind:class="{ active: catId==0 }">
+        <a href="${BASE_PATH}/" > 所有 </a>
+    </li>
+
+    <#list catogeries as cat>
+        <li role="presentation" v-bind:class="{ active: catId==${cat.categoryId}}">
+            <a href="${BASE_PATH}/?catId=${cat.categoryId}">${cat.categoryName}</a>
+        </li>
+    </#list>
+
+</ul>
 
 <#list items as item>
 
 <div class="row">
     <div class="col-md-12">
         <div class="image">
-            <img src="${BASE_PATH}/static/images/iphone.webp" width="100px" height="100px" alt="iphone" class="img-rounded">
+            <img src="${BASE_PATH}/static/images/logo.png" width="100px" height="100px" alt="iphone" class="img-rounded">
         </div>
         <div class="description">
             <h2>${item.productName}</h2>
@@ -69,6 +77,7 @@
             page:${page},
             lastPage:${lastPage},
             perpage:${perpage},
+            catId:${catId?default(0)},
         },
         computed:{
             PerPage: function() {
