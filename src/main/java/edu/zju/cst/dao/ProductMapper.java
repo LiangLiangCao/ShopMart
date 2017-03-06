@@ -26,4 +26,8 @@ public interface ProductMapper {
 
     int countTotal();
 
+    List<Product> selectByCategory(@Param("num") int num,
+                                   @Param("offset")int offset,
+                                   @Param("catId")int catId);
+
 }

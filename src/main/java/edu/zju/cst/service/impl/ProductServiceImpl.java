@@ -55,4 +55,10 @@ public class ProductServiceImpl implements IProductService {
     public int getCount(){
         return productMapper.countTotal();
     }
+
+    public List<Product> getProducts(int size, int page,int catId) {
+
+        int offset = (page-1) * size;
+        return productMapper.selectByCategory(size,offset,catId);
+    }
 }

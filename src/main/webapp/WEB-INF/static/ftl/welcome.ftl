@@ -1,8 +1,14 @@
 
 <#include "head.ftl">
 
+<nav class="blog-nav">
+    <#list catogeries as cat>
+        <a class="blog-nav-item" href="/?catId=${cat.categoryId}">${cat.categoryName}</a>
+    </#list>
+</nav>
 
-<#list latestProduct as item>
+
+<#list items as item>
 
 <div class="row">
     <div class="col-md-12">
@@ -30,19 +36,19 @@
             </a>
         </li>
         <li v-bind:class="{ hide: page==1}">
-            <a href="/page/${page-1}" aria-label="Previous">
+            <a href="?page=${page-1}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
 
         <li v-bind:class="{ hide: page==lastPage}">
-            <a href="/page/${page+1}" aria-label="Next">
+            <a href="?page=${page+1}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
 
         <li v-bind:class="{ hide: page==lastPage}">
-            <a href="/page/${lastPage}" aria-label="Last Page">
+            <a href="?page=${lastPage}" aria-label="Last Page">
                 <span aria-hidden="true">&raquo;&raquo;</span>
             </a>
         </li>
@@ -66,18 +72,16 @@
         },
         computed:{
             PerPage: function() {
-                return this.perpage? parseInt(this.perpage):10;
+
             }
         },
         methods: {
             refresh: function() {
-                this.$refs.table.setPage(vm.page);
+
             },
         },
         ready: function() {
-            this.$on('vue-pagination::table', function(page) {
-                this.table1Page = page;
-            });
+
         },
 
     })

@@ -27,7 +27,7 @@
 </head>
 
 <div id="app" class="container">
-    <div class="blog-masthead">
+    <div id="apphead" class="blog-masthead">
         <div class="container">
             <nav class="blog-nav">
                 <a class="blog-nav-item active" href="/">CMBShop</a>

@@ -1,5 +1,6 @@
 package edu.zju.cst.controller;
 
+import edu.zju.cst.bean.Category;
 import edu.zju.cst.bean.Product;
 import edu.zju.cst.constant.SystemConstants;
 import org.springframework.stereotype.Controller;
@@ -16,32 +17,33 @@ import java.util.List;
 public class MainController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String welcome(ModelMap map) {
-        int count = productService.getCount();
-        int perpage = SystemConstants.PER_PAGE;
-        int page=SystemConstants.FIRST_PAGE;
-        map.put("total",count);
+    public String welcome(ModelMap map,
+                          @RequestParam(value = "page", required=false) Integer page,
+                          @RequestParam(value = "perpage", required=false) Integer perpage,
+                          @RequestParam(value = "catId", required=false) Integer catId) {
+
+
+        List<Category> categories = categoryService.getCategories(3,1);
+        map.put("catogeries",categories);
+
+        int total = productService.getCount();
+        if(page == null) page=SystemConstants.FIRST_PAGE;
+        if(perpage == null) perpage = SystemConstants.PER_PAGE;
+
+        map.put("total",total);
         map.put("page",page);
         map.put("perpage",perpage);
-        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
+        map.put("lastPage",(int)Math.ceil(total/(double)perpage));
 
-        List<Product> productList = productService.getProducts(perpage,page);
-        map.put("latestProduct",productList);
+        if(catId==null){
+            List<Product> productList = productService.getProducts(perpage,page);
+            map.put("items",productList);
+        }else{
+            List<Product> productList = productService.getProducts(perpage,page,catId);
+            map.put("items",productList);
+        }
 
         return "/ftl/welcome";
     }
 
-    @RequestMapping(value = "/page/{pageNum}", method = RequestMethod.GET)
-    public String welcome(ModelMap map, @PathVariable int pageNum) {
-        int count = productService.getCount();
-        int perpage = SystemConstants.PER_PAGE;
-        map.put("total",count);
-        map.put("page",pageNum);
-        map.put("perpage",perpage);
-        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
-
-        List<Product> productList = productService.getProducts(perpage,pageNum);
-        map.put("latestProduct",productList);
-        return "/ftl/welcome";
-    }
 }

@@ -19,13 +19,17 @@ import java.util.List;
 public class ProductController extends BaseController{
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String productList(ModelMap map,@RequestParam(value = "page", required=false) Integer page, @RequestParam(value = "perpage", required=false) Integer perpage) {
+    public String productList(ModelMap map,
+                              @RequestParam(value = "page", required=false) Integer page,
+                              @RequestParam(value = "perpage", required=false) Integer perpage,
+                              @RequestParam(value = "catId", required=false) Integer catId) {
         if(perpage == null){
             perpage = SystemConstants.PER_PAGE;
         }
         if(page == null){
             page = SystemConstants.FIRST_PAGE;
         }
+
         int count = productService.getCount();
         map.put("total",count);
         map.put("page",page);

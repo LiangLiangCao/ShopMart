@@ -21,4 +21,6 @@ public interface IProductService {
     List<Product> getProducts(int size, int page);
 
     int getCount();
+
+    public List<Product> getProducts(int size, int page,int catId);
 }

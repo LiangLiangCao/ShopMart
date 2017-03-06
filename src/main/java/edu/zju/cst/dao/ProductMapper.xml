@@ -167,4 +167,9 @@
     select <include refid="Base_Column_List" />
     from product where is_delete = 0 limit #{num} offset #{offset}
   </select>
+
+  <select id="selectByCategory" resultMap="BaseResultMap"  >
+    select <include refid="Base_Column_List" />
+    from product where is_delete = 0 and category_id = #{catId} limit #{num} offset #{offset}
+  </select>
 </mapper>
