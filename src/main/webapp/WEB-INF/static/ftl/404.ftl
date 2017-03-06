@@ -1,3 +1,3 @@
-<#include "header.ftl">
+<#include "head.ftl">
 404
-<#include "footer.ftl">
+<#include "foot.ftl">
