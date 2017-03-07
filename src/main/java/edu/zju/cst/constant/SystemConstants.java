@@ -35,11 +35,19 @@ public class SystemConstants {
     /**
      * user的role字段为ADMIN_KIND_USR则是管理员
      */
-    public static final String ADMIN_KIND_USR = "1";
+    public static final String ADMIN_USER_NAME = "管理员";
     /**
      * user的role字段为SUPER_ADMIN_USR则是超级管理员
      */
     public static final String SUPER_ADMIN_USR = "0";
+    /**
+     * user的role字段为ADMIN_KIND_USR则是管理员
+     */
+    public static final String ADMIN_KIND_USR = "1";
+    /**
+     * user的role字段为ADMIN_KIND_USR则是管理员
+     */
+    public static final String CUSTOM_USER_NAME = "普通用户";
     /**
      * user的role字段为CUSTOM_KIND_USR则是普通用户
      */
@@ -52,4 +60,12 @@ public class SystemConstants {
      * 分页页第一页
      */
     public static final int FIRST_PAGE = 1;
+    /**
+     * 删除标记：删除
+     */
+    public static final int IS_DELETE_DELETED = 1;
+    /**
+     * 删除标记：存在
+     */
+    public static final int IS_DELETE_EXIST = 0;
 }

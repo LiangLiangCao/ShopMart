@@ -99,6 +99,10 @@ public class CustomController extends BaseController {
                 result.setMsg("password cannot be null.");
             }
             user.setRole(SystemConstants.CUSTOM_KIND_USR);
+            if(user.getUserId()==null){
+                User loginUser=(User)request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
+                user.setUserId(loginUser.getUserId());
+            }
             usrService.usrLogin(user.getUserId().toString(), user.getPassword(), request);
             Product product = (Product) request.getSession().getAttribute(SystemConstants.SESSION_PRODUCT);
             Orders orders = (Orders) request.getSession().getAttribute(SystemConstants.SESSION_ORDER);
@@ -108,12 +112,11 @@ public class CustomController extends BaseController {
                 orders.setOrdrId(iterm.getOrderId());
                 request.getSession().setAttribute(SystemConstants.SESSION_ORDERITERMT, iterm);
                 result.setCode(1);
-                result.setMsg(HttpUtils.getBasePath(request) + "/custom/result");
+                result.setMsg(HttpUtils.getBasePath(request) + "/ftl/custom/result");
             }
-
         } catch (Exception e) {
             result.setCode(0);
-            result.setMsg("购买错误");
+            result.setMsg(HttpUtils.getBasePath(request) + "/500");
             e.printStackTrace();
         }
         return JSON.toJSONString(result);
@@ -132,7 +135,7 @@ public class CustomController extends BaseController {
         request.getSession().setAttribute(SystemConstants.SESSION_ORDER, orders);
         ResultSupport result = new ResultSupport();
         result.setCode(1);
-        result.setMsg(HttpUtils.getBasePath(request) + "/custom/payment");
+        result.setMsg(HttpUtils.getBasePath(request) + "/ftl/custom/payment");
         return JSON.toJSONString(result);
     }
 
@@ -150,20 +153,7 @@ public class CustomController extends BaseController {
 
     @RequestMapping(value = "/orderAll", method = RequestMethod.GET)
     public String orderAll(ModelMap map, HttpServletRequest request) {
-        List<HashMap<String, Object>> arryList = new ArrayList<HashMap<String, Object>>();
-        User user = (User) request.getSession().getAttribute(SystemConstants.CUSTOM_KIND_USR);
-        List<Orders> orders = orderService.getOrdersByUser(user.getUserId());
-        for (Orders order : orders) {
-            List<Orderitem> orderIterm = orderService.getItermsByOrder(order.getOrdrId());
-            for (Orderitem iterm : orderIterm) {
-                Product product = productService.get(iterm.getProductId().toString());
-                HashMap<String, Object> hashMap = new HashMap<String, Object>();
-                hashMap.put("orders", order);
-                hashMap.put("orderitem", orderIterm);
-                hashMap.put("product", product);
-                arryList.add(hashMap);
-            }
-        }
+        List<HashMap<String,Object>> arryList=orderService.getOrdersByUser(request);
         map.put("arryList", arryList);
 
         return "/ftl/custom/orders";

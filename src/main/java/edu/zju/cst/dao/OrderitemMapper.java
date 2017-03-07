@@ -21,5 +21,4 @@ public interface OrderitemMapper {
     int updateByPrimaryKey(Orderitem record);
 
     List<Orderitem> selectByOrder(@Param("orderId") Long orderId);
-
 }

@@ -11,13 +11,21 @@ package edu.zju.cst.service.impl;
 import edu.zju.cst.bean.Orderitem;
 import edu.zju.cst.bean.Orders;
 import edu.zju.cst.bean.Product;
+import edu.zju.cst.bean.User;
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.dao.OrderitemMapper;
 import edu.zju.cst.dao.OrdersMapper;
+import edu.zju.cst.dao.ProductMapper;
 import edu.zju.cst.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,6 +33,8 @@ import java.util.List;
  */
 @Service
 public class OrderServiceImpl implements IOrderService {
+    @Autowired
+    private ProductMapper productMapper;
 
     @Autowired
     private OrdersMapper orderMapper;
@@ -60,13 +70,14 @@ public class OrderServiceImpl implements IOrderService {
         return orderMapper.countTotal();
     }
 
+    @Transactional(readOnly = false, rollbackFor = DataAccessException.class)
     public int addOrder(Product product) {
         Orders order = new Orders();
         add(order);
         int orderId = order.getOrdrId().intValue();
 
         Orderitem orderitem = new Orderitem();
-        orderitem.setTotalPrice(product.getPrice().longValue());
+        orderitem.setTotalPrice(product.getPrice());
         orderitem.setOrderId((long) orderId);
         orderitem.setProductId(product.getProductId());
         orderitem.setNum(1);
@@ -75,15 +86,18 @@ public class OrderServiceImpl implements IOrderService {
         return orderId;
     }
 
+    @Transactional(readOnly = false, rollbackFor = DataAccessException.class)
     public Orderitem addOrder(Product product, Orders orders) {
         orders.setCreateTime(new Date());
         orders.setPayTime(new Date());
+        orders.setIsDelete(SystemConstants.IS_DELETE_EXIST);
         orderMapper.insert(orders);
 
         Orderitem orderitem = new Orderitem();
-        orderitem.setTotalPrice(product.getPrice().longValue());
+        orderitem.setTotalPrice(product.getPrice());
         orderitem.setProductId(product.getProductId());
         orderitem.setOrderId(orders.getOrdrId());
+        orderitem.setIsDelete(SystemConstants.IS_DELETE_EXIST);
         orderitem.setNum(1);
 
         orderitemMapper.insert(orderitem);
@@ -96,5 +110,25 @@ public class OrderServiceImpl implements IOrderService {
 
     public List<Orderitem> getItermsByOrder(long uid) {
         return orderitemMapper.selectByOrder(uid);
+    }
+
+    public List<HashMap<String, Object>> getOrdersByUser(HttpServletRequest request) {
+        List<HashMap<String, Object>> arryList = new ArrayList<HashMap<String, Object>>();
+        User user = (User) request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
+        if (user != null) {
+            List<Orders> orders = orderMapper.selectByUser(user.getUserId());
+            for (Orders order : orders) {
+                List<Orderitem> orderIterm = orderitemMapper.selectByOrder(order.getOrdrId());
+                for (Orderitem iterm : orderIterm) {
+                    Product product = productMapper.selectByPrimaryKey(iterm.getProductId());
+                    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                    hashMap.put("orders", order);
+                    hashMap.put("orderitem", orderIterm);
+                    hashMap.put("product", product);
+                    arryList.add(hashMap);
+                }
+            }
+        }
+        return arryList;
     }
 }

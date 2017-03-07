@@ -4,6 +4,8 @@ import edu.zju.cst.bean.Orderitem;
 import edu.zju.cst.bean.Orders;
 import edu.zju.cst.bean.Product;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,8 +29,10 @@ public interface IOrderService {
 
     int addOrder(Product product);
 
-     List<Orders> getOrdersByUser(long uid);
+    List<HashMap<String, Object>> getOrdersByUser(HttpServletRequest request);
 
-     List<Orderitem> getItermsByOrder(long uid);
+    List<Orders> getOrdersByUser(long uid);
+
+    List<Orderitem> getItermsByOrder(long uid);
 
 }

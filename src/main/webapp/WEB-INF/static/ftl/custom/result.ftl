@@ -30,43 +30,43 @@
     <div class="login-wrap">
         <div class="form-group">
             <label class="col-sm-2 control-label">订单编号：</label>
-            <p class="col-sm-10" 　>${orders.ordrId!}</p>
+            <p class="col-sm-10"  style="*width: 250px;"　>${orders.ordrId!}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">商品名称：</label>
-            <p class="col-sm-10">${product.productName!}</p>
+            <p class="col-sm-10" style="*width: 250px;">${product.productName!}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">商品价格：</label>
-            <p class="col-sm-10">${orderitem.totalPrice!}</p>
+            <p class="col-sm-10" style="*width: 250px;">${orderitem.totalPrice!}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">商品描述：</label>
-            <p class="col-sm-10"">${product.description!}</p>
+            <p class="col-sm-10" style="*width: 250px;">${product.description!}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">购买时间：</label>
-            <p class="col-sm-10">${(orders.payTime)!?string("yyyy-MM-dd HH:mm:ss")}</p>
+            <p class="col-sm-10" style="*width: 250px;">${(orders.payTime)!?string("yyyy-MM-dd HH:mm:ss")}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">购买数量：</label>
-            <p class="col-sm-10">${orderitem.num!}</p>
+            <p class="col-sm-10" style="*width: 250px;">${orderitem.num!}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">收货人姓名：</label>
-            <p class="col-sm-10">${orders.name!}</p>
+            <p class="col-sm-10" style="*width: 250px;">${orders.name!}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">收货人手机：</label>
-            <p class="col-sm-10"">${orders.phone!}</p>
+            <p class="col-sm-10" style="*width: 250px;">${orders.phone!}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">收货人地址：</label>
-            <p class="col-sm-10">${orders.address!}</p>
+            <p class="col-sm-10" style="*width: 250px;">${orders.address!}</p>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">送货方式：</label>
-            <p class="col-sm-10">${orders.deliveryMethod!}</p>
+            <p class="col-sm-10" style="*width: 250px;">${orders.deliveryMethod!}</p>
         </div>
     </div>
 </div>

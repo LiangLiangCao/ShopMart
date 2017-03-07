@@ -123,14 +123,13 @@ public class UserServiceImpl implements IUserService {
 
         for (User item : users) {
             String role = item.getRole();
-            if (role.trim().equals("1") || role.trim().equals("0")) {
-                item.setRole("管理员");
+            if (role.trim().equals(SystemConstants.ADMIN_KIND_USR) ||
+                role.trim().equals(SystemConstants.SUPER_ADMIN_USR)) {
+                item.setRole(SystemConstants.ADMIN_USER_NAME);
             } else {
-                item.setRole("普通用户");
+                item.setRole(SystemConstants.CUSTOM_USER_NAME);
             }
         }
         return users;
     }
-
-
 }

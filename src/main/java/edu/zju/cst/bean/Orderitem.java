@@ -9,7 +9,7 @@ public class Orderitem {
 
     private Long productId;
 
-    private Long totalPrice;
+    private BigDecimal totalPrice;
 
     private Integer num;
 
@@ -17,9 +17,9 @@ public class Orderitem {
 
     private BigDecimal itemPrice;
 
-    private Integer isDelete = 0;
+    private Integer isDelete;
 
-    public Orderitem(Long itemId, Long orderId, Long productId, Long totalPrice, Integer num, String note, BigDecimal itemPrice, Integer isDelete) {
+    public Orderitem(Long itemId, Long orderId, Long productId, BigDecimal totalPrice, Integer num, String note, BigDecimal itemPrice, Integer isDelete) {
         this.itemId = itemId;
         this.orderId = orderId;
         this.productId = productId;
@@ -58,11 +58,11 @@ public class Orderitem {
         this.productId = productId;
     }
 
-    public Long getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Long totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
