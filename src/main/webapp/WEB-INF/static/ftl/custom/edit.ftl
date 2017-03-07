@@ -8,34 +8,22 @@
     <div class="panel-body">
 
         <dl class="dl-horizontal">
-            <dt>用户id</dt>
-            <dd>${user.userId!}</dd>
+            <p>用户id:  ${user.userId!}</p>
 
-            <dt>email</dt>
-            <dd>${user.email!}</dd>
+            <p>email:  ${user.email!}</p>
 
-            <dt>gender</dt>
-            <dd>${user.gender!}</dd>
+            <P>gender: ${user.gender!}${user.gender!}</P>
 
-            <dt>phone</dt>
-            <dd>${user.phone!}</dd>
+            <p>phone:  ${user.phone!}</p>
 
-            <dt>role</dt>
+            <p>score:  ${user.score!}</p>
 
-            <dd>
-                <select class="form-control" v-value="${user.role!}" name="role" placeholder="1"
-                        aria-describedby="basic-addon1">
-                <option value="1">管理员</option>
-                <option value="2">普通用户</option>
-                </select>
-            </dd>
-
-            <dt>score</dt>
-            <dd>${user.score!}</dd>
         </dl>
-        <button type="button" class="btn btn-default" aria-label="Left Align"
-                data-toggle="modal"
+        <button type="button" class="btn btn-default"
+                data-toggle="modal" style="width:90%;margin:0 auto"
                 data-target="#updateModal" v-on:click="edit(${user.userId})">
+            修改
+        </button>
 </section>
 
 <!-- 模态框（Modal） -->
@@ -72,14 +60,7 @@
                     <input v-model="user.phone" type="text" class="form-control" placeholder=""
                            aria-describedby="basic-addon1">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon"> 角色</span>
-                    <select class="form-control" v-model="user.role" name="role" placeholder="1"
-                            aria-describedby="basic-addon1">
-                        <option value="1">管理员</option>
-                        <option value="2">普通用户</option>
-                    </select>
-                </div>
+
                 <div class="input-group">
                     <span class="input-group-addon">  score  </span>
                     <input v-model="user.score" type="text" class="form-control" placeholder=""
@@ -123,6 +104,22 @@
                         $('#updateModal').modal('hide');
 //                        window.location.href = msg.msg;
                         window.location.reload();
+                    },
+                    error: function (xhr, desc, err) {
+                        console.log(xhr);
+                        console.log("Details: " + desc + "\nError:" + err);
+                    }
+                });
+            },
+            edit: function (user_id) {
+                $.ajax({
+                    type: 'GET',
+                    contentType: "application/json; charset=utf-8",
+                    url: '/admin/user/get/?user_id=' + user_id,
+                    dataType: 'json',
+                    async: true,
+                    success: function (msg, status) {
+                        vm.user = msg;
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);

@@ -66,7 +66,7 @@
         </init-param>
         <init-param>
             <param-name>notCheckURLList</param-name>
-            <param-value>/admin/login;/admin/user/update</param-value>
+            <param-value>/admin/login;/admin/user/update;/admin/user/get/</param-value>
         </init-param>
     </filter>
 
