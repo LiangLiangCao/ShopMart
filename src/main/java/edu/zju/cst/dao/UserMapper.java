@@ -25,4 +25,6 @@ public interface UserMapper {
     User selectByEmail(String email);
     int deleteByUpdate(Long userId);
 
+    int countTotal();
+
 }

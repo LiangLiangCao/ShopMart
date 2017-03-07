@@ -49,7 +49,7 @@
                     </header>
                     <div class="panel-body">
                         <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off"
-                              action="${BASE_PATH}/usrmanage/addNew">
+                              action="${BASE_PATH}/admin/user/addNew">
                             <fieldset>
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">邮箱</label>
@@ -105,7 +105,6 @@
                                     </tr>
 
 
-                                    
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                                     <#list users as e>
@@ -136,12 +135,39 @@
                             </div>
                         </div>
                     </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li v-bind:class="{ disabled: page==1}">
+                                <a href="" aria-label="First Page">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li v-bind:class="{ disabled: page==1}">
+                                <a href="?page=${page-1}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li v-bind:class="{ disabled: page==lastPage}">
+                                <a href="?page=${page+1}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li v-bind:class="{ disabled: page==lastPage}">
+                                <a href="?page=${lastPage}" aria-label="Last Page">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </section>
+
+
             </div>
             <!-- page end-->
         </div>
     </section>
 </section>
+
 
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -204,8 +230,12 @@
 <script type="text/javascript">
     vm = new Vue({
         el: '#app',
-     data: {
+        data: {
             user: {},
+            total:${total},
+            page:${page},
+            lastPage:${lastPage},
+            perpage:${perpage},
         },
         methods: {
             deleteIt: function (user_id) {

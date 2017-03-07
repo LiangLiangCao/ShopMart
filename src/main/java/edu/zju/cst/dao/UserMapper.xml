@@ -139,9 +139,13 @@
     is_delete = 1
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
-
   <select id="selectByPageSize" resultMap="BaseResultMap"  >
     select <include refid="Base_Column_List" />
     from USER where is_delete = 0 limit #{num} offset #{offset}
   </select>
+  <select id="countTotal" resultType="java.lang.Integer"  >
+    select count(*)
+    from USER where is_delete = 0
+  </select>
+
 </mapper>

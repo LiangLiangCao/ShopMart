@@ -14,12 +14,12 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/supply/category")
 public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String categoryList(ModelMap map, @RequestParam(value = "page", required = false) Integer page,
-                               @RequestParam(value = "perpage",required = false) Integer perpage) {
+                               @RequestParam(value = "perpage", required = false) Integer perpage) {
         if (perpage == null) {
             perpage = 10;
         }

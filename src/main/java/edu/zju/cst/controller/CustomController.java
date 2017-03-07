@@ -161,4 +161,16 @@ public class CustomController extends BaseController {
 
         return "/ftl/custom/orders";
     }
+    @RequestMapping(value = "/private", method = RequestMethod.GET)
+    public String userInfo(ModelMap map, HttpServletRequest request) {
+
+        User nowUser=(User)request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
+        if(nowUser==null){
+            return "redirect:" + HttpUtils.getBasePath(request)+"/custom/login";
+        }
+        User user=usrService.findByID(nowUser.getUserId());
+
+        map.put("user",user);
+        return "/ftl/custom/edit";
+    }
 }

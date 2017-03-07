@@ -36,12 +36,10 @@ public class UserServiceImpl implements IUserService {
         return usrMapper.deleteByUpdate(uid);
     }
 
-    public int addUser(String email, String password, String role) {
-        User user = new User();
-        user.setRole(role);
-        user.setEmail(email.trim());
-        user.setPassword(AuthUtils.getPassword(password));
 
+    public int addUser(User user){
+        String password=user.getPassword();
+        user.setPassword(AuthUtils.getPassword(password));
         return usrMapper.insertSelective(user);
     }
 
@@ -131,5 +129,9 @@ public class UserServiceImpl implements IUserService {
             }
         }
         return users;
+    }
+
+    public int getCount(){
+        return usrMapper.countTotal();
     }
 }

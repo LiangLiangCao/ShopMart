@@ -17,7 +17,7 @@ public interface IUserService {
 
     int updateByID(User record);
 
-    int addUser(String email, String password, String role);
+    int addUser(User user);
 
     List<User> getAllListPage(int size, int pageNum);
 
@@ -27,4 +27,5 @@ public interface IUserService {
 
     void adminLogin(String name, String password, HttpServletRequest request) throws AuthException, IOException;
 
+    int getCount();
 }

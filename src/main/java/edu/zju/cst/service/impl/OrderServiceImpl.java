@@ -105,19 +105,18 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     public List<Orders> getOrdersByUser(long uid) {
-        return orderMapper.selectByUser(uid,null,null);
+        return orderMapper.selectByUser(uid, null, null);
     }
 
     public List<Orderitem> getItermsByOrder(long uid) {
         return orderitemMapper.selectByOrder(uid);
     }
 
-    public List<HashMap<String, Object>> getOrdersByUser(HttpServletRequest request,Integer type, String keyword) {
-
+    public List<HashMap<String, Object>> getOrdersByUser(HttpServletRequest request) {
         List<HashMap<String, Object>> arryList = new ArrayList<HashMap<String, Object>>();
         User user = (User) request.getSession().getAttribute(SystemConstants.SESSION_CUSTOM);
         if (user != null) {
-            List<Orders> orders = orderMapper.selectByUser(user.getUserId(),type,keyword);
+            List<Orders> orders = orderMapper.selectByUser(user.getUserId(),null,null);
             for (Orders order : orders) {
                 List<Orderitem> orderIterm = orderitemMapper.selectByOrder(order.getOrdrId());
                 for (Orderitem iterm : orderIterm) {

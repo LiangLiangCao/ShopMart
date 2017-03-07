@@ -127,11 +127,15 @@
       is_delete = #{isDelete,jdbcType=INTEGER}
     where item_id = #{itemId,jdbcType=BIGINT}
     </update>
-
     <select id="selectByOrder" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List"/>
         from orderitem
         where order_id = #{orderId}
+    </select>
+    <select id="countTotal" resultType="java.lang.Integer" >
+        select count(*)
+        from orderitem
+        where is_delete = 0
     </select>
 </mapper>

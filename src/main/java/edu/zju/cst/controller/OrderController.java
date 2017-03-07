@@ -17,18 +17,19 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("order")
+@RequestMapping("/order")
 public class OrderController extends BaseController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showAll(ModelMap map, @RequestParam(value = "page", required = false) Integer page,
+    public String showAll(ModelMap map,
+                          @RequestParam(value = "page", required = false) Integer page,
                           @RequestParam(value = "perpage", required = false) Integer perpage) {
         if (perpage == null) {
             perpage = SystemConstants.PER_PAGE;
         }
         if (page == null) {
-            page =SystemConstants.FIRST_PAGE;
+            page = SystemConstants.FIRST_PAGE;
         }
         int count = orderService.getCount();
         map.put("total", count);

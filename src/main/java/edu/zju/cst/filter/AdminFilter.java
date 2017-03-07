@@ -48,7 +48,7 @@ public class AdminFilter implements Filter {
 
         System.out.println( "/n/n+++++++++++++++++++++++++++++++ request.getPathInfo()"+request.getPathInfo());
         User usr = (User) request.getSession().getAttribute(sessionKey);
-        if (usr == null && (!checkRequestURIIntNotFilterList(request))) {
+        if (usr == null && (!isInWhiteList(request))) {
 
 
             System.out.println(redirectURL);
@@ -65,7 +65,7 @@ public class AdminFilter implements Filter {
         notCheckURLList.clear();
     }
 
-    private boolean checkRequestURIIntNotFilterList(HttpServletRequest request) {
+    private boolean isInWhiteList(HttpServletRequest request) {
         String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
         return notCheckURLList.contains(uri);
     }

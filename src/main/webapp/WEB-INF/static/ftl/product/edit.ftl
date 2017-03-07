@@ -1,4 +1,4 @@
-<#assign menu="admin">
+<#assign menu="supply">
 
 <#include "../head.ftl">
 <table class="table">
@@ -17,7 +17,6 @@
             <th>description</th>
             <th>
                 <span class="glyphicon glyphicon-plus" aria-hidden="true" data-toggle="modal" data-target="#addModal" v-on:click="addReset()">
-
                 </span>
             </th>
 
@@ -56,22 +55,22 @@
 
 <nav aria-label="Page navigation">
     <ul class="pagination">
-        <li v-bind:class="{ hide: page==1}">
+        <li v-bind:class="{ disabled: page==1}">
             <a href="" aria-label="First Page">
                 <span aria-hidden="true">&laquo;&laquo;</span>
             </a>
         </li>
-        <li v-bind:class="{ hide: page==1}">
+        <li v-bind:class="{ disabled: page==1}">
             <a href="?page=${page-1}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li v-bind:class="{ hide: page==lastPage}">
+        <li v-bind:class="{ disabled: page==lastPage}">
             <a href="?page=${page+1}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
-        <li v-bind:class="{ hide: page==lastPage}">
+        <li v-bind:class="{ disabled: page==lastPage}">
             <a href="?page=${lastPage}" aria-label="Last Page">
                 <span aria-hidden="true">&raquo;&raquo;</span>
             </a>
@@ -267,7 +266,8 @@
                         console.log(typeof msg);
                         console.log(msg);
                         console.log("修改数据啦");
-                        $('#updateModal').modal('hide')
+                        $('#updateModal').modal('hide');
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);
@@ -285,6 +285,7 @@
                     success: function (msg, status) {
                         console.log(typeof msg)
                         vm.product = msg;
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);
@@ -309,7 +310,8 @@
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
-                        $('#addModal').modal('hide')
+                        $('#addModal').modal('hide');
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);

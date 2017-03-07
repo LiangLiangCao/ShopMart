@@ -10,6 +10,8 @@ package edu.zju.cst.controller;
 
 import com.alibaba.fastjson.JSON;
 import edu.zju.cst.bean.User;
+import edu.zju.cst.constant.SystemConstants;
+import edu.zju.cst.util.HttpUtils;
 import edu.zju.cst.util.ResultSupport;
 import org.apache.commons.lang.StringUtils;
 
@@ -36,10 +38,23 @@ public class UserController extends BaseController {
      * 进入管理员管理页面
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String manage(ModelMap modelMap) {
-        List<User> usrs = usrService.getAllListPage(10, 1);
-        modelMap.put("users", usrs);
-        return "/ftl/admin/manage";
+    public String manage(ModelMap map,
+                         @RequestParam(value = "page", required = false) Integer page,
+                         @RequestParam(value = "perpage", required = false) Integer perpage) {
+        if (perpage == null) {
+            perpage = SystemConstants.PER_PAGE;
+        }
+        if (page == null) {
+            page = SystemConstants.FIRST_PAGE;
+        }
+        int count = usrService.getCount();
+        map.put("total", count);
+        map.put("page", page);
+        map.put("perpage", perpage);
+        map.put("lastPage", (int) Math.ceil(count / (double) perpage));
+        List<User> usrs = usrService.getAllListPage(perpage, page);
+        map.put("users", usrs);
+        return "/ftl/admin/edit";
     }
 
     /**
@@ -47,21 +62,24 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/addNew", method = RequestMethod.POST)
-    public String addNewUser(@RequestParam(value = "email") String email,
-                             @RequestParam(value = "password") String password,
-                             @RequestParam(value = "role") String role) {
+    public String addNewUser(@RequestBody User user,
+                             HttpServletRequest request) {
+        String email = user.getEmail();
+        String password = user.getPassword();
+        String role = user.getRole();
         ResultSupport result = new ResultSupport();
-        if (email.equals("") || StringUtils.isBlank(password)) {
+        if (email.equals("") || StringUtils.isBlank(password)||role.equals("")) {
 
             result.setCode(0);
             result.setMsg("email or password cannot be null");
             return JSON.toJSONString(result);
         }
-        User user = usrService.findByEmail(email);
-        if (user == null) {
-            int re = usrService.addUser(email, password, role);
+        User existUser = usrService.findByEmail(email);
+        if (existUser == null) {
+            int re = usrService.addUser(user);
             if (re > 0) {
                 result.setCode(re);
+                result.setMsg(HttpUtils.getBasePath(request) + "/admin/user/");
             } else {
                 result.setCode(0);
                 result.setMsg("添加错误");
@@ -75,8 +93,8 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public String getById(@RequestParam(value = "user_id") String user_id, HttpServletRequest request) {
-        User user = usrService.findByID(Long.parseLong(user_id.trim()));
+    public String getById(@RequestParam(value = "user_id") String userID, HttpServletRequest request) {
+        User user = usrService.findByID(Long.parseLong(userID.trim()));
         return JSON.toJSONString(user);
     }
 
@@ -90,6 +108,7 @@ public class UserController extends BaseController {
         ResultSupport result = new ResultSupport();
         if (re > 0) {
             result.setCode(re);
+            result.setMsg(HttpUtils.getBasePath(request) + "/admin/user/");
         } else {
             result.setCode(0);
             result.setMsg("update错误");

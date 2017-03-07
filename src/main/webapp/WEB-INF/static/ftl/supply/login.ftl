@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<#assign menu="admin_list">
-<#assign submenu="add_admin">
+<#assign menu="supply">
 <#include "../head.ftl">
 <style type="text/css">
     p.error {

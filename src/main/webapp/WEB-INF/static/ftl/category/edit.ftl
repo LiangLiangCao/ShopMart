@@ -1,4 +1,4 @@
-<#assign menu="admin">
+<#assign menu="supply">
 <#include "../head.ftl">
 <table class="table">
     <caption>Category List</caption>
@@ -193,7 +193,8 @@
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
-                        $('#updateModal').modal('hide')
+                        $('#updateModal').modal('hide');
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);
@@ -211,6 +212,7 @@
                     success: function (msg, status) {
                         console.log(typeof msg)
                         vm.item = msg;
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);
@@ -232,7 +234,8 @@
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
-                        $('#addModal').modal('hide')
+                        $('#addModal').modal('hide');
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);

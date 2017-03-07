@@ -45,9 +45,11 @@ public class SupplyFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
+
         Supplier supplier = (Supplier) request.getSession().getAttribute(sessionKey);
-        if (supplier == null && (!checkRequestURIIntNotFilterList(request))) {
-            response.sendRedirect(HttpUtils.getBasePath(request) + redirectURL);
+        if (supplier == null && (!isInWhiteList(request))) {
+            response.sendRedirect(HttpUtils.getBasePath(request) + redirectURL+"?redirect="+uri);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
@@ -56,7 +58,7 @@ public class SupplyFilter implements Filter {
         notCheckURLList.clear();
     }
 
-    private boolean checkRequestURIIntNotFilterList(HttpServletRequest request) {
+    private boolean isInWhiteList(HttpServletRequest request) {
         String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
         return notCheckURLList.contains(uri);
     }

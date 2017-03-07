@@ -1,4 +1,4 @@
-<#assign menu="admin">
+<#assign menu="supply">
 <#include "../head.ftl">
 <table class="table">
     <caption>Order List</caption>
@@ -18,7 +18,7 @@
     <#--<th>createTime</th>-->
         <th>payTime</th>
     <#--<th>closeTime</th>-->
-    <#--<th>state</th>-->
+        <th>state</th>
     <#---->
         <th>
                 <span class="glyphicon glyphicon-plus" aria-hidden="true" data-toggle="modal" data-target="#addModal"
@@ -36,7 +36,7 @@
         <th>${item.name!}</th>
         <th>${item.address!}</th>
         <th>${item.phone!}</th>
-        <#--<th>${item.postage!}</th>-->
+    <#--<th>${item.postage!}</th>-->
     <#--<th>${item.total!}</th>-->
     <#--<th>${item.deliveryDate!}</th>-->
     <#--<th>${item.deliveryMethod!}</th>-->
@@ -44,7 +44,7 @@
     <#--<th>${item.createTime!}</th>-->
         <th>${item.payTime!?datetime}</th>
     <#--<th>${item.closeTime!}</th>-->
-    <#--<th>${item.state!}</th>-->
+        <th>${item.state!}</th>
         <th>
             <div class="btn-group">
                 <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal"
@@ -312,7 +312,8 @@
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
-                        $('#updateModal').modal('hide')
+                        $('#updateModal').modal('hide');
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);
@@ -330,6 +331,7 @@
                     success: function (msg, status) {
                         console.log(typeof msg)
                         vm.order = msg;
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);
@@ -351,7 +353,8 @@
                     success: function (msg, status) {
                         console.log(typeof msg);
                         console.log(msg);
-                        $('#addModal').modal('hide')
+                        $('#addModal').modal('hide');
+                        window.location.reload();
                     },
                     error: function (xhr, desc, err) {
                         console.log(xhr);
