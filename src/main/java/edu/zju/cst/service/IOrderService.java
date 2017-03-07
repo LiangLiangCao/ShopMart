@@ -32,6 +32,8 @@ public interface IOrderService {
     List<Orders> getOrdersByUser(long uid);
 
     List<Orderitem> getItermsByOrder(long uid);
-    List<HashMap<String, Object>> getOrdersByUser(HttpServletRequest request);
+
+    List<HashMap<String, Object>> getOrdersByUser(HttpServletRequest request,Integer type, String keyword);
+
 
 }
