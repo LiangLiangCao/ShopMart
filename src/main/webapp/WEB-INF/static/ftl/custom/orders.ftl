@@ -42,6 +42,7 @@
                 <p> 手机： ${(map[key].phone)!}</p>
                 <p> 地址： ${(map[key].address)!}</p>
                 <p> 送货方式： ${(map[key].deliveryMethod)!}</p>
+                <p> 状态： ${(map[key].state)!}</p>
             </#if>
             <#if key=="product">
                 <p> 商品名称： ${(map[key].productName)!}</p>

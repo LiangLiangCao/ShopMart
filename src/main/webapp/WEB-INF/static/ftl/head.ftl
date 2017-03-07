@@ -34,6 +34,12 @@
                 <a class="blog-nav-item active" href="/">CMBShop</a>
                 <a class="blog-nav-item" href="${BASE_PATH}/custom/orderAll/">订单管理</a>
                 <a class="blog-nav-item" href="${BASE_PATH}/custom/private/">个人信息</a>
+
+                <a class="blog-nav-item" href="#">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true" v-on:click="search()" >
+                    </span>
+                </a>
+
                 <li class="blog-nav-item dropdown ">
                     <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
