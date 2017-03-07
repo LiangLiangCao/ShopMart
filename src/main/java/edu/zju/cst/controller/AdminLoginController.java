@@ -32,10 +32,8 @@ public class AdminLoginController extends BaseController {
     public String getLogin(HttpServletRequest request,
                            @RequestParam(value = "redirect", required = false) String redirect,
                            ModelMap modelMap) {
-
         //输入登录页面地址登录,跳转到首页
-        if(redirect==null) redirect ="/";
-        
+        if(redirect==null) redirect ="/admin/user/";
         modelMap.put("redirect",redirect);
         return "/ftl/admin/login";
     }

@@ -46,17 +46,17 @@ public class AdminFilter implements Filter {
 
         String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
 
+        System.out.println( "/n/n+++++++++++++++++++++++++++++++ request.getPathInfo()"+request.getPathInfo());
         User usr = (User) request.getSession().getAttribute(sessionKey);
-        if (usr == null&&(!checkRequestURIIntNotFilterList(request))) {
+        if (usr == null && (!checkRequestURIIntNotFilterList(request))) {
 
-            System.out.println("\n\n------------------------- meox 6--------------------------\n\n");
 
             System.out.println(redirectURL);
-//            if(redirectURL.equals("/admin/login")){
-//                response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL);
-//            }else {
-                response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL+"?redirect="+uri);
-//            }
+            //            if(redirectURL.equals("/admin/login")){
+            //                response.sendRedirect(HttpUtils.getBasePath(request)+redirectURL);
+            //            }else {
+            response.sendRedirect(HttpUtils.getBasePath(request) + redirectURL + "?redirect=" + uri);
+            //            }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

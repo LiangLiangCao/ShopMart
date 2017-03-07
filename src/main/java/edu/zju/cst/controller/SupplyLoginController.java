@@ -29,8 +29,13 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class SupplyLoginController extends BaseController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLogin(HttpServletRequest request, ModelMap modelMap) {
-        return "/ftl//supply/login";
+    public String getLogin(@RequestParam(value = "redirect", required = false) String redirect,
+                           HttpServletRequest request, ModelMap modelMap) {
+        if (redirect == null) {
+            redirect = "/";
+        }
+        modelMap.put("redirect", redirect);
+        return "/ftl/supply/login";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -41,18 +46,22 @@ public class SupplyLoginController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String usrLogin(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password,
+    public String usrLogin(@RequestParam(value = "name") String name,
+                           @RequestParam(value = "password") String password,
+                           @RequestParam(value="redirect" ,required = false)String redirect,
                            HttpServletRequest request, ModelMap modelMap) {
         ResultSupport result = new ResultSupport();
         try {
             result.setCode(1);
             supplierService.supplierLogin(name, password, request);
-
+            if(redirect!=null){
+                return  "redirect:"+HttpUtils.getBasePath(request)+redirect;
+            }
         } catch (Exception e) {
             result.setCode(0);
             result.setMsg("email or password wrong.");
             e.printStackTrace();
         }
-        return JSON.toJSONString(result);
+        return "redirect:"+HttpUtils.getBasePath(request)+"/supply/login";
     }
 }

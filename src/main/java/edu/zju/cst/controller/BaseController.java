@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class BaseController {
     protected final Logger logger =Logger.getLogger(this.getClass());
-
     protected HttpServletRequest request;
 
     @Autowired
@@ -36,7 +35,6 @@ public class BaseController {
     protected IOrderService orderService;
     @Autowired
     protected ICategoryService categoryService;
-
 
 
     //① 获取保存在Session中的用户对象

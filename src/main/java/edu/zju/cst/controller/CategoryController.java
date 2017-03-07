@@ -15,67 +15,63 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/category")
-public class CategoryController extends BaseController{
+public class CategoryController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String categoryList(ModelMap map,@RequestParam(value = "page", required=false) Integer page, @RequestParam(value = "perpage", required=false) Integer perpage) {
-
-        if(perpage == null){
+    public String categoryList(ModelMap map, @RequestParam(value = "page", required = false) Integer page,
+                               @RequestParam(value = "perpage",required = false) Integer perpage) {
+        if (perpage == null) {
             perpage = 10;
         }
-        if(page == null){
+        if (page == null) {
             page = 1;
         }
 
         int count = categoryService.getCount();
-        map.put("total",count);
-        map.put("page",page);
-        map.put("perpage",perpage);
+        map.put("total", count);
+        map.put("page", page);
+        map.put("perpage", perpage);
+        map.put("lastPage", (int) Math.ceil(count / (double) perpage));
 
-        map.put("lastPage",(int)Math.ceil(count/(double)perpage));
+        List<Category> categoryList = categoryService.getCategories(perpage, page);
+        map.put("items", categoryList);
 
-
-        List<Category> categoryList = categoryService.getCategories(perpage,page);
-
-        map.put("items",categoryList);
         return "/ftl/category/edit";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public String get(ModelMap map,@RequestParam(value = "category_id") int category_id) {
+    public String get(ModelMap map, @RequestParam(value = "category_id") int categoryId) {
 
-        Category category = categoryService.get(category_id+"");
+        Category category = categoryService.get(categoryId + "");
         return JSON.toJSONString(category);
     }
 
 
-    @RequestMapping(value = "/del", method = RequestMethod.GET )
+    @RequestMapping(value = "/del", method = RequestMethod.GET)
     @ResponseBody
-    public String delCategory(ModelMap map, @RequestParam(value = "category_id") int category_id) {
-
-        int re = categoryService.del(category_id+"");
+    public String delCategory(ModelMap map, @RequestParam(value = "category_id") int categoryId) {
+        int re = categoryService.del(categoryId + "");
 
         ResultSupport result = new ResultSupport();
-        if(re>0){
+        if (re > 0) {
             result.setCode(1);
-        }else {
+        } else {
             result.setCode(0);
             result.setMsg("删除错误");
         }
         return JSON.toJSONString(result);
-
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addCategory(@RequestBody Category category) {
-        int re  = categoryService.add(category);
+        int re = categoryService.add(category);
 
         ResultSupport result = new ResultSupport();
-        if(re>0){
+        if (re > 0) {
             result.setCode(1);
-        }else {
+        } else {
             result.setCode(0);
             result.setMsg("添加错误");
         }
@@ -88,9 +84,9 @@ public class CategoryController extends BaseController{
         int re = categoryService.update(category);
 
         ResultSupport result = new ResultSupport();
-        if(re>0){
+        if (re > 0) {
             result.setCode(1);
-        }else {
+        } else {
             result.setCode(0);
             result.setMsg("更新错误");
         }

@@ -29,7 +29,7 @@
 <div class="container">
 
     <form class="form-signin" id="adminForm"
-          action="${BASE_PATH}/supply/login" autocomplete="off"
+          action="${BASE_PATH}/supply/login?redirect=${redirect!}" autocomplete="off"
           method="post">
         <h2 class="form-signin-heading">
             <img src="${BASE_PATH}/static/images/logo.png"
@@ -46,9 +46,7 @@
                 <input type="password" name="password" class="form-control" placeholder="密码" value=""
                        style="*width: 250px;">
             </div>
-
             <div class="clearfix"></div>
-
             <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
         </div>
     </form>
