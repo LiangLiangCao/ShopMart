@@ -225,10 +225,19 @@
     <select id="countTotal" resultType="java.lang.Integer">
     select count(*) from orders where is_delete=0
   </select>
-    <select id="selectByUser" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    <select id="selectByUser" resultMap="BaseResultMap" parameterType="java.lang.Long" >
         select
         <include refid="Base_Column_List"/>
         from orders
         where user_id=#{uid}
+        <if test="type == 1">
+            AND ordr_id = #{keyword}
+        </if>
+        <if test="type == 2">
+            AND ordr_id = #{keyword}
+        </if>
+        <if test="type == 3">
+            AND ordr_id = #{keyword}
+        </if>
     </select>
 </mapper>

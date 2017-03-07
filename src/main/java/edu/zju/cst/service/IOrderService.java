@@ -29,7 +29,7 @@ public interface IOrderService {
 
     int addOrder(Product product);
 
-    List<HashMap<String, Object>> getOrdersByUser(HttpServletRequest request);
+    List<HashMap<String, Object>> getOrdersByUser(HttpServletRequest request,Integer type, String keyword);
 
     List<Orders> getOrdersByUser(long uid);
 

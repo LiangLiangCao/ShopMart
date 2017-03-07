@@ -28,6 +28,6 @@ public interface OrdersMapper {
 
     int countTotal();
 
-    List<Orders> selectByUser(@Param("uid") Long uid);
+    List<Orders> selectByUser(@Param("uid") Long uid,@Param("type")Integer type,@Param("keyword")String keyword);
 
 }

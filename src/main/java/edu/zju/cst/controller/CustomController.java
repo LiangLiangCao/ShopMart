@@ -152,8 +152,11 @@ public class CustomController extends BaseController {
     }
 
     @RequestMapping(value = "/orderAll", method = RequestMethod.GET)
-    public String orderAll(ModelMap map, HttpServletRequest request) {
-        List<HashMap<String,Object>> arryList=orderService.getOrdersByUser(request);
+    public String orderAll(ModelMap map, HttpServletRequest request,
+                           @RequestParam(value = "keyword", required = false) String keyword,
+                           @RequestParam(value = "type", required = false) Integer type) {
+
+        List<HashMap<String,Object>> arryList=orderService.getOrdersByUser(request,type,keyword);
         map.put("arryList", arryList);
 
         return "/ftl/custom/orders";
