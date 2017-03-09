@@ -75,7 +75,7 @@ public class UserControllerTest {
 
         when(userService.getAllListPage(page, perpage)).thenAnswer(new Answer<Void>() {
             public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("get users");
+                System.out.println("testManageSuccess");
                 return null;
             }
         });
@@ -104,7 +104,7 @@ public class UserControllerTest {
 
         doAnswer(new Answer<Void>() {
             public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("Insert data into user table");
+                System.out.println("testAddNewUserSucess");
                 return null;
             }
         }).when(userService).addUser(any(User.class));
@@ -127,7 +127,7 @@ public class UserControllerTest {
     public void testAddNewUserErorr() throws Exception {
         doAnswer(new Answer<Void>() {
             public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("Insert data into user table");
+                System.out.println("testAddNewUserErorr");
                 return null;
             }
         }).when(userService).addUser(any(User.class));
@@ -146,11 +146,11 @@ public class UserControllerTest {
     public void testGetById() throws Exception {
         doAnswer(new Answer<Void>() {
             public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("find data into user table");
+                System.out.println("testGetById");
                 return null;
             }
         }).when(userService).findByID(any(Long.class));
-        userService.findByID((long) 1);
+        userController.getById("1",request);
     }
 
     /**
@@ -160,7 +160,7 @@ public class UserControllerTest {
     public void testUpdateUser() throws Exception {
         doAnswer(new Answer<Void>() {
             public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("update data into user table");
+                System.out.println("testUpdateUser");
                 return null;
             }
         }).when(userService).updateByID(any(User.class));
@@ -173,7 +173,7 @@ public class UserControllerTest {
 
         String re = userController.updateUser(user, request);
 //        result = JSON.parseObject(re, ResultSupport.class);
-        System.out.print("+===========" + result.getCode());
+//        System.out.print("+===========" + result.getCode());
 //        Assert.assertEquals(1, result.getCode());
 
     }
@@ -185,12 +185,13 @@ public class UserControllerTest {
     @Test
     public void testDelete() throws Exception {
         Long uId = new Long(1);
-        when(userController.delete(uId, request)).thenAnswer(new Answer<Void>() {
+        when(userService.deleteByID(uId)).thenAnswer(new Answer<Void>() {
             public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("delete user");
+                System.out.println("testDelete");
                 return null;
             }
         });
+        userController.delete(uId,request);
     }
 
 

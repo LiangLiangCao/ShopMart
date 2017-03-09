@@ -57,7 +57,7 @@ public class UserServiceImplTest {
 
         doAnswer(new Answer<Void>() {
             public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("Insert data into user table");
+                System.out.println("testAddUser");
                 return null;
             }
         }).when(userMapper).insertSelective(any(User.class));
@@ -77,7 +77,7 @@ public class UserServiceImplTest {
         when(userMapper.selectByPrimaryKey(id)).thenAnswer(
                 new Answer<Void>() {
                     public Void answer(InvocationOnMock invocation) throws Throwable {
-                        System.out.println("find users");
+                        System.out.println("testFindByID");
                         return null;
                     }
                 }
@@ -108,7 +108,19 @@ public class UserServiceImplTest {
      */
     @Test
     public void testUpdateByID() throws Exception {
-//TODO: Test goes here... 
+
+        User user=new User();
+        user.setUserId(new Long(1));
+        user.setPassword("1");
+        when(userMapper.updateByPrimaryKey(user)).thenAnswer(
+                new Answer<Void>() {
+                    public Void answer(InvocationOnMock invocation) throws Throwable {
+                        System.out.println("testUpdateByID");
+                        return null;
+                    }
+                }
+        );
+        userService.updateByID(user);
     }
 
     /**
