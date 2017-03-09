@@ -64,12 +64,12 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/addNew", method = RequestMethod.POST)
     public String addNewUser(@RequestBody User user,
                              HttpServletRequest request) {
+        ResultSupport result = new ResultSupport();
         String email = user.getEmail();
         String password = user.getPassword();
         String role = user.getRole();
-        ResultSupport result = new ResultSupport();
-        if (email.equals("") || StringUtils.isBlank(password)||role.equals("")) {
 
+        if (email==null||role==null||result==null||email.equals("") || StringUtils.isBlank(password)||role.equals("")) {
             result.setCode(0);
             result.setMsg("email or password cannot be null");
             return JSON.toJSONString(result);
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
         if (existUser == null) {
             int re = usrService.addUser(user);
             if (re > 0) {
-                result.setCode(re);
+                result.setCode(1);
                 result.setMsg(HttpUtils.getBasePath(request) + "/admin/user/");
             } else {
                 result.setCode(0);
