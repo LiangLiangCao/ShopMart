@@ -1,18 +1,28 @@
 package edu.zju.cst.service.impl;
 
 import edu.zju.cst.bean.User;
+
+import edu.zju.cst.constant.SystemConstants;
 import edu.zju.cst.dao.UserMapper;
+import edu.zju.cst.util.AuthUtils;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.junit.Test;
 import org.junit.Before;
-import org.junit.After;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.mock.web.MockHttpSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doAnswer;
+
 import static org.mockito.Mockito.when;
 
 /**
@@ -29,16 +39,24 @@ public class UserServiceImplTest {
     @Mock
     private UserMapper userMapper;
 
+    @Mock
+    private MockHttpServletRequest request;
+
+    @Mock
+    private MockHttpSession session;
 
     @Before
     public void before() throws Exception {
         //初始化对象的注解
         userService = new UserServiceImpl();
-        MockitoAnnotations.initMocks(this);
-    }
 
-    @After
-    public void after() throws Exception {
+        request = new MockHttpServletRequest();
+        session = new MockHttpSession();
+        request.setCharacterEncoding("UTF-8");
+        request.setMethod("POST");
+        request.addParameter("viewDetails", "true");
+        request.setSession(session);
+        MockitoAnnotations.initMocks(this);
     }
 
     /**
@@ -46,7 +64,9 @@ public class UserServiceImplTest {
      */
     @Test
     public void testDeleteByID() throws Exception {
-//TODO: Test goes here... 
+        Long id = new Long(1);
+        when(userMapper.deleteByPrimaryKey(anyLong())).thenReturn(1);
+        userService.deleteByID(id);
     }
 
     /**
@@ -74,14 +94,12 @@ public class UserServiceImplTest {
     public void testFindByID() throws Exception {
 
         Long id = new Long(1);
-        when(userMapper.selectByPrimaryKey(id)).thenAnswer(
-                new Answer<Void>() {
-                    public Void answer(InvocationOnMock invocation) throws Throwable {
-                        System.out.println("testFindByID");
-                        return null;
-                    }
-                }
-        );
+        when(userMapper.selectByPrimaryKey(id)).thenAnswer(new Answer<Void>() {
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                System.out.println("testFindByID");
+                return null;
+            }
+        });
         userService.findByID(id);
 
     }
@@ -91,15 +109,13 @@ public class UserServiceImplTest {
      */
     @Test
     public void testFindByEmail() throws Exception {
-        String email="6325653@qq.com";
-        when(userMapper.selectByEmail(email)).thenAnswer(
-                new Answer<Void>() {
-                    public Void answer(InvocationOnMock invocation) throws Throwable {
-                        System.out.println("find users");
-                        return null;
-                    }
-                }
-        );
+        String email = "6325653@qq.com";
+        when(userMapper.selectByEmail(email)).thenAnswer(new Answer<Void>() {
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                System.out.println("find users");
+                return null;
+            }
+        });
         userService.findByEmail(email);
     }
 
@@ -109,17 +125,15 @@ public class UserServiceImplTest {
     @Test
     public void testUpdateByID() throws Exception {
 
-        User user=new User();
+        User user = new User();
         user.setUserId(new Long(1));
         user.setPassword("1");
-        when(userMapper.updateByPrimaryKey(user)).thenAnswer(
-                new Answer<Void>() {
-                    public Void answer(InvocationOnMock invocation) throws Throwable {
-                        System.out.println("testUpdateByID");
-                        return null;
-                    }
-                }
-        );
+        when(userMapper.updateByPrimaryKey(user)).thenAnswer(new Answer<Void>() {
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                System.out.println("testUpdateByID");
+                return null;
+            }
+        });
         userService.updateByID(user);
     }
 
@@ -128,7 +142,18 @@ public class UserServiceImplTest {
      */
     @Test
     public void testAdminLogin() throws Exception {
-//TODO: Test goes here... 
+        User user = new User();
+        user.setUserId(Long.parseLong("1"));
+        user.setPassword(AuthUtils.getPassword("1"));
+        user.setRole("1");
+
+        session.setAttribute(SystemConstants.SESSION_ADMIN, user);
+
+        when(userMapper.selectByPrimaryKey(Mockito.anyLong())).thenReturn(user);
+        Mockito.doReturn(user).when(userMapper).selectByPrimaryKey(Mockito.anyLong());
+
+        when(request.getSession()).thenReturn(session);
+        userService.adminLogin("1", "1", request);
     }
 
     /**
@@ -136,7 +161,18 @@ public class UserServiceImplTest {
      */
     @Test
     public void testUsrLogin() throws Exception {
-//TODO: Test goes here... 
+        User user = new User();
+        user.setUserId(Long.parseLong("3"));
+        user.setPassword(AuthUtils.getPassword("1"));
+        user.setRole("2");
+
+        session.setAttribute(SystemConstants.SESSION_CUSTOM, user);
+
+        when(userMapper.selectByPrimaryKey(Mockito.anyLong())).thenReturn(user);
+        Mockito.doReturn(user).when(userMapper).selectByPrimaryKey(Mockito.anyLong());
+
+        when(request.getSession()).thenReturn(session);
+        userService.usrLogin("3", "1", request);
     }
 
     /**
@@ -144,7 +180,20 @@ public class UserServiceImplTest {
      */
     @Test
     public void testGetAllListPage() throws Exception {
-//TODO: Test goes here... 
+        int page = 1;
+        int pageNum = 10;
+
+        List<User> list = new ArrayList<User>();
+        User user1 = new User();
+        user1.setRole("2");
+        user1.setUserId(Long.parseLong("3"));
+        user1.setPassword(AuthUtils.getPassword("1"));
+        user1.setUserId(1L);
+        list.add(user1);
+        list.add(user1);
+
+        Mockito.doReturn(list).when(userMapper).selectByPageSize(Mockito.anyInt(), Mockito.anyInt());
+        userService.getAllListPage(page, pageNum);
     }
 
     /**
@@ -152,7 +201,9 @@ public class UserServiceImplTest {
      */
     @Test
     public void testGetCount() throws Exception {
-//TODO: Test goes here... 
+        Integer tre = 8;
+        Mockito.when(userMapper.countTotal()).thenReturn(tre);
+        userService.getCount();
     }
 
 

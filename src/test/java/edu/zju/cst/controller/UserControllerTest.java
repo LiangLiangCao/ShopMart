@@ -12,16 +12,18 @@ import org.junit.Before;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 /**
@@ -40,7 +42,7 @@ public class UserControllerTest {
     private UserServiceImpl userService;
 
     @Mock
-    private HttpServletRequest request;
+    private MockHttpServletRequest request;
 
     private ResultSupport result;
 
@@ -55,10 +57,7 @@ public class UserControllerTest {
         user.setRole(SystemConstants.ADMIN_KIND_USR);
         user.setEmail("5353748@qq.com");
 
-
-        when(request.getAttribute(SystemConstants.SESSION_CUSTOM)).thenReturn(user);
-
-
+        request = new MockHttpServletRequest();
     }
 
 
@@ -72,22 +71,19 @@ public class UserControllerTest {
 
         Integer page = new Integer(2);
         Integer perpage = new Integer(10);
+        Integer count = new Integer(20);
 
-        when(userService.getAllListPage(page, perpage)).thenAnswer(new Answer<Void>() {
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("testManageSuccess");
-                return null;
-            }
-        });
+        List<User> list = new ArrayList<User>();
+        User user = new User();
+        user.setPassword("1");
+        user.setRole(SystemConstants.ADMIN_KIND_USR);
+        user.setEmail("5353748@qq.com");
 
+        list.add(user);
+        list.add(user);
 
-        doAnswer(new Answer<Void>() {
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("get count");
-                return null;
-            }
-        }).when(userService).getCount();
-
+        when(userService.getAllListPage(Mockito.anyInt(), Mockito.anyInt())).thenReturn(list);
+        Mockito.doReturn(count).when(userService).getCount();
 
         ModelMap map = new ModelMap();
         map.put("user", userService.getAllListPage(page, perpage));
@@ -102,22 +98,16 @@ public class UserControllerTest {
     @Test
     public void testAddNewUserSucess() throws Exception {
 
-        doAnswer(new Answer<Void>() {
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("testAddNewUserSucess");
-                return null;
-            }
-        }).when(userService).addUser(any(User.class));
+        doReturn(1).when(userService).addUser(any(User.class));
 
         User user = new User();
         user.setPassword("1");
         user.setRole(SystemConstants.ADMIN_KIND_USR);
         user.setEmail("51213@qq.com");
 
-        userController.addNewUser(user, request);
-//        result=JSON.parseObject(re,ResultSupport.class);
-//System.out.print("+==========="+result.getMsg());
-//        Assert.assertEquals(1,result.getCode());
+        String re = userController.addNewUser(user, request);
+        result = JSON.parseObject(re, ResultSupport.class);
+        Assert.assertEquals(1, result.getCode());
     }
 
     /**
@@ -125,13 +115,13 @@ public class UserControllerTest {
      */
     @Test
     public void testAddNewUserErorr() throws Exception {
-        doAnswer(new Answer<Void>() {
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("testAddNewUserErorr");
-                return null;
-            }
-        }).when(userService).addUser(any(User.class));
         User user = new User();
+        user.setPassword("1");
+        user.setRole(SystemConstants.ADMIN_KIND_USR);
+        user.setEmail("51213@qq.com");
+
+        doReturn(0).when(userService).addUser(any(User.class));
+
 
         String re = userController.addNewUser(user, request);
         result = JSON.parseObject(re, ResultSupport.class);
@@ -144,13 +134,14 @@ public class UserControllerTest {
      */
     @Test
     public void testGetById() throws Exception {
-        doAnswer(new Answer<Void>() {
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("testGetById");
-                return null;
-            }
-        }).when(userService).findByID(any(Long.class));
-        userController.getById("1",request);
+        User user = new User();
+        user.setPassword("1");
+        user.setUserId(1L);
+        user.setRole(SystemConstants.ADMIN_KIND_USR);
+        user.setEmail("51213@qq.com");
+
+        doReturn(user).when(userService).findByID(anyLong());
+        userController.getById("1", request);
     }
 
     /**
@@ -158,12 +149,8 @@ public class UserControllerTest {
      */
     @Test
     public void testUpdateUser() throws Exception {
-        doAnswer(new Answer<Void>() {
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("testUpdateUser");
-                return null;
-            }
-        }).when(userService).updateByID(any(User.class));
+
+        doReturn(1).when(userService).updateByID(any(User.class));
 
         User user = new User();
         user.setPassword("1");
@@ -172,9 +159,9 @@ public class UserControllerTest {
         user.setEmail("51213@qq.com");
 
         String re = userController.updateUser(user, request);
-//        result = JSON.parseObject(re, ResultSupport.class);
-//        System.out.print("+===========" + result.getCode());
-//        Assert.assertEquals(1, result.getCode());
+        result = JSON.parseObject(re, ResultSupport.class);
+        System.out.print("+===========" + result.getCode());
+        Assert.assertEquals(1, result.getCode());
 
     }
 
@@ -185,13 +172,8 @@ public class UserControllerTest {
     @Test
     public void testDelete() throws Exception {
         Long uId = new Long(1);
-        when(userService.deleteByID(uId)).thenAnswer(new Answer<Void>() {
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                System.out.println("testDelete");
-                return null;
-            }
-        });
-        userController.delete(uId,request);
+        when(userService.deleteByID(uId)).thenReturn(1);
+        userController.delete(uId, request);
     }
 
 

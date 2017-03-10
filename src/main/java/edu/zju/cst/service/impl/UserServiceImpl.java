@@ -74,7 +74,6 @@ public class UserServiceImpl implements IUserService {
 
         String loginPassword = AuthUtils.getPassword(password);
         if (loginPassword.equals(usr.getPassword())) {
-            HttpSession session = request.getSession();
             usr.setPassword("");
             String superAdmin = PropertyUtils.getValue(SystemConstants.SUPER_ADMIN);
             if (name.equals(superAdmin)) {
@@ -84,7 +83,7 @@ public class UserServiceImpl implements IUserService {
                 //1:普通用户
                 usr.setRole(SystemConstants.ADMIN_KIND_USR);
             }
-            session.setAttribute(SystemConstants.SESSION_ADMIN, usr);
+            request.getSession().setAttribute(SystemConstants.SESSION_ADMIN, usr);
         } else {
             throw new AuthException("password or username wrong!");
         }
