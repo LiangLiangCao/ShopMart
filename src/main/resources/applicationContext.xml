@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:lang="http://www.springframework.org/schema/lang" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:cache="http://www.springframework.org/schema/cache" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-	         http://www.springframework.org/schema/lang
-	         http://www.springframework.org/schema/lang/spring-lang.xsd
 	         http://www.springframework.org/schema/tx
 	         http://www.springframework.org/schema/tx/spring-tx.xsd
-	         http://www.springframework.org/schema/aop
-	         http://www.springframework.org/schema/aop/spring-aop.xsd
 	         http://www.springframework.org/schema/mvc
 	         http://www.springframework.org/schema/mvc/spring-mvc.xsd
 	         http://www.springframework.org/schema/context
 	         http://www.springframework.org/schema/context/spring-context.xsd
-	         http://www.springframework.org/schema/cache
-	         http://www.springframework.org/schema/cache/spring-cache.xsd
 	         http://www.springframework.org/schema/task
 	         http://www.springframework.org/schema/task/spring-task.xsd">
     <!--指明 controller 所在包，并扫描其中的注解-->
@@ -26,15 +21,14 @@
 
     <!-- 静态资源(js、image等)的访问 -->
     <mvc:default-servlet-handler/>
-    <!--<context:annotation-config />-->
+
     <!-- 开启注解 -->
     <mvc:annotation-driven/>
-    <tx:annotation-driven />
-
-    <task:annotation-driven />
+    <tx:annotation-driven/>
+    <task:annotation-driven/>
 
     <!--这样配置后，SpringMVC会自动给静态资源Response添加缓存头Cache-Control和Expires值-->
-    <mvc:resources location="/WEB-INF/static/" mapping="/static/**"  cache-period="31536000"/>
+    <mvc:resources location="/WEB-INF/static/" mapping="/static/**" cache-period="31536000"/>
 
     <mvc:interceptors>
         <mvc:interceptor>
@@ -43,34 +37,51 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-
-
     <!-- 在XML配置文件中加入外部属性文件，当然也可以指定外部文件的编码 -->
     <bean id="propertyConfigurer" class="edu.zju.cst.util.PropertyUtils">
         <property name="locations">
             <list>
-                <value>classpath:myproject.properties</value> <!-- 指定外部文件的编码 -->
+                <value>classpath:myproject.properties</value>
+                <value>classpath:log4j.properties</value>
             </list>
         </property>
     </bean>
 
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.userId}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--mybatis中, sessionFactory可由SqlSessionFactoryBuilder.来创建。
+    MyBatis-Spring 中，使用了SqlSessionFactoryBean来替代。
+    SqlSessionFactoryBean有一个必须属性dataSource，
+    另外其还有一个通用属性configLocation（用来指定mybatis的xml配置文件路径）-->
+    <!-- 创建SqlSessionFactory，同时指定数据源 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" p:dataSource-ref="dataSource"/>
+
+    <!-- 配置事务管理器,JDBC事务,通过调用java.sql.Connection来管理事务 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="dataSource"/>
+
+    <!--创建数据映射器，数据映射器必须为接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="edu.zju.cst.dao"/>
+
+
     <!-- FreeMarker的配置 -->
     <bean id="freeMarkerConfigurer"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPaths" value="/WEB-INF/static/" />
-        <property name="defaultEncoding" value="UTF-8" />
+        <property name="templateLoaderPaths" value="/WEB-INF/static/"/>
+        <property name="defaultEncoding" value="UTF-8"/>
         <property name="freemarkerSettings">
             <props>
                 <prop key="template_update_delay">10</prop>
                 <prop key="defaultEncoding">UTF-8</prop>
-                <prop key="url_escaping_charset">UTF-8</prop>
-                <prop key="locale">zh_CN</prop>
-                <prop key="boolean_format">true,false</prop>
-                <prop key="time_format">HH:mm:ss</prop>
                 <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
                 <prop key="date_format">yyyy-MM-dd</prop>
                 <prop key="number_format">#.##</prop>
-                <prop key="whitespace_stripping">true</prop>
             </props>
         </property>
     </bean>
@@ -80,58 +91,13 @@
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <property name="viewClass"
                   value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"></property>
-        <property name="cache" value="false" />
-        <property name="prefix" value="" />
-        <property name="suffix" value=".ftl" /><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
-        <property name="contentType" value="text/html;charset=utf-8" />
-        <property name="exposeRequestAttributes" value="true" />
-        <property name="exposeSessionAttributes" value="true" />
-        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="cache" value="false"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
+        <property name="contentType" value="text/html;charset=utf-8"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
     </bean>
-
-    <!--Spring3.1开始的注解 HandlerMapping -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="${jdbc.driverClass}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.userId}" />
-        <property name="password" value="${jdbc.password}" />
-    </bean>
-
-    <!-- 创建SqlSessionFactory，同时指定数据源 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <!-- 配置事务管理器,JDBC事务,通过调用java.sql.Connection来管理事务 -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <!--创建数据映射器，数据映射器必须为接口 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="annotationClass" value="org.springframework.stereotype.Repository" />
-        <property name="basePackage" value="edu.zju.cst.dao" />
-    </bean>
-
-
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonHttpMessageConverter" />
-            </list>
-        </property>
-    </bean>
-
-    <bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="supportedMediaTypes">
-            <list>
-                <value>application/json;charset=UTF-8</value>
-            </list>
-        </property>
-    </bean>
-
 
 </beans>

@@ -205,6 +205,4 @@ public class UserServiceImplTest {
         Mockito.when(userMapper.countTotal()).thenReturn(tre);
         userService.getCount();
     }
-
-
-} 
+}

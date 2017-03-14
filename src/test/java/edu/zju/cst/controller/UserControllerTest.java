@@ -3,18 +3,23 @@ package edu.zju.cst.controller;
 import com.alibaba.fastjson.JSON;
 import edu.zju.cst.bean.User;
 import edu.zju.cst.constant.SystemConstants;
-import edu.zju.cst.service.impl.UserServiceImpl;
+import edu.zju.cst.service.IUserService;
 
 import edu.zju.cst.util.ResultSupport;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
 
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 
@@ -32,14 +37,15 @@ import static org.mockito.Mockito.when;
  * @author <Authors name>
  * @version 1.0
  */
-
+@ContextConfiguration(locations = {"classpath:applicationContext-test.xml"})
 @Transactional
+@RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
     @Mock
-    private UserServiceImpl userService;
+    private IUserService userService;
 
     @Mock
     private MockHttpServletRequest request;
@@ -48,7 +54,7 @@ public class UserControllerTest {
 
     @Before
     public void before() throws Exception {
-        userController = new UserController();
+        //        userController = new UserController();
         MockitoAnnotations.initMocks(this);
         result = new ResultSupport();
 
@@ -67,10 +73,9 @@ public class UserControllerTest {
      * @RequestParam(value = "perpage", required = false) Integer perpage)
      */
     @Test
-    public void testManageSuccess() throws Exception {
-
-        Integer page = new Integer(2);
-        Integer perpage = new Integer(10);
+    public void testManageSuccess() {
+        Integer pageNumber = 2;
+        Integer pageSize = new Integer(10);
         Integer count = new Integer(20);
 
         List<User> list = new ArrayList<User>();
@@ -86,10 +91,10 @@ public class UserControllerTest {
         Mockito.doReturn(count).when(userService).getCount();
 
         ModelMap map = new ModelMap();
-        map.put("user", userService.getAllListPage(page, perpage));
-        userController.manage(map, page, perpage);
-        Assert.assertEquals("/ftl/admin/edit", userController.manage(map, page, perpage));
-
+        //map.put("user", userService.getAllListPage(pageNumber, pageSize));
+        userController.manage(map, pageNumber, pageSize);
+        Assert.assertEquals("/ftl/admin/edit", userController.manage(map, pageNumber, pageSize));
+        Assert.assertEquals(map.get("total"), count);
     }
 
     /**
@@ -97,7 +102,6 @@ public class UserControllerTest {
      */
     @Test
     public void testAddNewUserSucess() throws Exception {
-
         doReturn(1).when(userService).addUser(any(User.class));
 
         User user = new User();
@@ -121,7 +125,6 @@ public class UserControllerTest {
         user.setEmail("51213@qq.com");
 
         doReturn(0).when(userService).addUser(any(User.class));
-
 
         String re = userController.addNewUser(user, request);
         result = JSON.parseObject(re, ResultSupport.class);
@@ -149,7 +152,6 @@ public class UserControllerTest {
      */
     @Test
     public void testUpdateUser() throws Exception {
-
         doReturn(1).when(userService).updateByID(any(User.class));
 
         User user = new User();
@@ -162,7 +164,6 @@ public class UserControllerTest {
         result = JSON.parseObject(re, ResultSupport.class);
         System.out.print("+===========" + result.getCode());
         Assert.assertEquals(1, result.getCode());
-
     }
 
     /**
@@ -175,6 +176,4 @@ public class UserControllerTest {
         when(userService.deleteByID(uId)).thenReturn(1);
         userController.delete(uId, request);
     }
-
-
 } 
