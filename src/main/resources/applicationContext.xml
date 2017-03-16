@@ -17,11 +17,11 @@
 	         http://www.springframework.org/schema/task
 	         http://www.springframework.org/schema/task/spring-task.xsd">
     <!--指明 controller 所在包，并扫描其中的注解-->
-    <context:component-scan base-package="edu.zju.cst"/>
+    <context:component-scan base-package="edu.zju.cst.controller"/>
 
     <!-- 静态资源(js、image等)的访问 -->
     <mvc:default-servlet-handler/>
-
+    <context:annotation-config/>
     <!-- 开启注解 -->
     <mvc:annotation-driven/>
     <tx:annotation-driven/>
@@ -35,6 +35,17 @@
             <mvc:mapping path="/**"/>
             <bean class="edu.zju.cst.filter.GlobalInterceptor"></bean>
         </mvc:interceptor>
+        <!--<mvc:interceptor>-->
+        <!--<mvc:mapping path="/**"/>-->
+        <!--<bean class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">-->
+        <!--<property name="patterns" >-->
+        <!--<list>-->
+        <!--&lt;!&ndash; 确定正则表达式列表 &ndash;&gt;-->
+        <!--<value>edu\.zju\.cst\.service\.impl\...*ServiceImpl.*</value >-->
+        <!--</list>-->
+        <!--</property>-->
+        <!--</bean>-->
+        <!--</mvc:interceptor>-->
     </mvc:interceptors>
 
     <!-- 在XML配置文件中加入外部属性文件，当然也可以指定外部文件的编码 -->
@@ -52,6 +63,13 @@
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.userId}"/>
         <property name="password" value="${jdbc.password}"/>
+        <property name="cache" value="false"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
+        <property name="contentType" value="text/html;charset=utf-8"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
     </bean>
 
     <!--mybatis中, sessionFactory可由SqlSessionFactoryBuilder.来创建。
@@ -66,9 +84,14 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
           p:dataSource-ref="dataSource"/>
 
-    <!--创建数据映射器，数据映射器必须为接口 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="edu.zju.cst.dao"/>
 
+    <!--创建数据映射器，数据映射器必须为接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
+        <property name="basePackage" value="edu.zju.cst.dao"/>
+    </bean>
+    <!--Spring3.1开始的注解 HandlerMapping -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 
     <!-- FreeMarker的配置 -->
     <bean id="freeMarkerConfigurer"
@@ -79,9 +102,14 @@
             <props>
                 <prop key="template_update_delay">10</prop>
                 <prop key="defaultEncoding">UTF-8</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="time_format">HH:mm:ss</prop>
                 <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
                 <prop key="date_format">yyyy-MM-dd</prop>
                 <prop key="number_format">#.##</prop>
+                <prop key="whitespace_stripping">true</prop>
             </props>
         </property>
     </bean>
@@ -99,5 +127,29 @@
         <property name="exposeSessionAttributes" value="true"/>
         <property name="exposeSpringMacroHelpers" value="true"/>
     </bean>
+    <!-- jedis 配置 -->
+    <!--<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig" >-->
+    <!--<property name="maxIdle" value="${redis.maxIdle}" />-->
+    <!--<property name="maxWaitMillis" value="${redis.maxWait}" />-->
+    <!--<property name="testOnBorrow" value="${redis.testOnBorrow}" />-->
+    <!--</bean >-->
+    <!--&lt;!&ndash; redis服务器中心 &ndash;&gt;-->
+    <!--<bean id="connectionFactory"  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >-->
+    <!--<property name="poolConfig" ref="poolConfig" />-->
+    <!--<property name="port" value="${redis.port}" />-->
+    <!--<property name="hostName" value="${redis.host}" />-->
+    <!--<property name="password" value="${redis.password}" />-->
+    <!--<property name="timeout" value="${redis.timeout}" ></property>-->
+    <!--</bean >-->
+    <!--<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" >-->
+    <!--<property name="connectionFactory" ref="connectionFactory" />-->
+    <!--<property name="keySerializer" >-->
+    <!--<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />-->
+    <!--</property>-->
+    <!--<property name="valueSerializer" >-->
+    <!--<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />-->
+    <!--</property>-->
+    <!--</bean >-->
+
 
 </beans>

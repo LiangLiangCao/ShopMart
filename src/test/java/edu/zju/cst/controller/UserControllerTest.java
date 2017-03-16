@@ -29,21 +29,25 @@ import java.util.List;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 /**
  * UserController Tester.
  *
  * @author <Authors name>
  * @version 1.0
  */
-@ContextConfiguration(locations = {"classpath:applicationContext-test.xml"})
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
-public class UserControllerTest {
-    @InjectMocks
-    private UserController userController;
 
+
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations={"classpath:applicationContext.xml"})
+
+@Transactional
+public class UserControllerTest {
+//    @InjectMocks
+//    private UserController userController=mock(UserController.class);
+    @InjectMocks
+    private UserController userController= new UserController();;
     @Mock
     private IUserService userService;
 
@@ -54,7 +58,7 @@ public class UserControllerTest {
 
     @Before
     public void before() throws Exception {
-        //        userController = new UserController();
+
         MockitoAnnotations.initMocks(this);
         result = new ResultSupport();
 
@@ -162,7 +166,6 @@ public class UserControllerTest {
 
         String re = userController.updateUser(user, request);
         result = JSON.parseObject(re, ResultSupport.class);
-        System.out.print("+===========" + result.getCode());
         Assert.assertEquals(1, result.getCode());
     }
 
